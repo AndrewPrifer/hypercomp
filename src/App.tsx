@@ -105,7 +105,7 @@ export default function App() {
   return (
     <div
       style={{
-        filter: css(filter(effects)),
+        filter: css(filter(withLight)),
       }}
     >
       <div

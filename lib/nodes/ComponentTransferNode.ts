@@ -59,6 +59,13 @@ export class ComponentTransferNode extends Node<
   }
 }
 
+/**
+ * Apply a component transfer to the input node.
+ *
+ * @param node The node to apply the component transfer to.
+ * @param config
+ * @returns The node with the component transfer applied.
+ */
 export function componentTransfer(
   node: NodeAPI,
   config: ShorthandComponentTransferConfig = {}

@@ -21,6 +21,13 @@ export class MergeNode extends Node<"merge", INode[], MergeConfig> {
   }
 }
 
+/**
+ * Merge multiple nodes into one. The merged nodes will be rendered on top of each other.
+ *
+ * @param nodes The nodes to merge.
+ * @param config
+ * @returns The merged node.
+ */
 export function merge(nodes: NodeAPI[], config: ShorthandMergeConfig = {}) {
   return new NodeAPI(
     new MergeNode({ input: nodes.map((n) => n[privateAPI]), config })

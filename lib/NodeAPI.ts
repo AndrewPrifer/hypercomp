@@ -4,7 +4,7 @@ import { blur, ShorthandBlurConfig } from "./nodes/BlurNode";
 import {
   arithmetic,
   atop,
-  comp,
+  composite,
   ConvenienceCompositeConfig,
   inside,
   out,
@@ -66,106 +66,257 @@ export class NodeAPI<T extends INode = INode> {
     this[privateAPI] = node;
   }
 
+  /**
+   * Blend this node with another node according to the specified mode.
+   *
+   * @param node The bottom layer.
+   * @param config
+   * @returns The blended node.
+   */
   blend(node: NodeAPI, config: ShorthandBlendConfig = {}) {
     return blend(this, node, config);
   }
 
+  /**
+   * Apply a Gaussian blur to the node.
+   *
+   * @param config
+   * @returns The blurred node.
+   */
   blur(config: ShorthandBlurConfig = {}) {
     return blur(this, config);
   }
 
+  /**
+   * Apply a color matrix to the node.
+   *
+   * @param config
+   * @returns The node with the color matrix applied.
+   */
   colorMatrix(config: ShorthandColorMatrixConfig = {}) {
     return colorMatrix(this, config);
   }
 
+  /**
+   * Composite this node with another node according to the specified operator.
+   *
+   * @param node The bottom layer.
+   * @param config
+   * @returns The composited node.
+   */
   comp(node: NodeAPI, config: ShorthandCompositeConfig = {}) {
-    return comp(this, node, config);
+    return composite(this, node, config);
   }
 
+  /**
+   * Apply a component transfer to the node.
+   * @param config
+   * @returns The node with the component transfer applied.
+   */
   componentTransfer(config: ShorthandComponentTransferConfig = {}) {
     return componentTransfer(this, config);
   }
 
+  /**
+   * Apply a convolution matrix to the node.
+   *
+   * @param config
+   * @returns The node with the convolution matrix applied.
+   */
   convolve(config: ShorthandConvolveMatrixConfig = {}) {
     return convolve(this, config);
   }
 
+  /**
+   * Apply a diffuse lighting effect to the node.
+   *
+   * @param config
+   * @returns The node with the diffuse lighting effect applied.
+   */
   diffuseLight(
     config: ShorthandDiffuseLightingConfig = { light: { type: "point" } }
   ) {
     return diffuseLight(this, config);
   }
 
+  /**
+   * Apply a displacement map to the node.
+   *
+   * @param node The displacement map.
+   * @param config
+   * @returns The node with the displacement map applied.
+   */
   displace(node: NodeAPI, config: ShorthandDisplacementMapConfig = {}) {
     return displace(this, node, config);
   }
 
+  /**
+   * Merge this node with other nodes. The nodes are composited on top of each other.
+   *
+   * @param nodes The nodes to merge with.
+   * @param config
+   * @returns The merged node.
+   */
   merge(nodes: NodeAPI[] | NodeAPI, config: ShorthandMergeConfig = {}) {
     return merge([this, ...(Array.isArray(nodes) ? nodes : [nodes])], config);
   }
 
+  /**
+   * Apply a morphology effect to the node.
+   *
+   * @param config
+   * @returns The node with the morphology effect applied.
+   */
   morph(config: ShorthandMorphologyConfig = {}) {
     return morph(this, config);
   }
 
+  /**
+   * Apply an offset to the node.
+   *
+   * @param config
+   * @returns The node with the offset applied.
+   */
   offset(config: ShorthandOffsetConfig = {}) {
     return offset(this, config);
   }
 
+  /**
+   * Apply a drop shadow to the node.
+   *
+   * @param config
+   * @returns The node with the drop shadow applied.
+   */
   shadow(config: ShorthandDropShadowConfig = {}) {
     return shadow(this, config);
   }
 
+  /**
+   * Apply a specular lighting effect to the node.
+   *
+   * @param config
+   * @returns The node with the specular lighting effect applied.
+   */
   specularLight(
     config: ShorthandSpecularLightingConfig = { light: { type: "point" } }
   ) {
     return specularLight(this, config);
   }
 
+  /**
+   * Apply a tile effect to the node.
+   *
+   * @param config
+   * @returns The node with the tile effect applied.
+   */
   tile(config: ShorthandTileConfig = {}) {
     return tile(this, config);
   }
 
+  /**
+   * Composite this node over another node.
+   *
+   * @param node The node to composite over.
+   * @param config
+   * @returns The composited node.
+   */
   over(node: NodeAPI, config: ConvenienceCompositeConfig = {}) {
     return over(this, node, config);
   }
 
+  /**
+   * Composite this node inside another node.
+   *
+   * @param node The node to composite inside.
+   * @param config
+   * @returns The composited node.
+   */
   in(node: NodeAPI, config: ConvenienceCompositeConfig = {}) {
     return inside(this, node, config);
   }
 
+  /**
+   * Composite this node out of another node.
+   *
+   * @param node The node to composite out of.
+   * @param config
+   * @returns The composited node.
+   */
   out(node: NodeAPI, config: ConvenienceCompositeConfig = {}) {
     return out(this, node, config);
   }
 
+  /**
+   * Composite this node atop another node.
+   *
+   * @param node The node to composite atop.
+   * @param config
+   * @returns The composited node.
+   */
   atop(node: NodeAPI, config: ConvenienceCompositeConfig = {}) {
     return atop(this, node, config);
   }
 
+  /**
+   * Composite this node with another node using the XOR operator.
+   *
+   * @param node The node to composite with.
+   * @param config
+   * @returns The composited node.
+   */
   xor(node: NodeAPI, config: ConvenienceCompositeConfig = {}) {
     return xor(this, node, config);
   }
 
+  /**
+   * Apply an arithmetic operation to the node.
+   *
+   * @param node The node to perform the operation on.
+   * @param config
+   * @returns The node with the arithmetic operation applied.
+   */
   arithmetic(node: NodeAPI, config: ConvenienceCompositeConfig = {}) {
     return arithmetic(this, node, config);
   }
 
-  fractalNoise(config: ConvenienceTurbulenceConfig = {}) {
-    return fractalNoise(config);
-  }
-
+  /**
+   * Blend this node with another node using the screen mode.
+   *
+   * @param node The node to blend with.
+   * @param config
+   * @returns The blended node.
+   */
   screen(node: NodeAPI, config: ConvenienceBlendConfig = {}) {
     return screen(this, node, config);
   }
 
+  /**
+   * Blend this node with another node using the multiply mode.
+   *
+   * @param node The node to blend with.
+   * @param config
+   * @returns The blended node.
+   */
   multiply(node: NodeAPI, config: ConvenienceBlendConfig = {}) {
     return multiply(this, node, config);
   }
 
+  /**
+   * Erode the node.
+   *
+   * @param config
+   * @returns The eroded node.
+   */
   erode(config: ConvenienceMorphologyConfig = {}) {
     return erode(this, config);
   }
 
+  /**
+   * Dilate the node.
+   *
+   * @param config
+   * @returns The dilated node.
+   */
   dilate(config: ConvenienceMorphologyConfig = {}) {
     return dilate(this, config);
   }

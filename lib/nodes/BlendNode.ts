@@ -37,6 +37,14 @@ export class BlendNode extends Node<"blend", [INode, INode], BlendConfig> {
   }
 }
 
+/**
+ * Blend two nodes together according to the specified mode.
+ *
+ * @param node1 The top layer.
+ * @param node2 The bottom layer.
+ * @param config
+ * @returns The blended node.
+ */
 export function blend(
   node1: NodeAPI,
   node2: NodeAPI,
@@ -50,6 +58,14 @@ export function blend(
   );
 }
 
+/**
+ * Convenience method for blending two nodes with the "screen" mode.
+ *
+ * @param node1 The top layer.
+ * @param node2 The bottom layer.
+ * @param config
+ * @returns The blended node.
+ */
 export function screen(
   node1: NodeAPI,
   node2: NodeAPI,
@@ -58,6 +74,14 @@ export function screen(
   return blend(node1, node2, { ...config, mode: "screen" });
 }
 
+/**
+ * Convenience method for blending two nodes with the "multiply" mode.
+ *
+ * @param node1 The top layer.
+ * @param node2 The bottom layer.
+ * @param config
+ * @returns The blended node.
+ */
 export function multiply(
   node1: NodeAPI,
   node2: NodeAPI,

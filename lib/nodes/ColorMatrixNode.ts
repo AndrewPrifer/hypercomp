@@ -11,11 +11,11 @@ export interface ColorMatrixConfig extends BaseConfig {
 
 export interface ShorthandColorMatrixConfig extends BaseConfig {
   type?: "matrix" | "saturate" | "hueRotate" | "luminanceToAlpha";
-  v?: string | number;
+  values?: string | number | number[];
 }
 
 const colorMatrixKeyMap = {
-  v: "values",
+  values: "values",
 };
 
 export class ColorMatrixNode extends Node<
@@ -31,6 +31,13 @@ export class ColorMatrixNode extends Node<
   }
 }
 
+/**
+ * Apply a color matrix to the input node.
+ *
+ * @param node The node to apply the color matrix to.
+ * @param config
+ * @returns The node with the color matrix applied.
+ */
 export function colorMatrix(
   node: NodeAPI,
   config: ShorthandColorMatrixConfig = {}

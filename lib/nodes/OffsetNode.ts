@@ -20,6 +20,13 @@ export class OffsetNode extends Node<"offset", [INode], OffsetConfig> {
   }
 }
 
+/**
+ * Offset the input node.
+ *
+ * @param node The node to offset.
+ * @param config
+ * @returns The offset node.
+ */
 export function offset(node: NodeAPI, config: ShorthandOffsetConfig = {}) {
   return new NodeAPI(
     new OffsetNode({

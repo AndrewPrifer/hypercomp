@@ -37,6 +37,13 @@ export class ConvolveMatrixNode extends Node<
   }
 }
 
+/**
+ * Apply a convolution matrix to the input node.
+ *
+ * @param node The node to apply the convolution matrix to.
+ * @param config
+ * @returns The node with the convolution matrix applied.
+ */
 export function convolve(
   node: NodeAPI,
   config: ShorthandConvolveMatrixConfig = {}

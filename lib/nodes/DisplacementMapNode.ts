@@ -36,6 +36,14 @@ export class DisplacementMapNode extends Node<
   }
 }
 
+/**
+ * Displace the input node according to the displacement map.
+ *
+ * @param node1 The node to displace.
+ * @param node2 The displacement map.
+ * @param config
+ * @returns The displaced node.
+ */
 export function displace(
   node1: NodeAPI,
   node2: NodeAPI,

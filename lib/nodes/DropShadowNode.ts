@@ -41,6 +41,13 @@ export class DropShadowNode extends Node<
   }
 }
 
+/**
+ * Apply a drop shadow to the input node.
+ *
+ * @param node The node to apply the drop shadow to.
+ * @param config
+ * @returns The node with the drop shadow applied.
+ */
 export function shadow(node: NodeAPI, config: ShorthandDropShadowConfig = {}) {
   return new NodeAPI(
     new DropShadowNode({

@@ -52,6 +52,13 @@ export class DiffuseLightingNode extends Node<
   }
 }
 
+/**
+ * Apply a diffuse lighting effect to the input node.
+ *
+ * @param node The node to apply the diffuse lighting effect to.
+ * @param config
+ * @returns The node with the diffuse lighting effect applied.
+ */
 export function diffuseLight(
   node: NodeAPI,
   config: ShorthandDiffuseLightingConfig = { light: { type: "point" } }

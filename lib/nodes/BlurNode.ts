@@ -6,10 +6,12 @@ import { NodeAPI } from "../NodeAPI";
 
 export interface BlurConfig extends BaseConfig {
   stdDeviation?: number;
+  edgeMode?: "duplicate" | "wrap" | "none";
 }
 
 export interface ShorthandBlurConfig extends BaseConfig {
   r?: number;
+  edgeMode?: "duplicate" | "wrap" | "none";
 }
 
 const keyMap = {
@@ -25,6 +27,13 @@ export class BlurNode extends Node<"blur", [INode], BlurConfig> {
   }
 }
 
+/**
+ * Apply a Gaussian blur to the input node.
+ *
+ * @param node The node to blur.
+ * @param config
+ * @returns The blurred node.
+ */
 export function blur(node: NodeAPI, config: ShorthandBlurConfig = {}) {
   return new NodeAPI(
     new BlurNode({ input: [node[privateAPI]], config: mapKeys(config, keyMap) })

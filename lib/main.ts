@@ -32,7 +32,7 @@ export { blend, screen, multiply } from "./nodes/BlendNode";
 export { colorMatrix } from "./nodes/ColorMatrixNode";
 export { componentTransfer } from "./nodes/ComponentTransferNode";
 export {
-  comp,
+  composite as comp,
   over,
   inside,
   out,

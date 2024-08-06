@@ -40,7 +40,15 @@ export class CompositeNode extends Node<
   }
 }
 
-export function comp(
+/**
+ * Composite two nodes together according to the specified operator.
+ *
+ * @param node1 The top layer.
+ * @param node2 The bottom layer.
+ * @param config
+ * @returns The composited node.
+ */
+export function composite(
   node1: NodeAPI,
   node2: NodeAPI,
   config: ShorthandCompositeConfig = {}
@@ -53,50 +61,98 @@ export function comp(
   );
 }
 
+/**
+ * Convenience method for compositing two nodes with the "over" operator.
+ *
+ * @param node1 The top layer.
+ * @param node2 The bottom layer.
+ * @param config
+ * @returns The composited node.
+ */
 export function over(
   node1: NodeAPI,
   node2: NodeAPI,
   config: ConvenienceCompositeConfig = {}
 ) {
-  return comp(node1, node2, { op: "over", ...config });
+  return composite(node1, node2, { op: "over", ...config });
 }
 
+/**
+ * Convenience method for compositing two nodes with the "in" operator.
+ *
+ * @param node1 The top layer.
+ * @param node2 The bottom layer.
+ * @param config
+ * @returns The composited node.
+ */
 export function inside(
   node1: NodeAPI,
   node2: NodeAPI,
   config: ConvenienceCompositeConfig = {}
 ) {
-  return comp(node1, node2, { op: "in", ...config });
+  return composite(node1, node2, { op: "in", ...config });
 }
 
+/**
+ * Convenience method for compositing two nodes with the "out" operator.
+ *
+ * @param node1 The top layer.
+ * @param node2 The bottom layer.
+ * @param config
+ * @returns The composited node.
+ */
 export function out(
   node1: NodeAPI,
   node2: NodeAPI,
   config: ConvenienceCompositeConfig = {}
 ) {
-  return comp(node1, node2, { op: "out", ...config });
+  return composite(node1, node2, { op: "out", ...config });
 }
 
+/**
+ * Convenience method for compositing two nodes with the "atop" operator.
+ *
+ * @param node1 The top layer.
+ * @param node2 The bottom layer.
+ * @param config
+ * @returns The composited node.
+ */
 export function atop(
   node1: NodeAPI,
   node2: NodeAPI,
   config: ConvenienceCompositeConfig = {}
 ) {
-  return comp(node1, node2, { op: "atop", ...config });
+  return composite(node1, node2, { op: "atop", ...config });
 }
 
+/**
+ * Convenience method for compositing two nodes with the "xor" operator.
+ *
+ * @param node1 The top layer.
+ * @param node2 The bottom layer.
+ * @param config
+ * @returns The composited node.
+ */
 export function xor(
   node1: NodeAPI,
   node2: NodeAPI,
   config: ConvenienceCompositeConfig = {}
 ) {
-  return comp(node1, node2, { op: "xor", ...config });
+  return composite(node1, node2, { op: "xor", ...config });
 }
 
+/**
+ * Convenience method for compositing two nodes with the "arithmetic" operator.
+ *
+ * @param node1 The top layer.
+ * @param node2 The bottom layer.
+ * @param config
+ * @returns The composited node.
+ */
 export function arithmetic(
   node1: NodeAPI,
   node2: NodeAPI,
   config: ConvenienceCompositeConfig = {}
 ) {
-  return comp(node1, node2, { op: "arithmetic", ...config });
+  return composite(node1, node2, { op: "arithmetic", ...config });
 }
