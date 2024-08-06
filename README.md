@@ -63,7 +63,7 @@ The following example takes the source, extracts sharp edges, applies a dilation
 ![Hypercomp Demo 2024-08-06T23 31 10@2x](https://github.com/user-attachments/assets/f95fdcd8-2035-480a-9a79-2380342a9dad)
 
 ```tsx
-import { env, convolve, filter, dilate, merge, shadow, css } from "hypercomp";
+import { env, filter, merge, css } from "hypercomp";
 
 const withEdges = merge([
   env.source,
@@ -92,15 +92,7 @@ The following example blurs the source image, uses it as the bump map for lighti
 ![Hypercomp Demo 2024-08-06T23 35 37@2x](https://github.com/user-attachments/assets/a7fa060c-6019-4199-8ff3-76470bd617d0)
 
 ```tsx
-import {
-  env,
-  flood,
-  filter,
-  screen,
-  blur,
-  specularLight,
-  css,
-} from "hypercomp";
+import { env, flood, filter, css } from "hypercomp";
 
 const withLight = flood("black").screen(
   env.sourceAlpha.blur({ r: 1 }).specularLight({
@@ -135,23 +127,23 @@ Creates a filter from the root node and attributes. Represents the SVG filter.
 
 #### `toSVG(filter)`
 
-Converts a filter to an SVG string.
+Compiles a filter to an SVG string.
 
-- **filter**: The filter to convert.
+- **filter**: The filter to compile.
 - **Returns**: A `string` representing the SVG.
 
 #### `toDataURL(filter)`
 
-Converts a filter to a data URL.
+Compiles a filter to a data URL.
 
-- **filter**: The filter to convert.
+- **filter**: The filter to compile.
 - **Returns**: A `string` representing the data URL.
 
 #### `css(filter)`
 
-Converts a filter to a CSS filter string.
+Compiles a filter to a CSS filter string.
 
-- **filter**: The filter to convert.
+- **filter**: The filter to compile.
 - **Returns**: A `string` suitable for use in CSS `filter` property.
 
 #### `toEffects(filter)`
