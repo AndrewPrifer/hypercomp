@@ -112,7 +112,7 @@ const withLight = flood("black").screen(
 );
 
 const style = {
-  filter: css(filter(withEdges)),
+  filter: css(filter(withLight)),
 };
 
 return <div style={style}>hello world</div>;
