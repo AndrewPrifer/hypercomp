@@ -1,6 +1,6 @@
 import { privateAPI } from "../privateAPI";
 import { BaseConfig, INode } from "../types";
-import { mapKeys, renderAttrs } from "../utils";
+import { renderAttrs } from "../utils";
 import { Node } from "./Node";
 import { NodeAPI } from "../NodeAPI";
 
