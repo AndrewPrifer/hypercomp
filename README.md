@@ -27,6 +27,12 @@ The following example creates a squiggly line around the source image by extract
 ```tsx
 import { env, flood, filter, fractalNoise, css } from "hypercomp";
 
+const radius = 2;
+const width = 2;
+const freq = 0.01;
+const octaves = 1;
+const scale = 15;
+
 const effects =
   // Take the source image and merge it with
   env.source.merge(
