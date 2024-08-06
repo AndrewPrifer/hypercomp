@@ -1,16 +1,16 @@
 # Hypercomp
 
-An easy to use, powerful and expressive graphics library for TypeScript that compiles to optimized SVG filter effects, letting you apply complex visual effects to your HTML and SVG elements.
+An easy to use, powerful and expressive graphics library for TypeScript that compiles to optimized SVG filters, letting you apply complex visual effects to your HTML and SVG elements.
 
 # Motivation
 
-SVG filters provide an extremely powerful node-based compositing system that can be used across HTML and SVG, but they are dragged down by the fact that it is impossible to express function composition in XML in a natural way. Hypercomp fixes this by providing a functional API for composing effects in TypeScript, and compiling it down to an equivalent SVG filter.
+SVG filters provide an extremely powerful node-based compositing system that can be used across HTML and SVG, but they are held back by the fact that it is impossible to express function composition in XML in a natural way. Hypercomp fixes this by providing a functional API for composing effects in TypeScript, and compiling it down to an equivalent SVG filter.
 
 ## Features
 
 - **Composable filters:** Define complex, composable and reusable filter effects using JavaScript functions.
 - **Full SVG Filter Support:** Access, apply and compose all SVG filter effects with ease.
-- **Fluid API:** Each function has a chainable variant for fluid API usage.
+- **Fluid API:** Each function has a chainable variant.
 
 ## Installation
 
@@ -21,6 +21,8 @@ npm install hypercomp
 ## Examples
 
 The following example creates a squiggly line around the source image by extracting the source image from a slightly dilated version of itself, and then displacing it using fractal noise.
+
+![Hypercomp Demo 2024-08-06T23 06 08@2x](https://github.com/user-attachments/assets/adacb2ac-87bc-4e41-a796-441f48a797e5)
 
 ```tsx
 import { env, flood, filter, fractalNoise, css } from "hypercomp";
@@ -52,6 +54,8 @@ return <div style={style}>hello world</div>;
 
 The following example takes the source, extracts sharp edges, applies a dilation effect, and adds a blue shadow.
 
+![Hypercomp Demo 2024-08-06T23 31 10@2x](https://github.com/user-attachments/assets/f95fdcd8-2035-480a-9a79-2380342a9dad)
+
 ```tsx
 import { env, convolve, filter, dilate, merge, shadow, css } from "hypercomp";
 
@@ -78,6 +82,8 @@ return <div style={style}>hello world</div>;
 ```
 
 The following example blurs the source image, uses it as the bump map for lighting, and then composites the lighting onto a black background using screen blending.
+
+![Hypercomp Demo 2024-08-06T23 35 37@2x](https://github.com/user-attachments/assets/a7fa060c-6019-4199-8ff3-76470bd617d0)
 
 ```tsx
 import {
