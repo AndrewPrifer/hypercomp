@@ -1,6 +1,6 @@
 {
   "name": "hypercomp",
-  "description": "Functional filter composition for CSS and SVG.",
+  "description": "Powerful and expressive graphics library for TypeScript that compiles to SVG filters.",
   "keywords": [
     "ui",
     "graphics",
