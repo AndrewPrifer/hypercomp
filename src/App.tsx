@@ -57,28 +57,23 @@ export default function App() {
   const withEdges = merge([
     env.source,
     // sobel
-    env.source
-      .convolve({
-        // x direction
-        kernel: [1, 0, -1, 2, 0, -2, 1, 0, -1],
-      })
-      .offset({ dx: -5, dy: -10 }),
-    env.source
-      .convolve({
-        // y direction
-        kernel: [1, 2, 1, 0, 0, 0, -1, -2, -1],
-      })
-      .offset({ dx: -10, dy: -5 }),
+    env.source.convolve({
+      // x direction
+      kernel: [1, 0, -1, 2, 0, -2, 1, 0, -1],
+    }),
+    env.source.convolve({
+      // y direction
+      kernel: [1, 2, 1, 0, 0, 0, -1, -2, -1],
+    }),
   ])
     .dilate({ r: 2 })
-    .shadow({ color: "red" })
-    .tile({ width: 1000, height: 1000 });
+    .shadow({ color: "blue" });
 
   const withLight = flood("black").screen(
     env.sourceAlpha.blur({ r: 1 }).specularLight({
-      strength: 0.8,
+      strength: 4,
       shininess: 20,
-      color: "red",
+      color: "#20b2aa",
       light: { type: "point", x: lightX, y: lightY, z: lightZ },
     })
   );
@@ -114,7 +109,7 @@ export default function App() {
           color: "rgb(32, 178, 170)",
         }}
       >
-        Hello World
+        hello world
       </div>
     </div>
   );
