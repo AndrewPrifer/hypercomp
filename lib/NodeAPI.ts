@@ -54,10 +54,6 @@ import {
   ShorthandSpecularLightingConfig,
   specularLight,
 } from "./nodes/SpecularLightingNode";
-import {
-  ConvenienceTurbulenceConfig,
-  fractalNoise,
-} from "./nodes/TurbulenceNode";
 
 export class NodeAPI<T extends INode = INode> {
   [privateAPI]: T;

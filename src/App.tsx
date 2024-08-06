@@ -1,6 +1,5 @@
 import {
   // blur,
-  comp,
   displace,
   env,
   filter,
