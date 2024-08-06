@@ -1,1 +1,1 @@
-# HyperComp
+# Hypercomp
