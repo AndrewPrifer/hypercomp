@@ -14,6 +14,8 @@ export interface ShorthandMorphologyConfig {
   r?: number;
 }
 
+export type ConvenienceMorphologyConfig = Omit<ShorthandMorphologyConfig, "op">;
+
 const keyMap = {
   op: "operator",
   r: "radius",
@@ -38,4 +40,15 @@ export function morph(node: NodeAPI, config: ShorthandMorphologyConfig = {}) {
       config: mapKeys(config, keyMap),
     })
   );
+}
+
+export function erode(node: NodeAPI, config: ConvenienceMorphologyConfig = {}) {
+  return morph(node, { op: "erode", ...config });
+}
+
+export function dilate(
+  node: NodeAPI,
+  config: ConvenienceMorphologyConfig = {}
+) {
+  return morph(node, { op: "dilate", ...config });
 }

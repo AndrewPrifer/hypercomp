@@ -43,8 +43,8 @@ export default function App() {
 
   const effects = env.source.merge(
     flood("#30597E", { opacity: 1 })
-      .in(env.source.morph({ op: "dilate", r: radius + width }))
-      .out(env.source.morph({ op: "dilate", r: radius }))
+      .in(env.source.dilate({ r: radius + width }))
+      .out(env.source.dilate({ r: radius }))
       .displace(fractalNoise({ freq, octaves }), {
         scale,
       })
@@ -71,7 +71,7 @@ export default function App() {
       })
       .offset({ dx: -10, dy: -5 }),
   ])
-    .morph({ op: "dilate", r: 2 })
+    .dilate({ r: 2 })
     .shadow({ color: "red" })
     .tile({ width: 1000, height: 1000 });
 
@@ -105,7 +105,7 @@ export default function App() {
   return (
     <div
       style={{
-        filter: css(filter(withLight)),
+        filter: css(filter(effects)),
       }}
     >
       <div

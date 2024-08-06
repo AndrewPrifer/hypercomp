@@ -17,7 +17,13 @@ import {
   ShorthandDisplacementMapConfig,
 } from "./nodes/DisplacementMapNode";
 import { merge, ShorthandMergeConfig } from "./nodes/MergeNode";
-import { morph, ShorthandMorphologyConfig } from "./nodes/MorphologyNode";
+import {
+  ConvenienceMorphologyConfig,
+  dilate,
+  erode,
+  morph,
+  ShorthandMorphologyConfig,
+} from "./nodes/MorphologyNode";
 import {
   blend,
   ConvenienceBlendConfig,
@@ -154,5 +160,13 @@ export class NodeAPI<T extends INode = INode> {
 
   multiply(node: NodeAPI, config: ConvenienceBlendConfig = {}) {
     return multiply(this, node, config);
+  }
+
+  erode(config: ConvenienceMorphologyConfig = {}) {
+    return erode(this, config);
+  }
+
+  dilate(config: ConvenienceMorphologyConfig = {}) {
+    return dilate(this, config);
   }
 }
