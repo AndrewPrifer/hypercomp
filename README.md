@@ -18,41 +18,11 @@ SVG filters provide an extremely powerful node-based compositing system that can
 npm install hypercomp
 ```
 
-## Usage
-
-```javascript
-import { env, flood, filter, fractalNoise, css } from "hypercomp";
-
-const effects =
-  // Take the source image and merge it with
-  env.source.merge(
-    // a flood effect
-    flood("#30597E")
-      // which is composited into the source image dilated by radius and width
-      .in(env.source.dilate({ r: radius + width }))
-      // from which we subtract the source image dilated by radius
-      // (the difference between the two dilated versions will form the stroke width)
-      .out(env.source.dilate({ r: radius }))
-      // which we finally displace using fractal noise.
-      .displace(fractalNoise({ freq, octaves }), {
-        scale,
-      })
-  );
-
-const style = {
-  // css() compiles it to a data url which doesn't work in Safari.
-  // Render it to an SVG element there instead using the other functions (see API).
-  filter: css(filter(effects)),
-};
-
-return <div style={style}>hello world</div>;
-```
-
 ## Examples
 
 The following example creates a squiggly line around the source image by extracting the source image from a slightly dilated version of itself, and then displacing it using fractal noise.
 
-```javascript
+```tsx
 import { env, flood, filter, fractalNoise, css } from "hypercomp";
 
 const effects =
@@ -82,7 +52,7 @@ return <div style={style}>hello world</div>;
 
 The following example takes the source, extracts sharp edges, applies a dilation effect, and adds a blue shadow.
 
-```javascript
+```tsx
 import { env, convolve, filter, dilate, merge, shadow, css } from "hypercomp";
 
 const withEdges = merge([
@@ -109,7 +79,7 @@ return <div style={style}>hello world</div>;
 
 The following example blurs the source image, uses it as the bump map for lighting, and then composites the lighting onto a black background using screen blending.
 
-```javascript
+```tsx
 import {
   env,
   flood,
