@@ -4,7 +4,7 @@ An easy to use, powerful and expressive graphics library for TypeScript that com
 
 # Motivation
 
-SVG filters provide an extremely powerful node-based compositing system that can be used across HTML and SVG, but they are held back by the fact that it is impossible to express function composition in XML in a natural way, making them very hard to write by hand. Hypercomp fixes this by providing a functional API for composing effects in TypeScript, and compiling it down to an equivalent SVG filter.
+SVG filters provide an extremely powerful node-based compositing system that can be used across HTML and SVG, but they are held back by the fact that it is impossible to express function composition in XML in a natural way, making them very hard to write by hand. Hypercomp fixes this by providing a functional API for composing effects in TypeScript, and compiling them down to an equivalent SVG filter.
 
 ## Features
 
