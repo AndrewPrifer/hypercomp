@@ -89,7 +89,7 @@ return <div style={style}>hello world</div>;
 
 The following example blurs the source image, uses it as the bump map for lighting, and then composites the lighting onto a black background using screen blending.
 
-![Hypercomp Demo 2024-08-06T23 35 37@2x](https://github.com/user-attachments/assets/a7fa060c-6019-4199-8ff3-76470bd617d0)
+![Screenshot 2024-08-07 at 12 46 25](https://github.com/user-attachments/assets/2d2a5272-d52a-4bf1-9cd0-571145043f7b)
 
 ```tsx
 import { env, flood, filter, css } from "hypercomp";
@@ -98,8 +98,8 @@ const withLight = flood("black").screen(
   env.sourceAlpha.blur({ r: 1 }).specularLight({
     strength: 4,
     shininess: 20,
-    color: "#20b2aa",
-    light: { type: "point", x: 40, y: -100, z: 200 },
+    color: "white",
+    light: { type: "point", x: 460, y: 110, z: 680 },
   })
 );
 
