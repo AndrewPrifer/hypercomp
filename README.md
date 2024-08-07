@@ -9,7 +9,7 @@ SVG filters provide an extremely powerful node-based compositing system that can
 ## Features
 
 - **Composable filters:** Define complex, composable and reusable filter effects using JavaScript functions.
-- **Full SVG Filter Support:** Access, apply and compose all SVG filter effects with ease.
+- **Full SVG filter support:** Access, apply and compose all SVG filter effects with ease.
 - **Fluid API:** Each function has a chainable variant.
 
 ## Installation
