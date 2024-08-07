@@ -116,7 +116,7 @@ return <div style={style}>hello world</div>;
 
 #### `filter(root, attributes?)`
 
-Creates a filter from the root node and attributes. Represents the SVG filter.
+Creates a filter node from the root effect node. Represents the SVG filter you can render with the below functions.
 
 - **root**: The root node of the filter.
 - **attributes**: (optional) SVG filter attributes.
@@ -173,7 +173,7 @@ The `env` object provides nodes representing the filter environment.
 - **fill**: Represents `FillPaint`.
 - **stroke**: Represents `StrokePaint`.
 
-### Node functions
+### Effect functions
 
 Node functions are used to create nodes that represent filter primitives. They can be arbitrarily chained, provided as inputs to other nodes, saved, reused, or used as the root node for a filter.
 
