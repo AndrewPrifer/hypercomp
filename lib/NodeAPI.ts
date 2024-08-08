@@ -119,7 +119,7 @@ export class NodeAPI<T extends INode = INode> {
    * @param config
    * @returns The composited node.
    */
-  comp(node: NodeAPI, config: ShorthandCompositeConfig = {}) {
+  composite(node: NodeAPI, config: ShorthandCompositeConfig = {}) {
     return composite(this, node, config);
   }
 
