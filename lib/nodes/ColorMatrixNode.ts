@@ -2,7 +2,7 @@ import { NodeAPI } from "../NodeAPI";
 import { privateAPI } from "../privateAPI";
 import { BaseConfig, INode } from "../types";
 import { renderAttrs, mapKeys } from "../utils";
-import { Node } from "./Node";
+import { AbstractNode } from "./AbstractNode";
 
 export interface ColorMatrixConfig extends BaseConfig {
   type?: "matrix" | "saturate" | "hueRotate" | "luminanceToAlpha";
@@ -18,7 +18,7 @@ const colorMatrixKeyMap = {
   values: "values",
 };
 
-export class ColorMatrixNode extends Node<
+export class ColorMatrixNode extends AbstractNode<
   "color-matrix",
   [INode],
   ColorMatrixConfig

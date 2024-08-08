@@ -1,7 +1,7 @@
 import { privateAPI } from "../privateAPI";
 import { INode } from "../types";
 import { mapKeys, renderAttrs } from "../utils";
-import { Node } from "./Node";
+import { AbstractNode } from "./AbstractNode";
 import { NodeAPI } from "../NodeAPI";
 
 export interface MorphologyConfig {
@@ -21,7 +21,7 @@ const keyMap = {
   r: "radius",
 };
 
-export class MorphologyNode extends Node<
+export class MorphologyNode extends AbstractNode<
   "morphology",
   [INode],
   MorphologyConfig

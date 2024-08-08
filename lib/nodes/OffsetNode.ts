@@ -2,7 +2,7 @@ import { NodeAPI } from "../NodeAPI";
 import { privateAPI } from "../privateAPI";
 import { BaseConfig, INode } from "../types";
 import { renderAttrs } from "../utils";
-import { Node } from "./Node";
+import { AbstractNode } from "./AbstractNode";
 
 export interface OffsetConfig extends BaseConfig {
   dx?: number;
@@ -11,7 +11,7 @@ export interface OffsetConfig extends BaseConfig {
 
 export type ShorthandOffsetConfig = OffsetConfig;
 
-export class OffsetNode extends Node<"offset", [INode], OffsetConfig> {
+export class OffsetNode extends AbstractNode<"offset", [INode], OffsetConfig> {
   type = "offset" as const;
 
   render() {

@@ -6,12 +6,13 @@ import {
   flood,
   merge,
   morph,
-  css as css,
+  css,
   turbulence,
   toEffects,
   image,
   fractalNoise,
   toFilter,
+  spotlight,
 } from "../lib/main";
 import { useControls } from "leva";
 
@@ -70,8 +71,8 @@ export default function App() {
     .shadow({ color: "blue" });
 
   const withLight = flood("black").screen(
-    env.sourceAlpha.blur({ r: 1 }).specularLight({
-      strength: 4,
+    env.sourceAlpha.blur({ r: 1 }).specular({
+      strength: 0.8,
       shininess: 20,
       color: "#20b2aa",
       light: { type: "point", x: lightX, y: lightY, z: lightZ },
@@ -79,27 +80,26 @@ export default function App() {
   );
 
   const withSpotLight = flood("black").screen(
-    env.sourceAlpha.blur({ r: 1 }).specularLight({
+    env.sourceAlpha.blur({ r: 1 }).specular({
       strength: 5,
       shininess: 20,
-      light: {
-        type: "spot",
+      light: spotlight({
         x: lightX,
         y: lightY,
         z: lightZ,
         pointsAtX: 100,
         pointsAtY: 50,
         pointsAtZ: 0,
-        specularExponent: 10,
-        limitingConeAngle: 30,
-      },
+        falloff: 10,
+        angle: 30,
+      }),
     })
   );
 
   return (
     <div
       style={{
-        filter: css(filter(withLight)),
+        filter: css(filter(withSpotLight)),
       }}
     >
       <div

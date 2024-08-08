@@ -1,7 +1,7 @@
 import { privateAPI } from "../privateAPI";
 import { BaseConfig, INode } from "../types";
 import { mapKeys, renderAttrs } from "../utils";
-import { Node } from "./Node";
+import { AbstractNode } from "./AbstractNode";
 import { NodeAPI } from "../NodeAPI";
 
 export interface DisplacementMapConfig extends BaseConfig {
@@ -22,7 +22,7 @@ const keyMap = {
   yChannel: "yChannelSelector",
 };
 
-export class DisplacementMapNode extends Node<
+export class DisplacementMapNode extends AbstractNode<
   "displacement-map",
   [INode, INode],
   DisplacementMapConfig

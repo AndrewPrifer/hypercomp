@@ -1,21 +1,18 @@
+import { DistantLight } from "../lights/DistantLight";
+import { PointLight } from "../lights/PointLight";
+import { Spotlight } from "../lights/Spotlight";
 import { NodeAPI } from "../NodeAPI";
 import { privateAPI } from "../privateAPI";
-import {
-  BaseConfig,
-  DistantLight,
-  INode,
-  PointLight,
-  SpotLight,
-} from "../types";
+import { BaseConfig, INode } from "../types";
 import { renderAttrs, mapKeys, omitKeys } from "../utils";
-import { Node } from "./Node";
+import { AbstractNode } from "./AbstractNode";
 
 export interface SpecularLightingConfig extends BaseConfig {
   specularConstant?: number;
   specularExponent?: number;
   surfaceScale?: number;
   "lighting-color"?: string;
-  light: PointLight | DistantLight | SpotLight;
+  light: PointLight | DistantLight | Spotlight;
 }
 
 export interface ShorthandSpecularLightingConfig extends BaseConfig {
@@ -23,7 +20,7 @@ export interface ShorthandSpecularLightingConfig extends BaseConfig {
   shininess?: number;
   scale?: number;
   color?: string;
-  light: PointLight | DistantLight | SpotLight;
+  light: PointLight | DistantLight | Spotlight;
 }
 
 const keyMap = {
@@ -33,7 +30,7 @@ const keyMap = {
   shininess: "specularExponent",
 };
 
-export class SpecularLightingNode extends Node<
+export class SpecularLightingNode extends AbstractNode<
   "specular-lighting",
   [INode],
   SpecularLightingConfig
@@ -55,7 +52,7 @@ export class SpecularLightingNode extends Node<
   }
 }
 
-export function specularLight(
+export function specular(
   node: NodeAPI,
   config: ShorthandSpecularLightingConfig = { light: { type: "point" } }
 ) {

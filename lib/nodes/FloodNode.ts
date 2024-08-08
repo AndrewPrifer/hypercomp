@@ -1,6 +1,6 @@
 import { BaseConfig } from "../types";
 import { mapKeys, renderAttrs } from "../utils";
-import { Node } from "./Node";
+import { AbstractNode } from "./AbstractNode";
 import { NodeAPI } from "../NodeAPI";
 
 export interface FloodConfig extends BaseConfig {
@@ -20,7 +20,7 @@ const keyMap = {
   opacity: "flood-opacity",
 };
 
-export class FloodNode extends Node<"flood", [], FloodConfig> {
+export class FloodNode extends AbstractNode<"flood", [], FloodConfig> {
   type = "flood" as const;
 
   render() {

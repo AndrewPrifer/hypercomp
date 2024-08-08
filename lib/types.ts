@@ -50,28 +50,3 @@ export interface BaseConfig {
   width?: string | number;
   height?: string | number;
 }
-
-export interface PointLight {
-  type: "point";
-  x?: number;
-  y?: number;
-  z?: number;
-}
-
-export interface DistantLight {
-  type: "distant";
-  azimuth?: number;
-  elevation?: number;
-}
-
-export interface SpotLight {
-  type: "spot";
-  x?: number;
-  y?: number;
-  z?: number;
-  pointsAtX?: number;
-  pointsAtY?: number;
-  pointsAtZ?: number;
-  specularExponent?: number;
-  limitingConeAngle?: number;
-}

@@ -1,6 +1,6 @@
 import { BaseConfig } from "../types";
 import { mapKeys, renderAttrs } from "../utils";
-import { Node } from "./Node";
+import { AbstractNode } from "./AbstractNode";
 import { NodeAPI } from "../NodeAPI";
 
 interface TurbulenceConfig extends BaseConfig {
@@ -32,7 +32,11 @@ const keyMap = {
   type: "type",
 };
 
-export class TurbulenceNode extends Node<"turbulence", [], TurbulenceConfig> {
+export class TurbulenceNode extends AbstractNode<
+  "turbulence",
+  [],
+  TurbulenceConfig
+> {
   type = "turbulence" as const;
 
   render() {

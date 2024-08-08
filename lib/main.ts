@@ -41,7 +41,7 @@ export {
   arithmetic,
 } from "./nodes/CompositeNode";
 export { convolve } from "./nodes/ConvolveMatrixNode";
-export { diffuseLight } from "./nodes/DiffuseLightingNode";
+export { diffuse } from "./nodes/DiffuseLightingNode";
 export { displace } from "./nodes/DisplacementMapNode";
 export { flood } from "./nodes/FloodNode";
 export { image } from "./nodes/ImageNode";
@@ -49,8 +49,12 @@ export { merge } from "./nodes/MergeNode";
 export { morph } from "./nodes/MorphologyNode";
 export { offset } from "./nodes/OffsetNode";
 export { shadow } from "./nodes/DropShadowNode";
-export { specularLight } from "./nodes/SpecularLightingNode";
+export { specular } from "./nodes/SpecularLightingNode";
 export { tile } from "./nodes/TileNode";
 export { turbulence, fractalNoise } from "./nodes/TurbulenceNode";
+
+export { spotlight } from "./lights/Spotlight";
+export { pointLight } from "./lights/PointLight";
+export { distantLight } from "./lights/DistantLight";
 
 export { filter } from "./Filter";

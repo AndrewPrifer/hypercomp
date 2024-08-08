@@ -1,27 +1,24 @@
+import { DistantLight } from "../lights/DistantLight";
+import { PointLight } from "../lights/PointLight";
+import { Spotlight } from "../lights/Spotlight";
 import { NodeAPI } from "../NodeAPI";
 import { privateAPI } from "../privateAPI";
-import {
-  BaseConfig,
-  DistantLight,
-  INode,
-  PointLight,
-  SpotLight,
-} from "../types";
+import { BaseConfig, INode } from "../types";
 import { renderAttrs, mapKeys, omitKeys } from "../utils";
-import { Node } from "./Node";
+import { AbstractNode } from "./AbstractNode";
 
 export interface DiffuseLightingConfig extends BaseConfig {
   diffuseConstant?: number;
   surfaceScale?: number;
   "lighting-color"?: string;
-  light: PointLight | DistantLight | SpotLight;
+  light: PointLight | DistantLight | Spotlight;
 }
 
 export interface ShorthandDiffuseLightingConfig extends BaseConfig {
   strength?: number;
   scale?: number;
   color?: string;
-  light: PointLight | DistantLight | SpotLight;
+  light: PointLight | DistantLight | Spotlight;
 }
 
 const keyMap = {
@@ -30,7 +27,7 @@ const keyMap = {
   strength: "diffuseConstant",
 };
 
-export class DiffuseLightingNode extends Node<
+export class DiffuseLightingNode extends AbstractNode<
   "diffuse-lighting",
   [INode],
   DiffuseLightingConfig
@@ -59,7 +56,7 @@ export class DiffuseLightingNode extends Node<
  * @param config
  * @returns The node with the diffuse lighting effect applied.
  */
-export function diffuseLight(
+export function diffuse(
   node: NodeAPI,
   config: ShorthandDiffuseLightingConfig = { light: { type: "point" } }
 ) {

@@ -1,8 +1,8 @@
 import { ConstantID } from "../types";
-import { Node } from "./Node";
+import { AbstractNode } from "./AbstractNode";
 import { NodeAPI } from "../NodeAPI";
 
-export class ConstantNode extends Node<"constant", [], {}> {
+export class ConstantNode extends AbstractNode<"constant", [], {}> {
   type = "constant" as const;
 
   constructor(id: ConstantID) {

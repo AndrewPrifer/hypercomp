@@ -1,7 +1,7 @@
 import { privateAPI } from "../privateAPI";
 import { BaseConfig, INode } from "../types";
 import { mapKeys, renderAttrs } from "../utils";
-import { Node } from "./Node";
+import { AbstractNode } from "./AbstractNode";
 import { NodeAPI } from "../NodeAPI";
 
 export interface BlurConfig extends BaseConfig {
@@ -18,7 +18,7 @@ const keyMap = {
   r: "stdDeviation",
 };
 
-export class BlurNode extends Node<"blur", [INode], BlurConfig> {
+export class BlurNode extends AbstractNode<"blur", [INode], BlurConfig> {
   type = "blur" as const;
 
   render() {

@@ -47,12 +47,12 @@ import { shadow, ShorthandDropShadowConfig } from "./nodes/DropShadowNode";
 import { offset, ShorthandOffsetConfig } from "./nodes/OffsetNode";
 import { ShorthandTileConfig, tile } from "./nodes/TileNode";
 import {
-  diffuseLight,
+  diffuse,
   ShorthandDiffuseLightingConfig,
 } from "./nodes/DiffuseLightingNode";
 import {
   ShorthandSpecularLightingConfig,
-  specularLight,
+  specular,
 } from "./nodes/SpecularLightingNode";
 
 export class NodeAPI<T extends INode = INode> {
@@ -129,10 +129,10 @@ export class NodeAPI<T extends INode = INode> {
    * @param config
    * @returns The node with the diffuse lighting effect applied.
    */
-  diffuseLight(
+  diffuse(
     config: ShorthandDiffuseLightingConfig = { light: { type: "point" } }
   ) {
-    return diffuseLight(this, config);
+    return diffuse(this, config);
   }
 
   /**
@@ -193,10 +193,10 @@ export class NodeAPI<T extends INode = INode> {
    * @param config
    * @returns The node with the specular lighting effect applied.
    */
-  specularLight(
+  specular(
     config: ShorthandSpecularLightingConfig = { light: { type: "point" } }
   ) {
-    return specularLight(this, config);
+    return specular(this, config);
   }
 
   /**

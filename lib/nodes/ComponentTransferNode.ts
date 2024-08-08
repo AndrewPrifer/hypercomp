@@ -2,7 +2,7 @@ import { NodeAPI } from "../NodeAPI";
 import { privateAPI } from "../privateAPI";
 import { BaseConfig, INode } from "../types";
 import { renderAttrs, mapKeys, omitKeys } from "../utils";
-import { Node } from "./Node";
+import { AbstractNode } from "./AbstractNode";
 
 interface TransferFunction {
   type: "identity" | "table" | "discrete" | "linear" | "gamma";
@@ -36,7 +36,7 @@ const componentTransferKeyMap = {
   a: "funcA",
 };
 
-export class ComponentTransferNode extends Node<
+export class ComponentTransferNode extends AbstractNode<
   "component-transfer",
   [INode],
   ComponentTransferConfig

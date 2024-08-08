@@ -1,6 +1,6 @@
 import { NodeType, ID, INode } from "../types";
 
-export abstract class Node<
+export abstract class AbstractNode<
   Type extends NodeType = any,
   Input extends INode[] = any,
   Config extends {} = any

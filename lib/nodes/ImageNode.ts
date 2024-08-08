@@ -1,7 +1,7 @@
 import { NodeAPI } from "../NodeAPI";
 import { BaseConfig } from "../types";
 import { renderAttrs } from "../utils";
-import { Node } from "./Node";
+import { AbstractNode } from "./AbstractNode";
 
 type ComponentAlign = "Min" | "Mid" | "Max";
 type Align = "none" | `x${ComponentAlign}Y${ComponentAlign}`;
@@ -15,7 +15,7 @@ export interface ImageConfig extends BaseConfig {
 
 export type ShorthandImageConfig = ImageConfig;
 
-export class ImageNode extends Node<"image", [], ImageConfig> {
+export class ImageNode extends AbstractNode<"image", [], ImageConfig> {
   type = "image" as const;
 
   render() {

@@ -2,7 +2,7 @@ import { NodeAPI } from "../NodeAPI";
 import { privateAPI } from "../privateAPI";
 import { BaseConfig, INode } from "../types";
 import { renderAttrs, mapKeys } from "../utils";
-import { Node } from "./Node";
+import { AbstractNode } from "./AbstractNode";
 
 export interface DropShadowConfig extends BaseConfig {
   dx?: number;
@@ -28,7 +28,7 @@ const dropShadowKeyMap = {
   opacity: "flood-opacity",
 };
 
-export class DropShadowNode extends Node<
+export class DropShadowNode extends AbstractNode<
   "drop-shadow",
   [INode],
   DropShadowConfig

@@ -2,7 +2,7 @@ import { NodeAPI } from "../NodeAPI";
 import { privateAPI } from "../privateAPI";
 import { BaseConfig, INode } from "../types";
 import { renderAttrs, mapKeys } from "../utils";
-import { Node } from "./Node";
+import { AbstractNode } from "./AbstractNode";
 
 export interface ConvolveMatrixConfig extends BaseConfig {
   order?: number;
@@ -24,7 +24,7 @@ const convolveMatrixKeyMap = {
   kernel: "kernelMatrix",
 };
 
-export class ConvolveMatrixNode extends Node<
+export class ConvolveMatrixNode extends AbstractNode<
   "convolve-matrix",
   [INode],
   ConvolveMatrixConfig
