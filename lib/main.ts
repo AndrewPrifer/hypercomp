@@ -28,7 +28,25 @@ export function toFilter(filter: FilterAPI): string {
 export { constantNodes as env } from "./nodes/ConstantNode";
 
 export { blur } from "./nodes/BlurNode";
-export { blend, screen, multiply } from "./nodes/BlendNode";
+export {
+  blend,
+  normal,
+  multiply,
+  screen,
+  darken,
+  lighten,
+  overlay,
+  colorDodge,
+  colorBurn,
+  hardLight,
+  softLight,
+  difference,
+  exclusion,
+  hue,
+  saturation,
+  color,
+  luminosity,
+} from "./nodes/BlendNode";
 export { colorMatrix } from "./nodes/ColorMatrixNode";
 export { componentTransfer } from "./nodes/ComponentTransferNode";
 export {

@@ -25,11 +25,25 @@ import {
   ShorthandMorphologyConfig,
 } from "./nodes/MorphologyNode";
 import {
-  blend,
   ConvenienceBlendConfig,
+  ShorthandBlendConfig,
+  blend,
+  normal,
   multiply,
   screen,
-  ShorthandBlendConfig,
+  darken,
+  lighten,
+  overlay,
+  colorDodge,
+  colorBurn,
+  hardLight,
+  softLight,
+  difference,
+  exclusion,
+  hue,
+  saturation,
+  color,
+  luminosity,
 } from "./nodes/BlendNode";
 import {
   colorMatrix,
@@ -276,28 +290,6 @@ export class NodeAPI<T extends INode = INode> {
   }
 
   /**
-   * Blend this node with another node using the screen mode.
-   *
-   * @param node The node to blend with.
-   * @param config
-   * @returns The blended node.
-   */
-  screen(node: NodeAPI, config: ConvenienceBlendConfig = {}) {
-    return screen(this, node, config);
-  }
-
-  /**
-   * Blend this node with another node using the multiply mode.
-   *
-   * @param node The node to blend with.
-   * @param config
-   * @returns The blended node.
-   */
-  multiply(node: NodeAPI, config: ConvenienceBlendConfig = {}) {
-    return multiply(this, node, config);
-  }
-
-  /**
    * Erode the node.
    *
    * @param config
@@ -315,5 +307,181 @@ export class NodeAPI<T extends INode = INode> {
    */
   dilate(config: ConvenienceMorphologyConfig = {}) {
     return dilate(this, config);
+  }
+
+  /**
+   * Blend this node with another node using the normal mode.
+   *
+   * @param node The node to blend with.
+   * @param config
+   * @returns The blended node.
+   */
+  normal(node: NodeAPI, config: ConvenienceBlendConfig = {}) {
+    return normal(this, node, config);
+  }
+
+  /**
+   * Blend this node with another node using the multiply mode.
+   *
+   * @param node The node to blend with.
+   * @param config
+   * @returns The blended node.
+   */
+  multiply(node: NodeAPI, config: ConvenienceBlendConfig = {}) {
+    return multiply(this, node, config);
+  }
+
+  /**
+   * Blend this node with another node using the screen mode.
+   *
+   * @param node The node to blend with.
+   * @param config
+   * @returns The blended node.
+   */
+  screen(node: NodeAPI, config: ConvenienceBlendConfig = {}) {
+    return screen(this, node, config);
+  }
+
+  /**
+   * Blend this node with another node using the darken mode.
+   *
+   * @param node The node to blend with.
+   * @param config
+   * @returns The blended node.
+   */
+  darken(node: NodeAPI, config: ConvenienceBlendConfig = {}) {
+    return darken(this, node, config);
+  }
+
+  /**
+   * Blend this node with another node using the lighten mode.
+   *
+   * @param node The node to blend with.
+   * @param config
+   * @returns The blended node.
+   */
+  lighten(node: NodeAPI, config: ConvenienceBlendConfig = {}) {
+    return lighten(this, node, config);
+  }
+
+  /**
+   * Blend this node with another node using the overlay mode.
+   *
+   * @param node The node to blend with.
+   * @param config
+   * @returns The blended node.
+   */
+  overlay(node: NodeAPI, config: ConvenienceBlendConfig = {}) {
+    return overlay(this, node, config);
+  }
+
+  /**
+   * Blend this node with another node using the color dodge mode.
+   *
+   * @param node The node to blend with.
+   * @param config
+   * @returns The blended node.
+   */
+  colorDodge(node: NodeAPI, config: ConvenienceBlendConfig = {}) {
+    return colorDodge(this, node, config);
+  }
+
+  /**
+   * Blend this node with another node using the color burn mode.
+   *
+   * @param node The node to blend with.
+   * @param config
+   * @returns The blended node.
+   */
+  colorBurn(node: NodeAPI, config: ConvenienceBlendConfig = {}) {
+    return colorBurn(this, node, config);
+  }
+
+  /**
+   * Blend this node with another node using the hard light mode.
+   *
+   * @param node The node to blend with.
+   * @param config
+   * @returns The blended node.
+   */
+  hardLight(node: NodeAPI, config: ConvenienceBlendConfig = {}) {
+    return hardLight(this, node, config);
+  }
+
+  /**
+   * Blend this node with another node using the soft light mode.
+   *
+   * @param node The node to blend with.
+   * @param config
+   * @returns The blended node.
+   */
+  softLight(node: NodeAPI, config: ConvenienceBlendConfig = {}) {
+    return softLight(this, node, config);
+  }
+
+  /**
+   * Blend this node with another node using the difference mode.
+   *
+   * @param node The node to blend with.
+   * @param config
+   * @returns The blended node.
+   */
+  difference(node: NodeAPI, config: ConvenienceBlendConfig = {}) {
+    return difference(this, node, config);
+  }
+
+  /**
+   * Blend this node with another node using the exclusion mode.
+   *
+   * @param node The node to blend with.
+   * @param config
+   * @returns The blended node.
+   */
+  exclusion(node: NodeAPI, config: ConvenienceBlendConfig = {}) {
+    return exclusion(this, node, config);
+  }
+
+  /**
+   * Blend this node with another node using the hue mode.
+   *
+   * @param node The node to blend with.
+   * @param config
+   * @returns The blended node.
+   */
+  hue(node: NodeAPI, config: ConvenienceBlendConfig = {}) {
+    return hue(this, node, config);
+  }
+
+  /**
+   * Blend this node with another node using the saturation mode.
+   *
+   * @param node The node to blend with.
+   * @param config
+   * @returns The blended node.
+   */
+  saturation(node: NodeAPI, config: ConvenienceBlendConfig = {}) {
+    return saturation(this, node, config);
+  }
+
+  /**
+   * Blend this node with another node using the color mode.
+   *
+   * @param node The node to blend with.
+   * @param config
+   * @returns The blended node.
+   */
+  color(node: NodeAPI, config: ConvenienceBlendConfig = {}) {
+    return color(this, node, config);
+  }
+
+  /**
+   * Blend this node with another node using the luminosity mode.
+   *
+   * @param node The node to blend with.
+   * @param config
+   * @returns The blended node.
+   */
+  luminosity(node: NodeAPI, config: ConvenienceBlendConfig = {}) {
+    return luminosity(this, node, config);
   }
 }
