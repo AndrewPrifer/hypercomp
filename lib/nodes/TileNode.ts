@@ -17,6 +17,13 @@ export class TileNode extends AbstractNode<"tile", [INode], TileConfig> {
   }
 }
 
+/**
+ * Tile the input node.
+ *
+ * @param node The node to tile.
+ * @param config
+ * @returns The tiled node.
+ */
 export function tile(node: NodeAPI, config: ShorthandTileConfig = {}) {
   return new NodeAPI(new TileNode({ input: [node[privateAPI]], config }));
 }

@@ -12,7 +12,6 @@ interface TurbulenceConfig extends BaseConfig {
 }
 
 interface ShorthandTurbulenceConfig extends BaseConfig {
-  freq?: number;
   octaves?: number;
   seed?: number;
   type?: "fractalNoise" | "turbulence";
@@ -25,7 +24,6 @@ export type ConvenienceTurbulenceConfig = Omit<
 >;
 
 const keyMap = {
-  freq: "baseFrequency",
   octaves: "numOctaves",
   stitch: "stitchTiles",
   seed: "seed",
@@ -45,15 +43,42 @@ export class TurbulenceNode extends AbstractNode<
   }
 }
 
-export function turbulence(config: ShorthandTurbulenceConfig = {}) {
+function internalTurbulence(
+  frequency: number,
+  config: ShorthandTurbulenceConfig = {}
+) {
   return new NodeAPI(
     new TurbulenceNode({
       input: [],
-      config: mapKeys(config, keyMap),
+      config: mapKeys({ ...config, baseFrequency: frequency }, keyMap),
     })
   );
 }
 
-export function fractalNoise(config: ConvenienceTurbulenceConfig = {}) {
-  return turbulence({ ...config, type: "fractalNoise" });
+/**
+ * Apply a turbulence effect to the input node.
+ *
+ * @param frequency The base frequency of the turbulence.
+ * @param config
+ * @returns The turbulence node.
+ */
+export function turbulence(
+  frequency: number,
+  config: ConvenienceTurbulenceConfig = {}
+) {
+  return internalTurbulence(frequency, { ...config, type: "turbulence" });
+}
+
+/**
+ * Apply a fractal noise effect to the input node.
+ *
+ * @param frequency The base frequency of the noise.
+ * @param config
+ * @returns The noise node.
+ */
+export function fractalNoise(
+  frequency: number,
+  config: ConvenienceTurbulenceConfig = {}
+) {
+  return internalTurbulence(frequency, { ...config, type: "fractalNoise" });
 }

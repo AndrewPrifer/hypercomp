@@ -1,6 +1,6 @@
 import { privateAPI } from "../privateAPI";
-import { INode } from "../types";
-import { mapKeys, renderAttrs } from "../utils";
+import { BaseConfig, INode } from "../types";
+import { renderAttrs } from "../utils";
 import { AbstractNode } from "./AbstractNode";
 import { NodeAPI } from "../NodeAPI";
 
@@ -9,17 +9,7 @@ export interface MorphologyConfig {
   radius?: number;
 }
 
-export interface ShorthandMorphologyConfig {
-  op?: "erode" | "dilate";
-  r?: number;
-}
-
-export type ConvenienceMorphologyConfig = Omit<ShorthandMorphologyConfig, "op">;
-
-const keyMap = {
-  op: "operator",
-  r: "radius",
-};
+export type ConvenienceMorphologyConfig = BaseConfig;
 
 export class MorphologyNode extends AbstractNode<
   "morphology",
@@ -33,18 +23,11 @@ export class MorphologyNode extends AbstractNode<
   }
 }
 
-/**
- * Morph the input node according to the specified operator and radius.
- *
- * @param node The node to morph.
- * @param config
- * @returns The morphed node.
- */
-export function morph(node: NodeAPI, config: ShorthandMorphologyConfig = {}) {
+function morph(node: NodeAPI, config: MorphologyConfig = {}) {
   return new NodeAPI(
     new MorphologyNode({
       input: [node[privateAPI]],
-      config: mapKeys(config, keyMap),
+      config,
     })
   );
 }
@@ -53,23 +36,30 @@ export function morph(node: NodeAPI, config: ShorthandMorphologyConfig = {}) {
  * Erode the input node.
  *
  * @param node The node to erode.
+ * @param radius The radius of the erosion.
  * @param config
  * @returns The eroded node.
  */
-export function erode(node: NodeAPI, config: ConvenienceMorphologyConfig = {}) {
-  return morph(node, { op: "erode", ...config });
+export function erode(
+  node: NodeAPI,
+  radius: number,
+  config: ConvenienceMorphologyConfig = {}
+) {
+  return morph(node, { operator: "erode", radius, ...config });
 }
 
 /**
  * Dilate the input node.
  *
  * @param node The node to dilate.
+ * @param radius The radius of the dilation.
  * @param config
  * @returns The dilated node.
  */
 export function dilate(
   node: NodeAPI,
+  radius: number,
   config: ConvenienceMorphologyConfig = {}
 ) {
-  return morph(node, { op: "dilate", ...config });
+  return morph(node, { operator: "dilate", radius, ...config });
 }

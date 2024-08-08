@@ -20,7 +20,6 @@ export interface ShorthandSpecularLightingConfig extends BaseConfig {
   shininess?: number;
   scale?: number;
   color?: string;
-  light: PointLight | DistantLight | Spotlight;
 }
 
 const keyMap = {
@@ -52,14 +51,23 @@ export class SpecularLightingNode extends AbstractNode<
   }
 }
 
+/**
+ * Apply a specular lighting effect to the input node.
+ *
+ * @param node The node to apply the specular lighting effect to.
+ * @param light The light source to use for the specular lighting effect.
+ * @param config
+ * @returns The node with the specular lighting effect applied.
+ */
 export function specular(
   node: NodeAPI,
-  config: ShorthandSpecularLightingConfig = { light: { type: "point" } }
+  light: PointLight | DistantLight | Spotlight,
+  config: ShorthandSpecularLightingConfig = {}
 ) {
   return new NodeAPI(
     new SpecularLightingNode({
       input: [node[privateAPI]],
-      config: mapKeys(config, keyMap),
+      config: mapKeys({ ...config, light }, keyMap),
     })
   );
 }

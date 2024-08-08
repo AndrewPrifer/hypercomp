@@ -1,6 +1,6 @@
 import { privateAPI } from "../privateAPI";
 import { BaseConfig, INode } from "../types";
-import { mapKeys, renderAttrs } from "../utils";
+import { renderAttrs } from "../utils";
 import { AbstractNode } from "./AbstractNode";
 import { NodeAPI } from "../NodeAPI";
 
@@ -10,13 +10,8 @@ export interface BlurConfig extends BaseConfig {
 }
 
 export interface ShorthandBlurConfig extends BaseConfig {
-  r?: number;
   edgeMode?: "duplicate" | "wrap" | "none";
 }
-
-const keyMap = {
-  r: "stdDeviation",
-};
 
 export class BlurNode extends AbstractNode<"blur", [INode], BlurConfig> {
   type = "blur" as const;
@@ -31,11 +26,19 @@ export class BlurNode extends AbstractNode<"blur", [INode], BlurConfig> {
  * Apply a Gaussian blur to the input node.
  *
  * @param node The node to blur.
+ * @param stdDeviation The standard deviation of the blur.
  * @param config
  * @returns The blurred node.
  */
-export function blur(node: NodeAPI, config: ShorthandBlurConfig = {}) {
+export function blur(
+  node: NodeAPI,
+  stdDeviation: number,
+  config: ShorthandBlurConfig = {}
+) {
   return new NodeAPI(
-    new BlurNode({ input: [node[privateAPI]], config: mapKeys(config, keyMap) })
+    new BlurNode({
+      input: [node[privateAPI]],
+      config: { ...config, stdDeviation },
+    })
   );
 }

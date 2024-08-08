@@ -11,13 +11,11 @@ export interface DisplacementMapConfig extends BaseConfig {
 }
 
 export interface ShorthandDisplacementMapConfig extends BaseConfig {
-  scale?: number;
   xChannel?: "R" | "G" | "B" | "A";
   yChannel?: "R" | "G" | "B" | "A";
 }
 
 const keyMap = {
-  scale: "scale",
   xChannel: "xChannelSelector",
   yChannel: "yChannelSelector",
 };
@@ -41,18 +39,20 @@ export class DisplacementMapNode extends AbstractNode<
  *
  * @param node1 The node to displace.
  * @param node2 The displacement map.
+ * @param scale The scale of the displacement.
  * @param config
  * @returns The displaced node.
  */
 export function displace(
   node1: NodeAPI,
   node2: NodeAPI,
+  scale: number,
   config: ShorthandDisplacementMapConfig = {}
 ) {
   return new NodeAPI(
     new DisplacementMapNode({
       input: [node1[privateAPI], node2[privateAPI]],
-      config: mapKeys(config, keyMap),
+      config: mapKeys({ ...config, scale }, keyMap),
     })
   );
 }

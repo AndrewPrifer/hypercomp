@@ -2498,6 +2498,7 @@ __metadata:
     leva: ^0.9.35
     react: ^18.2.0
     react-dom: ^18.2.0
+    remeda: ^2.10.1
     tsup: ^8.0.1
     typescript: ^5.5.4
     vite: ^5.0.8
@@ -3436,6 +3437,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"remeda@npm:^2.10.1":
+  version: 2.10.1
+  resolution: "remeda@npm:2.10.1"
+  dependencies:
+    type-fest: ^4.23.0
+  checksum: c3182a963ffedd7ea76615bbe24ee0dcd9f696d07d4ca9b1123d1e86f5bb68323f18f39427a7083d7401b63210236556bfbe60e9e7785bd04ad8d206460d991d
+  languageName: node
+  linkType: hard
+
 "resolve-from@npm:^4.0.0":
   version: 4.0.0
   resolution: "resolve-from@npm:4.0.0"
@@ -3923,6 +3933,13 @@ __metadata:
   version: 0.20.2
   resolution: "type-fest@npm:0.20.2"
   checksum: 4fb3272df21ad1c552486f8a2f8e115c09a521ad7a8db3d56d53718d0c907b62c6e9141ba5f584af3f6830d0872c521357e512381f24f7c44acae583ad517d73
+  languageName: node
+  linkType: hard
+
+"type-fest@npm:^4.23.0":
+  version: 4.23.0
+  resolution: "type-fest@npm:4.23.0"
+  checksum: 75466563be2d3d116a0b70ffe76a7f72947e3350ceacbc8509a7d841670dddc2fbb008109f0307888137794cf25681fd50f65bf8873bcdc17bc7ac8912c70114
   languageName: node
   linkType: hard
 

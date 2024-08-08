@@ -16,10 +16,28 @@ function constant(id: ConstantID) {
 }
 
 export const constantNodes = {
+  /**
+   * The source graphic.
+   */
   source: constant("SourceGraphic"),
+  /**
+   * The source alpha.
+   */
   sourceAlpha: constant("SourceAlpha"),
+  /**
+   * The background graphic.
+   */
   background: constant("BackgroundImage"),
+  /**
+   * The background alpha.
+   */
   backgroundAlpha: constant("BackgroundAlpha"),
+  /**
+   * The fill paint.
+   */
   fill: constant("FillPaint"),
+  /**
+   * The stroke paint.
+   */
   stroke: constant("StrokePaint"),
 };

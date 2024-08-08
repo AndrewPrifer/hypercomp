@@ -20,7 +20,10 @@ export interface ShorthandCompositeConfig extends BaseConfig {
   k4?: number;
 }
 
-export type ConvenienceCompositeConfig = Omit<ShorthandCompositeConfig, "op">;
+export type ConvenienceCompositeConfig = Omit<
+  ShorthandCompositeConfig,
+  "op" | "k1" | "k2" | "k3" | "k4"
+>;
 
 const keyMap = {
   op: "operator",
@@ -40,15 +43,7 @@ export class CompositeNode extends AbstractNode<
   }
 }
 
-/**
- * Composite two nodes together according to the specified operator.
- *
- * @param node1 The top layer.
- * @param node2 The bottom layer.
- * @param config
- * @returns The composited node.
- */
-export function composite(
+function composite(
   node1: NodeAPI,
   node2: NodeAPI,
   config: ShorthandCompositeConfig = {}
@@ -62,7 +57,7 @@ export function composite(
 }
 
 /**
- * Convenience method for compositing two nodes with the "over" operator.
+ * Composites two nodes with the "over" operator.
  *
  * @param node1 The top layer.
  * @param node2 The bottom layer.
@@ -78,7 +73,7 @@ export function over(
 }
 
 /**
- * Convenience method for compositing two nodes with the "in" operator.
+ * Composites two nodes with the "in" operator.
  *
  * @param node1 The top layer.
  * @param node2 The bottom layer.
@@ -94,7 +89,7 @@ export function inside(
 }
 
 /**
- * Convenience method for compositing two nodes with the "out" operator.
+ * Composites two nodes with the "out" operator.
  *
  * @param node1 The top layer.
  * @param node2 The bottom layer.
@@ -110,7 +105,7 @@ export function out(
 }
 
 /**
- * Convenience method for compositing two nodes with the "atop" operator.
+ * Composites two nodes with the "atop" operator.
  *
  * @param node1 The top layer.
  * @param node2 The bottom layer.
@@ -126,7 +121,7 @@ export function atop(
 }
 
 /**
- * Convenience method for compositing two nodes with the "xor" operator.
+ * Composites two nodes with the "xor" operator.
  *
  * @param node1 The top layer.
  * @param node2 The bottom layer.
@@ -142,7 +137,7 @@ export function xor(
 }
 
 /**
- * Convenience method for compositing two nodes with the "arithmetic" operator.
+ * Composites two nodes with the "arithmetic" operator.
  *
  * @param node1 The top layer.
  * @param node2 The bottom layer.
@@ -152,7 +147,12 @@ export function xor(
 export function arithmetic(
   node1: NodeAPI,
   node2: NodeAPI,
-  config: ConvenienceCompositeConfig = {}
+  config: ConvenienceCompositeConfig & {
+    k1?: number;
+    k2?: number;
+    k3?: number;
+    k4?: number;
+  } = {}
 ) {
   return composite(node1, node2, { op: "arithmetic", ...config });
 }

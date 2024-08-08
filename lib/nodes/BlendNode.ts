@@ -41,15 +41,7 @@ export class BlendNode extends AbstractNode<
   }
 }
 
-/**
- * Blend two nodes together according to the specified mode.
- *
- * @param node1 The top layer.
- * @param node2 The bottom layer.
- * @param config
- * @returns The blended node.
- */
-export function blend(
+function blend(
   node1: NodeAPI,
   node2: NodeAPI,
   config: ShorthandBlendConfig = {}
@@ -70,10 +62,18 @@ function creacteBlendFn(mode: BlendConfig["mode"]) {
   ) => blend(node1, node2, { ...config, mode });
 }
 
+/**
+ * Blends the two nodes using the "normal" mode.
+ *
+ * @param node1 The top layer.
+ * @param node2 The bottom layer.
+ * @param config
+ * @returns The blended node.
+ */
 export const normal = creacteBlendFn("normal");
 
 /**
- * Convenience method for blending two nodes with the "multiply" mode.
+ * Blends the two nodes using the "multiply" mode.
  *
  * @param node1 The top layer.
  * @param node2 The bottom layer.
@@ -83,7 +83,7 @@ export const normal = creacteBlendFn("normal");
 export const multiply = creacteBlendFn("multiply");
 
 /**
- * Convenience method for blending two nodes with the "screen" mode.
+ * Blends the two nodes using the "screen" mode.
  *
  * @param node1 The top layer.
  * @param node2 The bottom layer.
@@ -93,7 +93,7 @@ export const multiply = creacteBlendFn("multiply");
 export const screen = creacteBlendFn("screen");
 
 /**
- * Convenience method for blending two nodes with the "darken" mode.
+ * Blends the two nodes using the "darken" mode.
  *
  * @param node1 The top layer.
  * @param node2 The bottom layer.
@@ -103,7 +103,7 @@ export const screen = creacteBlendFn("screen");
 export const darken = creacteBlendFn("darken");
 
 /**
- * Convenience method for blending two nodes with the "lighten" mode.
+ * Blends the two nodes using the "lighten" mode.
  *
  * @param node1 The top layer.
  * @param node2 The bottom layer.
@@ -113,7 +113,7 @@ export const darken = creacteBlendFn("darken");
 export const lighten = creacteBlendFn("lighten");
 
 /**
- * Convenience method for blending two nodes with the "overlay" mode.
+ * Blends the two nodes using the "overlay" mode.
  *
  * @param node1 The top layer.
  * @param node2 The bottom layer.
@@ -123,7 +123,7 @@ export const lighten = creacteBlendFn("lighten");
 export const overlay = creacteBlendFn("overlay");
 
 /**
- * Convenience method for blending two nodes with the "color-dodge" mode.
+ * Blends the two nodes using the "color-dodge" mode.
  *
  * @param node1 The top layer.
  * @param node2 The bottom layer.
@@ -133,7 +133,7 @@ export const overlay = creacteBlendFn("overlay");
 export const colorDodge = creacteBlendFn("color-dodge");
 
 /**
- * Convenience method for blending two nodes with the "color-burn" mode.
+ * Blends the two nodes using the "color-burn" mode.
  *
  * @param node1 The top layer.
  * @param node2 The bottom layer.
@@ -143,7 +143,7 @@ export const colorDodge = creacteBlendFn("color-dodge");
 export const colorBurn = creacteBlendFn("color-burn");
 
 /**
- * Convenience method for blending two nodes with the "hard-light" mode.
+ * Blends the two nodes using the "hard-light" mode.
  *
  * @param node1 The top layer.
  * @param node2 The bottom layer.
@@ -153,7 +153,7 @@ export const colorBurn = creacteBlendFn("color-burn");
 export const hardLight = creacteBlendFn("hard-light");
 
 /**
- * Convenience method for blending two nodes with the "soft-light" mode.
+ * Blends the two nodes using the "soft-light" mode.
  *
  * @param node1 The top layer.
  * @param node2 The bottom layer.
@@ -163,7 +163,7 @@ export const hardLight = creacteBlendFn("hard-light");
 export const softLight = creacteBlendFn("soft-light");
 
 /**
- * Convenience method for blending two nodes with the "difference" mode.
+ * Blends the two nodes using the "difference" mode.
  *
  * @param node1 The top layer.
  * @param node2 The bottom layer.
@@ -173,7 +173,7 @@ export const softLight = creacteBlendFn("soft-light");
 export const difference = creacteBlendFn("difference");
 
 /**
- * Convenience method for blending two nodes with the "exclusion" mode.
+ * Blends the two nodes using the "exclusion" mode.
  *
  * @param node1 The top layer.
  * @param node2 The bottom layer.
@@ -183,7 +183,7 @@ export const difference = creacteBlendFn("difference");
 export const exclusion = creacteBlendFn("exclusion");
 
 /**
- * Convenience method for blending two nodes with the "hue" mode.
+ * Blends the two nodes using the "hue" mode.
  *
  * @param node1 The top layer.
  * @param node2 The bottom layer.
@@ -193,7 +193,7 @@ export const exclusion = creacteBlendFn("exclusion");
 export const hue = creacteBlendFn("hue");
 
 /**
- * Convenience method for blending two nodes with the "saturation" mode.
+ * Blends the two nodes using the "saturation" mode.
  *
  * @param node1 The top layer.
  * @param node2 The bottom layer.
@@ -203,7 +203,7 @@ export const hue = creacteBlendFn("hue");
 export const saturation = creacteBlendFn("saturation");
 
 /**
- * Convenience method for blending two nodes with the "color" mode.
+ * Blends the two nodes using the "color" mode.
  *
  * @param node1 The top layer.
  * @param node2 The bottom layer.
@@ -213,7 +213,7 @@ export const saturation = creacteBlendFn("saturation");
 export const color = creacteBlendFn("color");
 
 /**
- * Convenience method for blending two nodes with the "luminosity" mode.
+ * Blends the two nodes using the "luminosity" mode.
  *
  * @param node1 The top layer.
  * @param node2 The bottom layer.

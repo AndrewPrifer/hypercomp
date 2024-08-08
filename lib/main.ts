@@ -29,7 +29,6 @@ export { constantNodes as env } from "./nodes/ConstantNode";
 
 export { blur } from "./nodes/BlurNode";
 export {
-  blend,
   normal,
   multiply,
   screen,
@@ -50,7 +49,6 @@ export {
 export { colorMatrix } from "./nodes/ColorMatrixNode";
 export { componentTransfer } from "./nodes/ComponentTransferNode";
 export {
-  composite,
   over,
   inside,
   out,
@@ -64,7 +62,7 @@ export { displace } from "./nodes/DisplacementMapNode";
 export { flood } from "./nodes/FloodNode";
 export { image } from "./nodes/ImageNode";
 export { merge } from "./nodes/MergeNode";
-export { morph } from "./nodes/MorphologyNode";
+export { dilate, erode } from "./nodes/MorphologyNode";
 export { offset } from "./nodes/OffsetNode";
 export { shadow } from "./nodes/DropShadowNode";
 export { specular } from "./nodes/SpecularLightingNode";
@@ -76,3 +74,5 @@ export { pointLight } from "./lights/PointLight";
 export { distantLight } from "./lights/DistantLight";
 
 export { filter } from "./Filter";
+
+export { NodeAPI as Node } from "./NodeAPI";

@@ -15,7 +15,6 @@ export interface DropShadowConfig extends BaseConfig {
 export interface ShorthandDropShadowConfig extends BaseConfig {
   dx?: number;
   dy?: number;
-  r?: number;
   color?: string;
   opacity?: number;
 }
@@ -23,7 +22,6 @@ export interface ShorthandDropShadowConfig extends BaseConfig {
 const dropShadowKeyMap = {
   dx: "dx",
   dy: "dy",
-  sd: "stdDeviation",
   color: "flood-color",
   opacity: "flood-opacity",
 };
@@ -45,14 +43,19 @@ export class DropShadowNode extends AbstractNode<
  * Apply a drop shadow to the input node.
  *
  * @param node The node to apply the drop shadow to.
+ * @param stdDeviation The standard deviation of the shadow blur.
  * @param config
  * @returns The node with the drop shadow applied.
  */
-export function shadow(node: NodeAPI, config: ShorthandDropShadowConfig = {}) {
+export function shadow(
+  node: NodeAPI,
+  stdDeviation: number = 2,
+  config: ShorthandDropShadowConfig = {}
+) {
   return new NodeAPI(
     new DropShadowNode({
       input: [node[privateAPI]],
-      config: mapKeys(config, dropShadowKeyMap),
+      config: mapKeys({ ...config, stdDeviation }, dropShadowKeyMap),
     })
   );
 }

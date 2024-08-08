@@ -16,13 +16,7 @@ export interface ConvolveMatrixConfig extends BaseConfig {
 }
 
 export interface ShorthandConvolveMatrixConfig
-  extends Omit<ConvolveMatrixConfig, "kernelMatrix"> {
-  kernel?: string | number[];
-}
-
-const convolveMatrixKeyMap = {
-  kernel: "kernelMatrix",
-};
+  extends Omit<ConvolveMatrixConfig, "kernelMatrix"> {}
 
 export class ConvolveMatrixNode extends AbstractNode<
   "convolve-matrix",
@@ -41,17 +35,19 @@ export class ConvolveMatrixNode extends AbstractNode<
  * Apply a convolution matrix to the input node.
  *
  * @param node The node to apply the convolution matrix to.
+ * @param kernel The convolution matrix to apply.
  * @param config
  * @returns The node with the convolution matrix applied.
  */
 export function convolve(
   node: NodeAPI,
+  kernel: number[],
   config: ShorthandConvolveMatrixConfig = {}
 ) {
   return new NodeAPI(
     new ConvolveMatrixNode({
       input: [node[privateAPI]],
-      config: mapKeys(config, convolveMatrixKeyMap),
+      config: { ...config, kernelMatrix: kernel },
     })
   );
 }

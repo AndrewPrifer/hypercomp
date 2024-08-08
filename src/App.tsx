@@ -5,7 +5,6 @@ import {
   filter,
   flood,
   merge,
-  morph,
   css,
   turbulence,
   toEffects,
@@ -13,8 +12,11 @@ import {
   fractalNoise,
   toFilter,
   spotlight,
+  Node,
+  pointLight,
 } from "../lib/main";
 import { useControls } from "leva";
+import { range } from "remeda";
 
 export default function App() {
   const {
@@ -43,11 +45,9 @@ export default function App() {
 
   const effects = env.source.merge(
     flood("#30597E", { opacity: 1 })
-      .in(env.source.dilate({ r: radius + width }))
-      .out(env.source.dilate({ r: radius }))
-      .displace(fractalNoise({ freq, octaves }), {
-        scale,
-      })
+      .in(env.source.dilate(radius + width))
+      .out(env.source.dilate(radius))
+      .displace(fractalNoise(freq, { octaves }), scale)
   );
   // .componentTransfer({
   //   r: { type: "linear", slope, intercept },
@@ -55,35 +55,36 @@ export default function App() {
   //   b: { type: "linear", slope: 1.5, intercept: 0.1 },
   // })
 
-  const withEdges = merge([
-    env.source,
-    // sobel
-    env.source.convolve({
-      // x direction
-      kernel: [1, 0, -1, 2, 0, -2, 1, 0, -1],
-    }),
-    env.source.convolve({
-      // y direction
-      kernel: [1, 2, 1, 0, 0, 0, -1, -2, -1],
-    }),
-  ])
-    .dilate({ r: 2 })
-    .shadow({ color: "blue" });
+  const withEdges = env.source
+    .over(
+      merge([
+        // sobel
+        env.source.convolve(
+          // x direction
+          [1, 0, -1, 2, 0, -2, 1, 0, -1]
+        ),
+        env.source.convolve(
+          // y direction
+          [1, 2, 1, 0, 0, 0, -1, -2, -1]
+        ),
+      ]).hueRotate(90)
+    )
+    .dilate(2)
+    .shadow(2);
 
   const withLight = flood("black").screen(
-    env.sourceAlpha.blur({ r: 1 }).specular({
-      strength: 0.8,
-      shininess: 20,
-      color: "#20b2aa",
-      light: { type: "point", x: lightX, y: lightY, z: lightZ },
-    })
+    env.sourceAlpha
+      .blur(1)
+      .specular(pointLight({ x: lightX, y: lightY, z: lightZ }), {
+        strength: 0.8,
+        shininess: 20,
+        color: "#20b2aa",
+      })
   );
 
   const withSpotLight = flood("black").screen(
-    env.sourceAlpha.blur({ r: 1 }).specular({
-      strength: 5,
-      shininess: 20,
-      light: spotlight({
+    env.sourceAlpha.blur(1).specular(
+      spotlight({
         x: lightX,
         y: lightY,
         z: lightZ,
@@ -93,20 +94,38 @@ export default function App() {
         falloff: 10,
         angle: 30,
       }),
-    })
+      {
+        strength: 5,
+        shininess: 20,
+      }
+    )
   );
+
+  const funky = merge([
+    ...range(1, 6)
+      .map((w, i) =>
+        flood("#ff0090")
+          .in(env.source)
+          .dilate(w * width)
+          .hueRotate(i * 30)
+      )
+      .toReversed(),
+    env.source,
+  ]);
 
   return (
     <div
       style={{
-        filter: css(withSpotLight.filter()),
+        //font with rounded corners
+        fontFamily: '"Varela Round", sans-serif',
+        filter: css(effects.filter()),
       }}
     >
       <div
         style={{
           fontSize: "100px",
           fontWeight: 900,
-          color: "rgb(32, 178, 170)",
+          color: "blue",
         }}
       >
         hello world

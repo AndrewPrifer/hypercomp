@@ -49,6 +49,13 @@ export class FilterAPI {
   }
 }
 
+/**
+ * Create a new filter out of the given root node.
+ *
+ * @param root The root node of the filter.
+ * @param attributes Additional attributes for the filter element.
+ * @returns The filter API.
+ */
 export function filter(root: NodeAPI, attributes: SVGFilterAttributes = {}) {
   return new FilterAPI(new Filter(root[privateAPI], attributes));
 }

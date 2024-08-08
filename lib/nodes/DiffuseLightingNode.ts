@@ -18,7 +18,6 @@ export interface ShorthandDiffuseLightingConfig extends BaseConfig {
   strength?: number;
   scale?: number;
   color?: string;
-  light: PointLight | DistantLight | Spotlight;
 }
 
 const keyMap = {
@@ -53,17 +52,19 @@ export class DiffuseLightingNode extends AbstractNode<
  * Apply a diffuse lighting effect to the input node.
  *
  * @param node The node to apply the diffuse lighting effect to.
+ * @param light The light source to use for the diffuse lighting effect.
  * @param config
  * @returns The node with the diffuse lighting effect applied.
  */
 export function diffuse(
   node: NodeAPI,
-  config: ShorthandDiffuseLightingConfig = { light: { type: "point" } }
+  light: PointLight | DistantLight | Spotlight,
+  config: ShorthandDiffuseLightingConfig = {}
 ) {
   return new NodeAPI(
     new DiffuseLightingNode({
       input: [node[privateAPI]],
-      config: mapKeys(config, keyMap),
+      config: mapKeys({ ...config, light }, keyMap),
     })
   );
 }

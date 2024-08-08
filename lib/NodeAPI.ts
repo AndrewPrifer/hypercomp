@@ -4,12 +4,10 @@ import { blur, ShorthandBlurConfig } from "./nodes/BlurNode";
 import {
   arithmetic,
   atop,
-  composite,
   ConvenienceCompositeConfig,
   inside,
   out,
   over,
-  ShorthandCompositeConfig,
   xor,
 } from "./nodes/CompositeNode";
 import {
@@ -21,13 +19,9 @@ import {
   ConvenienceMorphologyConfig,
   dilate,
   erode,
-  morph,
-  ShorthandMorphologyConfig,
 } from "./nodes/MorphologyNode";
 import {
   ConvenienceBlendConfig,
-  ShorthandBlendConfig,
-  blend,
   normal,
   multiply,
   screen,
@@ -47,6 +41,9 @@ import {
 } from "./nodes/BlendNode";
 import {
   colorMatrix,
+  saturate,
+  hueRotate,
+  luminanceToAlpha,
   ShorthandColorMatrixConfig,
 } from "./nodes/ColorMatrixNode";
 import {
@@ -69,6 +66,9 @@ import {
   specular,
 } from "./nodes/SpecularLightingNode";
 import { filter, SVGFilterAttributes } from "./Filter";
+import { PointLight } from "./lights/PointLight";
+import { DistantLight } from "./lights/DistantLight";
+import { Spotlight } from "./lights/Spotlight";
 
 export class NodeAPI<T extends INode = INode> {
   [privateAPI]: T;
@@ -77,54 +77,69 @@ export class NodeAPI<T extends INode = INode> {
     this[privateAPI] = node;
   }
 
+  /**
+   * Create a new filter out of this node.
+   *
+   * @param attributes Additional attributes for the filter element.
+   * @returns The filter API.
+   */
   filter(attributes: SVGFilterAttributes = {}) {
     return filter(this, attributes);
   }
 
   /**
-   * Blend this node with another node according to the specified mode.
-   *
-   * @param node The bottom layer.
-   * @param config
-   * @returns The blended node.
-   */
-  blend(node: NodeAPI, config: ShorthandBlendConfig = {}) {
-    return blend(this, node, config);
-  }
-
-  /**
    * Apply a Gaussian blur to the node.
    *
+   * @param stdDeviation The standard deviation of the blur.
    * @param config
    * @returns The blurred node.
    */
-  blur(config: ShorthandBlurConfig = {}) {
-    return blur(this, config);
+  blur(stdDeviation: number, config: ShorthandBlurConfig = {}) {
+    return blur(this, stdDeviation, config);
   }
 
   /**
    * Apply a color matrix to the node.
    *
+   * @param matrix The values of the color matrix.
    * @param config
    * @returns The node with the color matrix applied.
    */
-  colorMatrix(config: ShorthandColorMatrixConfig = {}) {
-    return colorMatrix(this, config);
+  colorMatrix(matrix: number[], config: ShorthandColorMatrixConfig = {}) {
+    return colorMatrix(this, matrix, config);
   }
 
   /**
-   * Composite this node with another node according to the specified operator.
-   *
-   * @param node The bottom layer.
-   * @param config
-   * @returns The composited node.
+   * Apply saturation to the node.
    */
-  composite(node: NodeAPI, config: ShorthandCompositeConfig = {}) {
-    return composite(this, node, config);
+  saturate(value: number, config: ShorthandColorMatrixConfig = {}) {
+    return saturate(this, value, config);
+  }
+
+  /**
+   * Rotate the hue of the node.
+   *
+   * @param angle The angle of the hue rotation.
+   * @param config
+   * @returns The node with the hue rotated.
+   */
+  hueRotate(angle: number, config: ShorthandColorMatrixConfig = {}) {
+    return hueRotate(this, angle, config);
+  }
+
+  /**
+   * Convert the luminance of the node to alpha.
+   *
+   * @param config
+   * @returns The node with the luminance converted to alpha.
+   */
+  luminanceToAlpha(config: ShorthandColorMatrixConfig = {}) {
+    return luminanceToAlpha(this, config);
   }
 
   /**
    * Apply a component transfer to the node.
+   *
    * @param config
    * @returns The node with the component transfer applied.
    */
@@ -135,34 +150,42 @@ export class NodeAPI<T extends INode = INode> {
   /**
    * Apply a convolution matrix to the node.
    *
+   * @param kernel The convolution matrix.
    * @param config
    * @returns The node with the convolution matrix applied.
    */
-  convolve(config: ShorthandConvolveMatrixConfig = {}) {
-    return convolve(this, config);
+  convolve(kernel: number[], config: ShorthandConvolveMatrixConfig = {}) {
+    return convolve(this, kernel, config);
   }
 
   /**
    * Apply a diffuse lighting effect to the node.
    *
+   * @param light The light source.
    * @param config
    * @returns The node with the diffuse lighting effect applied.
    */
   diffuse(
-    config: ShorthandDiffuseLightingConfig = { light: { type: "point" } }
+    light: PointLight | DistantLight | Spotlight,
+    config: ShorthandDiffuseLightingConfig = {}
   ) {
-    return diffuse(this, config);
+    return diffuse(this, light, config);
   }
 
   /**
    * Apply a displacement map to the node.
    *
    * @param node The displacement map.
+   * @param scale The scale of the displacement.
    * @param config
    * @returns The node with the displacement map applied.
    */
-  displace(node: NodeAPI, config: ShorthandDisplacementMapConfig = {}) {
-    return displace(this, node, config);
+  displace(
+    node: NodeAPI,
+    scale: number,
+    config: ShorthandDisplacementMapConfig = {}
+  ) {
+    return displace(this, node, scale, config);
   }
 
   /**
@@ -174,16 +197,6 @@ export class NodeAPI<T extends INode = INode> {
    */
   merge(nodes: NodeAPI[] | NodeAPI, config: ShorthandMergeConfig = {}) {
     return merge([this, ...(Array.isArray(nodes) ? nodes : [nodes])], config);
-  }
-
-  /**
-   * Apply a morphology effect to the node.
-   *
-   * @param config
-   * @returns The node with the morphology effect applied.
-   */
-  morph(config: ShorthandMorphologyConfig = {}) {
-    return morph(this, config);
   }
 
   /**
@@ -199,23 +212,26 @@ export class NodeAPI<T extends INode = INode> {
   /**
    * Apply a drop shadow to the node.
    *
+   * @param stdDeviation The standard deviation of the shadow.
    * @param config
    * @returns The node with the drop shadow applied.
    */
-  shadow(config: ShorthandDropShadowConfig = {}) {
-    return shadow(this, config);
+  shadow(stdDeviation: number, config: ShorthandDropShadowConfig = {}) {
+    return shadow(this, stdDeviation, config);
   }
 
   /**
    * Apply a specular lighting effect to the node.
    *
+   * @param light The light source.
    * @param config
    * @returns The node with the specular lighting effect applied.
    */
   specular(
-    config: ShorthandSpecularLightingConfig = { light: { type: "point" } }
+    light: PointLight | DistantLight | Spotlight,
+    config: ShorthandSpecularLightingConfig = {}
   ) {
-    return specular(this, config);
+    return specular(this, light, config);
   }
 
   /**
@@ -290,28 +306,38 @@ export class NodeAPI<T extends INode = INode> {
    * @param config
    * @returns The node with the arithmetic operation applied.
    */
-  arithmetic(node: NodeAPI, config: ConvenienceCompositeConfig = {}) {
+  arithmetic(
+    node: NodeAPI,
+    config: ConvenienceCompositeConfig & {
+      k1?: number;
+      k2?: number;
+      k3?: number;
+      k4?: number;
+    } = {}
+  ) {
     return arithmetic(this, node, config);
   }
 
   /**
    * Erode the node.
    *
+   * @param radius The radius of the erosion.
    * @param config
    * @returns The eroded node.
    */
-  erode(config: ConvenienceMorphologyConfig = {}) {
-    return erode(this, config);
+  erode(radius: number, config: ConvenienceMorphologyConfig = {}) {
+    return erode(this, radius, config);
   }
 
   /**
    * Dilate the node.
    *
+   * @param radius The radius of the dilation.
    * @param config
    * @returns The dilated node.
    */
-  dilate(config: ConvenienceMorphologyConfig = {}) {
-    return dilate(this, config);
+  dilate(radius: number, config: ConvenienceMorphologyConfig = {}) {
+    return dilate(this, radius, config);
   }
 
   /**
