@@ -99,7 +99,7 @@ export default function App() {
   return (
     <div
       style={{
-        filter: css(filter(withSpotLight)),
+        filter: css(withSpotLight.filter()),
       }}
     >
       <div

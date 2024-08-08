@@ -68,12 +68,17 @@ import {
   ShorthandSpecularLightingConfig,
   specular,
 } from "./nodes/SpecularLightingNode";
+import { filter, SVGFilterAttributes } from "./Filter";
 
 export class NodeAPI<T extends INode = INode> {
   [privateAPI]: T;
 
   constructor(node: T) {
     this[privateAPI] = node;
+  }
+
+  filter(attributes: SVGFilterAttributes = {}) {
+    return filter(this, attributes);
   }
 
   /**
