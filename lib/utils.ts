@@ -1,5 +1,5 @@
+import { AbstractNode } from "./nodes/AbstractNode";
 import { ID } from "./types";
-import { AbstractNode } from "./types";
 
 /**
  * Build a render queue for a given node by traversing through its dependencies.
