@@ -15,7 +15,7 @@
   "repository": "AndrewPrifer/hypercomp",
   "bugs": "https://github.com/AndrewPrifer/hypercomp/issues",
   "homepage": "https://github.com/AndrewPrifer/hypercomp",
-  "version": "0.2.3",
+  "version": "0.3.0",
   "type": "module",
   "files": [
     "dist"
