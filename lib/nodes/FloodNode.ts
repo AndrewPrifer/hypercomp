@@ -30,7 +30,7 @@ export class FloodNode extends AbstractNode<"flood", [], FloodConfig> {
   }
 }
 
-export function flood(color?: string, config: ConvenienceFloodConfig = {}) {
+export function flood(color: string, config: ConvenienceFloodConfig = {}) {
   return new NodeAPI(
     new FloodNode({ input: [], config: mapKeys({ color, ...config }, keyMap) })
   );

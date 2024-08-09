@@ -39,20 +39,18 @@ const effects =
     // a flood effect
     flood("#30597E")
       // which is composited into the source image dilated by radius and width
-      .in(env.source.dilate({ r: radius + width }))
+      .in(env.source.dilate(radius + width))
       // from which we subtract the source image dilated by radius
       // (the difference between the two dilated versions will form the stroke width)
-      .out(env.source.dilate({ r: radius }))
+      .out(env.source.dilate(radius))
       // which we finally displace using fractal noise.
-      .displace(fractalNoise({ freq, octaves }), {
-        scale,
-      })
+      .displace(fractalNoise(freq, { octaves }), scale)
   );
 
 const style = {
-  // css() compiles it to a data url which doesn't work in Safari.
+  // css() compiles it to a data URL which doesn't work in Safari.
   // Render it to an SVG element there instead using the other functions (see API).
-  filter: css(filter(effects)),
+  filter: css(effects),
 };
 
 return <div style={style}>hello world</div>;
@@ -68,20 +66,14 @@ import { env, filter, merge, css } from "hypercomp";
 const withEdges = merge([
   env.source,
   // sobel
-  env.source.convolve({
-    // x direction
-    kernel: [1, 0, -1, 2, 0, -2, 1, 0, -1],
-  }),
-  env.source.convolve({
-    // y direction
-    kernel: [1, 2, 1, 0, 0, 0, -1, -2, -1],
-  }),
+  env.source.convolve([1, 0, -1, 2, 0, -2, 1, 0, -1]), // x direction
+  env.source.convolve([1, 2, 1, 0, 0, 0, -1, -2, -1]), // y direction
 ])
-  .dilate({ r: 2 })
-  .shadow({ color: "blue" });
+  .dilate(2)
+  .shadow(1, { color: "blue" });
 
 const style = {
-  filter: css(filter(withEdges)),
+  filter: css(withEdges),
 };
 
 return <div style={style}>hello world</div>;
@@ -92,19 +84,18 @@ The following example blurs the source image, uses it as the bump map for lighti
 ![Screenshot 2024-08-07 at 12 46 25](https://github.com/user-attachments/assets/2d2a5272-d52a-4bf1-9cd0-571145043f7b)
 
 ```tsx
-import { env, flood, filter, css } from "hypercomp";
+import { env, flood, filter, css, pointLight } from "hypercomp";
 
 const withLight = flood("black").screen(
-  env.sourceAlpha.blur({ r: 1 }).specularLight({
+  env.sourceAlpha.blur(1).specular(pointLight({ x: 460, y: 110, z: 680 }), {
     strength: 4,
     shininess: 20,
     color: "white",
-    light: { type: "point", x: 460, y: 110, z: 680 },
   })
 );
 
 const style = {
-  filter: css(filter(withLight)),
+  filter: css(withLight),
 };
 
 return <div style={style}>hello world</div>;
@@ -112,234 +103,146 @@ return <div style={style}>hello world</div>;
 
 ## API
 
+- [Render functions](#render-functions)
+  - [`css(filter, key?)`](#cssfilter-key)
+  - [`unmount(key)`](#unmountkey)
+  - [`compile(filter)`](#compilefilter)
+  - [Usage with React](#usage-with-react)
+- [Creating filters](#creating-filters)
+  - [`filter(effect, attributes?)`](#filtereffect-attributes)
+- [Environment constants (`env.source`, `env.background`, ...)](#environment-constants)
+- [Input functions](#input-functions)
+  - [`flood(color, config?)`](#floodcolor-config)
+  - [`image(href, config?)`](#imagehref-config)
+- [Compositing functions](#compositing-functions)
+  - [`merge(inputs, config?)`](#mergeinputs-config)
+  - [`over(input1, input2, config?)`](#overinput1-input2-config)
+  - [`inside(input1, input2, config?)`](#insideinput1-input2-config)
+  - [`out(input1, input2, config?)`](#outinput1-input2-config)
+  - [`xor(input1, input2, config?)`](#xorinput1-input2-config)
+  - [`atop(input1, input2, config?)`](#atopinput1-input2-config)
+  - [`arithmetic(input1, input2, config?)`](#arithmeticinput1-input2-config)
+- [Common functions](#common-functions)
+  - [`blur(input, stdDeviation, config?)`](#blurinput-stddeviation-config)
+  - [`convolve(input, kernel, config?)`](#convolveinput-kernel-config)
+  - [`displace(input1, input2, scale, config?)`](#displaceinput1-input2-scale-config)
+  - [`offset(input, config?)`](#offsetinput-config)
+  - [`shadow(input, stdDeviation?, config?)`](#shadowinput-stddeviation-config)
+  - [`tile(input, config?)`](#tileinput-config)
+- [Blending functions](#blending-functions)
+  - [`normal(input1, input2, config?)`](#normalinput1-input2-config)
+  - [`screen(input1, input2, config?)`](#screeninput1-input2-config)
+  - [`multiply(input1, input2, config?)`](#multiplyinput1-input2-config)
+  - [`overlay(input1, input2, config?)`](#overlayinput1-input2-config)
+  - [`darken(input1, input2, config?)`](#darkeninput1-input2-config)
+  - [`lighten(input1, input2, config?)`](#lighteninput1-input2-config)
+  - [`colorDodge(input1, input2, config?)`](#colordodgeinput1-input2-config)
+  - [`colorBurn(input1, input2, config?)`](#colorburninput1-input2-config)
+  - [`hardLight(input1, input2, config?)`](#hardlightinput1-input2-config)
+  - [`softLight(input1, input2, config?)`](#softlightinput1-input2-config)
+  - [`difference(input1, input2, config?)`](#differenceinput1-input2-config)
+  - [`exclusion(input1, input2, config?)`](#exclusioninput1-input2-config)
+  - [`hue(input1, input2, config?)`](#hueinput1-input2-config)
+  - [`saturation(input1, input2, config?)`](#saturationinput1-input2-config)
+  - [`color(input1, input2, config?)`](#colorinput1-input2-config)
+  - [`luminosity(input1, input2, config?)`](#luminosityinput1-input2-config)
+- [Morphology functions](#morphology-functions)
+  - [`dilate(input, radius, config?)`](#dilateinput-radius-config)
+  - [`erode(input, radius, config?)`](#erodeinput-radius-config)
+- [Noise functions](#noise-functions)
+  - [`turbulence(frequency, config?)`](#turbulencefrequency-config)
+  - [`fractalNoise(frequency, config?)`](#fractalnoisefrequency-config)
+- [Lighting functions](#lighting-functions)
+  - [`specular(input, light, config?)`](#specularinput-light-config)
+  - [`diffuse(input, light, config?)`](#diffuseinput-light-config)
+- [Color manipulation functions](#color-manipulation-functions)
+  - [`colorMatrix(input, matrix, config?)`](#colormatrixinput-matrix-config)
+  - [`componentTransfer(input, config?)`](#componenttransferinput-config)
+  - [`hueRotate(input, angle, config?)`](#huerotateinput-angle-config)
+  - [`luminanceToAlpha(input, config?)`](#luminancetoalphainput-config)
+  - [`saturate(input, amount, config?)`](#saturateinput-amount-config)
+
 ### Render functions
 
-#### `filter(root, attributes?)`
+#### `css(filter, key?)`
 
-Creates a filter node from the root effect node. Represents the SVG filter you can render with the below functions.
+Compiles the filter and returns a CSS `filter` property value.
+When key is omitted, the effect is rendered to a data URL. When key is present, the filter is rendered to the dom. Subsequent calls with the same key will return the same data URL, and update the rendered filter.
 
-- **root**: The root node of the filter.
-- **attributes**: (optional) SVG filter attributes.
-  - **id**: `string` - Identifier for the filter.
-  - **filterUnits**: `"userSpaceOnUse" | "objectBoundingBox"` - Coordinate system for the filter.
-  - **primitiveUnits**: `"userSpaceOnUse" | "objectBoundingBox"` - Coordinate system for filter primitives.
-  - **colorInterpolationFilters**: `"auto" | "sRGB" | "linearRGB" | "inherit"` - Color interpolation filters.
+**IMPORTANT**: Safari does not support data URLs for CSS filters. It is thus recommended to use the `key` parameter, or to use the `useFilter` hook from `hypercomp/react`, which takes care of it for you.
 
-#### `toSVG(filter)`
-
-Compiles a filter to an SVG string.
-
-- **filter**: The filter to compile.
-- **Returns**: A `string` representing the SVG.
-
-#### `toDataURL(filter)`
-
-Compiles a filter to a data URL.
-
-- **filter**: The filter to compile.
-- **Returns**: A `string` representing the data URL.
-
-#### `css(filter)`
-
-Compiles a filter to a CSS filter string.
-
-- **filter**: The filter to compile.
+- **filter**: The filter to render.
+- **key**: (optional) Key to use for rendering to the DOM.
 - **Returns**: A `string` suitable for use in CSS `filter` property.
 
-#### `toEffects(filter)`
+#### `unmount(key)`
 
-Renders the effects of the filter.
+Unmounts the filter with the given key from the DOM.
 
-- **filter**: The filter to render.
-- **Returns**: A `string` representing the rendered effects.
+- **key**: Key of the filter to unmount.
 
-#### `toFilter(filter)`
+#### `compile(filter)`
 
-Renders the filter as an SVG filter element.
+Returns the compiled filter as a a string. If you pass the result of an effect function directly, it will only return the equivalent effects without the outer `<filter>` tag. If you wrap it in a `filter()` call, it will return the full SVG filter including the `<filter>` tag.
 
-- **filter**: The filter to render.
-- **Returns**: A `string` representing the SVG filter element.
+For example, `compile(env.source.blur(2))` will return `<feGaussianBlur stdDeviation="2"/>`, while `compile(filter(env.source.blur(2)))` will return `<filter><feGaussianBlur stdDeviation="2"/></filter>`.
 
-### Environment nodes
+#### Usage with React
 
-#### `env`
+The `hypercomp/react` module provides the `useFilter` hook you can use to tie the lifetime of a dom-rendered filter to the lifetime of a component. This is most useful when targeting Safari, where data URLs for CSS filters are not supported.
 
-The `env` object provides nodes representing the filter environment.
+```tsx
+import { useFilter } from "hypercomp/react";
 
-- **source**: Represents `SourceGraphic`.
-- **sourceAlpha**: Represents `SourceAlpha`.
-- **background**: Represents `BackgroundImage`.
-- **backgroundAlpha**: Represents `BackgroundAlpha`.
-- **fill**: Represents `FillPaint`.
-- **stroke**: Represents `StrokePaint`.
+const MyComponent = () => {
+  return (
+    <div style={{ filter: useFilter(env.source.dilate(2)) }}>hello world</div>
+  );
+};
+```
 
-### Effect functions
+### Creating filters
 
-Node functions are used to create nodes that represent filter primitives. They can be arbitrarily chained, provided as inputs to other nodes, saved, reused, or used as the root node for a filter.
+You create filters by composing effects. They can be arbitrarily chained, provided as inputs to other effects, saved, reused, or compiled to an output using the `css` or `compile` functions.
 
-**Note:** These are the non-chainable function variants. Each function also has a chainable version accessible on nodes.
+Effect functions usually take 0-2 effect inputs, 0-1 effect arguments and an optional configuration object. Each configuration object takes at the minimum the `x`, `y`, `width`, and `height` properties to define the region of the filter effect, which is not documented individually here.
 
-**Note:** In addition to what's documented below, each configuration object also takes `x`, `y`, `width`, and `height` properties to define the region of the filter effect.
+Each effect function is available both as top-level and chainable variants.
+For example, `blur(input, 2)` and `input.blur(2)` are equivalent.
 
-#### `blur(node, config?)`
+When you are done composing your filter, you can compile it or render it by passing it to the `compile` or `css` functions.
 
-Applies a Gaussian blur to the input node.
+Optionally, you can wrap your effects in a `filter` call, which lets you specify the attributes of the rendered filter tag.
 
-- **node**: The node to blur.
-- **config**: (optional) Configuration options.
-  - **r**: `number` - Radius of the blur.
-  - **edgeMode**: `"duplicate" | "wrap" | "none"` - How to handle edges.
+#### `filter(effect, attributes?)`
 
-#### `blend(node1, node2, config?)`
+Lets you specify attributes of the rendered filter tag. This is optional, if you don't wrap your effect in a `filter` call, the behavior will depend on the render function you use.
 
-Blends two nodes together using the specified mode.
+- **effect**: The effect to wrap in the filter.
+- **attributes**: (optional) SVG filter attributes.
 
-- **node1**: The top layer node.
-- **node2**: The bottom layer node.
-- **config**: (optional) Configuration options.
-  - **mode**: `"normal" | "multiply" | "screen" | ...` - Blend mode.
+### Environment constants
 
-#### `screen(node1, node2, config?)`
+The `env` object provides constants representing the filter environment. You can use these as inputs to effect functions.
 
-Convenience function for blending two nodes using the screen mode.
+Example:
 
-- **node1**: The top layer node.
-- **node2**: The bottom layer node.
-- **config**: (optional) Configuration options.
+```tsx
+flood("red").in(env.source); // Floods the source image with red.
+```
 
-#### `multiply(node1, node2, config?)`
+- **`env.source`**: Represents `SourceGraphic`.
+- **`env.sourceAlpha`**: Represents `SourceAlpha`.
+- **`env.background`**: Represents `BackgroundImage`.
+- **`env.backgroundAlpha`**: Represents `BackgroundAlpha`.
+- **`env.fill`**: Represents `FillPaint`.
+- **`env.stroke`**: Represents `StrokePaint`.
 
-Convenience function for blending two nodes using the multiply mode.
+### Input functions
 
-- **node1**: The top layer node.
-- **node2**: The bottom layer node.
-- **config**: (optional) Configuration options.
+In addition to environment constants, you can also use the output of the following functions as inputs to effects.
 
-#### `colorMatrix(node, config?)`
-
-Applies a color matrix to the input node.
-
-- **node**: The node to apply the color matrix to.
-- **config**: (optional) Configuration options.
-  - **type**: `"matrix" | "saturate" | "hueRotate" | "luminanceToAlpha"` - Type of color matrix.
-  - **values**: `string | number | number[]` - Matrix values.
-
-#### `componentTransfer(node, config?)`
-
-Applies a component transfer to the input node.
-
-- **node**: The node to apply the transfer to.
-- **config**: (optional) Configuration options.
-  - **r**: Transfer function for the red channel.
-  - **g**: Transfer function for the green channel.
-  - **b**: Transfer function for the blue channel.
-  - **a**: Transfer function for the alpha channel.
-
-#### `composite(node1, node2, config?)`
-
-Composites two nodes together with the specified operator.
-
-- **node1**: The top layer node.
-- **node2**: The bottom layer node.
-- **config**: (optional) Configuration options.
-  - **op**: `"over" | "in" | "out" | "atop" | "xor" | "arithmetic"` - Composite operator.
-  - **k1, k2, k3, k4**: `number` - Coefficients for the arithmetic operator.
-
-#### `over(node1, node2, config?)`
-
-Convenience method for compositing with the "over" operator.
-
-- **node1**: The top layer node.
-- **node2**: The bottom layer node.
-- **config**: (optional) Configuration options.
-
-#### `inside(node1, node2, config?)`
-
-Convenience method for compositing with the "in" operator.
-
-- **node1**: The top layer node.
-- **node2**: The bottom layer node.
-- **config**: (optional) Configuration options.
-
-#### `out(node1, node2, config?)`
-
-Convenience method for compositing with the "out" operator.
-
-- **node1**: The top layer node.
-- **node2**: The bottom layer node.
-- **config**: (optional) Configuration options.
-
-#### `xor(node1, node2, config?)`
-
-Convenience method for compositing with the "xor" operator.
-
-- **node1**: The top layer node.
-- **node2**: The bottom layer node.
-- **config**: (optional) Configuration options.
-
-#### `atop(node1, node2, config?)`
-
-Convenience method for compositing with the "atop" operator.
-
-- **node1**: The top layer node.
-- **node2**: The bottom layer node.
-- **config**: (optional) Configuration options.
-
-#### `arithmetic(node1, node2, config?)`
-
-Convenience method for compositing with the "arithmetic" operator.
-
-- **node1**: The top layer node.
-- **node2**: The bottom layer node.
-- **config**: (optional) Configuration options.
-  - **k1, k2, k3, k4**: `number` - Coefficients for the arithmetic operation.
-
-#### `convolve(node, config?)`
-
-Applies a convolution matrix to the input node.
-
-- **node**: The node to apply the convolution to.
-- **config**: (optional) Configuration options.
-  - **order**: `number` - Order of the convolution matrix.
-  - **kernel**: `string | number[]` - Kernel matrix values.
-  - **divisor**: `number` - Divisor for the kernel matrix.
-  - **bias**: `number` - Bias to apply.
-  - **targetX**: `number` - Target X coordinate.
-  - **targetY**: `number` - Target Y coordinate.
-  - **edgeMode**: `"duplicate" | "wrap" | "none"` - Edge handling mode.
-  - **preserveAlpha**: `boolean` - Whether to preserve alpha.
-
-#### `diffuseLight(node, config?)`
-
-Applies a diffuse lighting effect to the input node.
-
-- **node**: The node to apply the effect to.
-- **config**: (optional) Configuration options.
-  - **strength**: `number` - Diffuse strength.
-  - **scale**: `number` - Surface scale.
-  - **color**: `string` - Lighting color.
-  - **light**: Configuration for the light source.
-    - **type**: `"point"` | `"distant"` | `"spot"` - Light source type.
-    - **x, y, z**: `number` - Light position coordinates.
-    - **azimuth, elevation**: `number` - Light direction for distant lights.
-    - **pointsAtX, pointsAtY, pointsAtZ**: `number` - Target position for spot lights.
-    - **specularExponent, limitingConeAngle**: `number` - Spot light focus and cone angle.
-
-#### `displace(node1, node2, config?)`
-
-Displaces the input node according to the displacement map.
-
-- **node1**: The node to displace.
-- \*\*node
-
-2\*\*: The displacement map node.
-
-- **config**: (optional) Configuration options.
-  - **scale**: `number` - Scale factor for displacement.
-  - **xChannel**: `"R" | "G" | "B" | "A"` - X channel selector.
-  - **yChannel**: `"R" | "G" | "B" | "A"` - Y channel selector.
-
-#### `flood(color?, config?)`
+#### `flood(color, config?)`
 
 Applies a flood effect with the given color and opacity.
 
@@ -349,110 +252,356 @@ Applies a flood effect with the given color and opacity.
 
 #### `image(href, config?)`
 
-Renders an image node with the specified configuration.
+Creates an image.
 
 - **href**: `string` - URL of the image.
 - **config**: (optional) Configuration options.
+
   - **preserveAspectRatio**: `string` - Aspect ratio handling.
   - **crossorigin**: `"anonymous" | "use-credentials"` - Cross-origin settings.
 
-#### `merge(nodes, config?)`
+### Compositing functions
 
-Merges multiple nodes into one.
+#### `merge(inputs, config?)`
 
-- **nodes**: Array of nodes to merge.
+Composites the provided inputs using the "over" operator.
+
+- **inputs**: Array of inputs to merge.
 - **config**: (optional) Configuration options.
 
-#### `morph(node, config?)`
+#### `over(input1, input2, config?)`
 
-Morphs the input node with specified operator and radius.
+Convenience method for compositing with the "over" operator.
 
-- **node**: The node to morph.
+- **input1**: The top layer.
+- **input2**: The bottom layer.
 - **config**: (optional) Configuration options.
-  - **op**: `"erode"` | `"dilate"` - Morphology operator.
-  - **r**: `number` - Radius for the effect.
 
-#### `dilate(node, config?)`
+#### `inside(input1, input2, config?)`
 
-Convenience function for morphing with the "dilate" operator.
+Convenience method for compositing with the "in" operator.
 
-- **node**: The node to dilate.
+- **input1**: The top layer.
+- **input2**: The bottom layer.
 - **config**: (optional) Configuration options.
-  - **r**: `number` - Radius for the effect.
 
-#### `erode(node, config?)`
+#### `out(input1, input2, config?)`
 
-Convenience function for morphing with the "erode" operator.
+Convenience method for compositing with the "out" operator.
 
-- **node**: The node to erode.
+- **input1**: The top layer.
+- **input2**: The bottom layer.
 - **config**: (optional) Configuration options.
-  - **r**: `number` - Radius for the effect.
 
-#### `offset(node, config?)`
+#### `xor(input1, input2, config?)`
 
-Offsets the input node.
+Convenience method for compositing with the "xor" operator.
 
-- **node**: The node to offset.
+- **input1**: The top layer.
+- **input2**: The bottom layer.
 - **config**: (optional) Configuration options.
-  - **dx**: `number` - Horizontal offset.
-  - **dy**: `number` - Vertical offset.
 
-#### `shadow(node, config?)`
+#### `atop(input1, input2, config?)`
 
-Adds a drop shadow to the input node.
+Convenience method for compositing with the "atop" operator.
 
-- **node**: The node to apply the shadow to.
+- **input1**: The top layer.
+- **input2**: The bottom layer.
 - **config**: (optional) Configuration options.
-  - **dx**: `number` - Horizontal offset.
-  - **dy**: `number` - Vertical offset.
-  - **r**: `number` - Standard deviation for the blur.
-  - **color**: `string` - Shadow color.
-  - **opacity**: `number` - Shadow opacity.
 
-#### `specularLight(node, config?)`
+#### `arithmetic(input1, input2, config?)`
 
-Applies specular lighting to the input node.
+Convenience method for compositing with the "arithmetic" operator.
 
-- **node**: The node to apply the lighting effect to.
+- **input1**: The top layer.
+- **input2**: The bottom layer.
+- **config**: (optional) Configuration options.
+
+  - **k1, k2, k3, k4**: `number` - Coefficients for the arithmetic operation.
+
+### Common functions
+
+#### `blur(input, stdDeviation, config?)`
+
+Applies a Gaussian blur to the input.
+
+- **input**: The input to blur.
+- **stdDeviation**: `number` - Standard deviation of the blur.
+- **config**: (optional) Configuration options.
+
+#### `convolve(input, kernel, config?)`
+
+Applies a convolution matrix to the input.
+
+- **input**: The input to apply the convolution to.
+- **kernel**: `number[]` - Kernel matrix values.
+- **config**: (optional) Configuration options.
+
+#### `displace(input1, input2, scale, config?)`
+
+Displaces the input according to the displacement map.
+
+- **input1**: The input to displace.
+- **input2**: The displacement map.
+- **scale**: `number` - Scale factor for displacement.
+- **config**: (optional) Configuration options.
+
+#### `offset(input, config?)`
+
+Offsets the input.
+
+- **input**: The input to offset.
+- **config**: (optional) Configuration options.
+
+#### `shadow(input, stdDeviation?, config?)`
+
+Adds a drop shadow to the input.
+
+- **input**: The input to apply the shadow to.
+- **stdDeviation**: `number` (optional) - Standard deviation for the blur.
+- **config**: (optional) Configuration options.
+
+#### `tile(input, config?)`
+
+Applies a tile effect to the input.
+
+- **input**: The input to apply the tile effect to.
+- **config**: (optional) Configuration options.
+
+### Blending functions
+
+#### `normal(input1, input2, config?)`
+
+Blends two inputs using the "normal" mode.
+
+- **input1**: The top layer.
+- **input2**: The bottom layer.
+- **config**: (optional) Configuration options.
+
+#### `screen(input1, input2, config?)`
+
+Blends two inputs using the screen mode.
+
+- **input1**: The top layer.
+- **input2**: The bottom layer.
+- **config**: (optional) Configuration options.
+
+#### `multiply(input1, input2, config?)`
+
+Blends two inputs using the multiply mode.
+
+- **input1**: The top layer.
+- **input2**: The bottom layer.
+- **config**: (optional) Configuration options.
+
+#### `overlay(input1, input2, config?)`
+
+Blends two inputs using the overlay mode.
+
+- **input1**: The top layer.
+- **input2**: The bottom layer.
+- **config**: (optional) Configuration options.
+
+#### `darken(input1, input2, config?)`
+
+Blends two inputs using the darken mode.
+
+- **input1**: The top layer.
+- **input2**: The bottom layer.
+- **config**: (optional) Configuration options.
+
+#### `lighten(input1, input2, config?)`
+
+Blends two inputs using the lighten mode.
+
+- **input1**: The top layer.
+- **input2**: The bottom layer.
+- **config**: (optional) Configuration options.
+
+#### `colorDodge(input1, input2, config?)`
+
+Blends two inputs using the color dodge mode.
+
+- **input1**: The top layer.
+- **input2**: The bottom layer.
+- **config**: (optional) Configuration options.
+
+#### `colorBurn(input1, input2, config?)`
+
+Blends two inputs using the color burn mode.
+
+- **input1**: The top layer.
+- **input2**: The bottom layer.
+- **config**: (optional) Configuration options.
+
+#### `hardLight(input1, input2, config?)`
+
+Blends two inputs using the hard light mode.
+
+- **input1**: The top layer.
+- **input2**: The bottom layer.
+- **config**: (optional) Configuration options.
+
+#### `softLight(input1, input2, config?)`
+
+Blends two inputs using the soft light mode.
+
+- **input1**: The top layer.
+- **input2**: The bottom layer.
+- **config**: (optional) Configuration options.
+
+#### `difference(input1, input2, config?)`
+
+Blends two inputs using the difference mode.
+
+- **input1**: The top layer.
+- **input2**: The bottom layer.
+- **config**: (optional) Configuration options.
+
+#### `exclusion(input1, input2, config?)`
+
+Blends two inputs using the exclusion mode.
+
+- **input1**: The top layer.
+- **input2**: The bottom layer.
+- **config**: (optional) Configuration options.
+
+#### `hue(input1, input2, config?)`
+
+Blends two inputs using the hue mode.
+
+- **input1**: The top layer.
+- **input2**: The bottom layer.
+- **config**: (optional) Configuration options.
+
+#### `saturation(input1, input2, config?)`
+
+Blends two inputs using the saturation mode.
+
+- **input1**: The top layer.
+- **input2**: The bottom layer.
+- **config**: (optional) Configuration options.
+
+#### `color(input1, input2, config?)`
+
+Blends two inputs using the color mode.
+
+- **input1**: The top layer.
+- **input2**: The bottom layer.
+- **config**: (optional) Configuration options.
+
+#### `luminosity(input1, input2, config?)`
+
+Blends two inputs using the luminosity mode.
+
+- **input1**: The top layer.
+- **input2**: The bottom layer.
+- **config**: (optional) Configuration options.
+
+### Morphology functions
+
+#### `dilate(input, radius, config?)`
+
+Applies a dilation effect to the input.
+
+- **input**: The input to dilate.
+- **radius**: `number` - Radius for the effect.
+- **config**: (optional) Configuration options.
+
+#### `erode(input, radius, config?)`
+
+Applies an erosion effect to the input.
+
+- **input**: The input to erode.
+- **radius**: `number` - Radius for the effect.
+- **config**: (optional) Configuration options.
+
+### Noise functions
+
+#### `turbulence(frequency, config?)`
+
+Generates a turbulence effect.
+
+- **frequency**: `number` - Base frequency.
+- **config**: (optional) Configuration options.
+  - **octaves**: `number` - Number of octaves.
+  - **seed**: `number` - Random seed value.
+  - **stitch**: `"noStitch" | "stitch"` - Tile stitching mode.
+
+#### `fractalNoise(frequency, config?)`
+
+Convenience function for a fractal noise effect.
+
+- **frequency**: `number` - Base frequency.
+- **config**: (optional) Configuration options.
+  - **octaves**: `number` - Number of octaves.
+  - **seed**: `number` - Random seed value.
+  - **stitch**: `"noStitch" | "stitch"` - Tile stitching mode.
+
+### Lighting functions
+
+#### `specular(input, light, config?)`
+
+Applies a specular lighting effect to the input.
+
+- **input**: The input to apply the effect to.
+- **light**: The light source to use.
 - **config**: (optional) Configuration options.
   - **strength**: `number` - Specular strength.
   - **shininess**: `number` - Specular exponent.
   - **scale**: `number` - Surface scale.
   - **color**: `string` - Lighting color.
-  - **light**: Configuration for the light source.
-    - **type**: `"point"` | `"distant"` | `"spot"` - Light source type.
-    - **x, y, z**: `number` - Light position coordinates.
-    - **azimuth, elevation**: `number` - Light direction for distant lights.
-    - **pointsAtX, pointsAtY, pointsAtZ**: `number` - Target position for spot lights.
-    - **specularExponent, limitingConeAngle**: `number` - Spot light focus and cone angle.
 
-#### `tile(node, config?)`
+#### `diffuse(input, light, config?)`
 
-Applies a tile effect to the input node.
+Applies a diffuse lighting effect to the input.
 
-- **node**: The node to apply the tile effect to.
+- **input**: The input to apply the effect to.
+- **light**: The light source to use.
+- **config**: (optional) Configuration options.
+  - **strength**: `number` - Diffuse strength.
+  - **scale**: `number` - Surface scale.
+  - **color**: `string` - Lighting color.
+
+### Color manipulation functions
+
+#### `colorMatrix(input, matrix, config?)`
+
+Applies a color matrix to the input.
+
+- **input**: The input to apply the color matrix to.
+- **matrix**: `number[]` - Matrix values.
 - **config**: (optional) Configuration options.
 
-#### `turbulence(config?)`
+#### `componentTransfer(input, config?)`
 
-Generates a turbulence effect.
+Applies a component transfer to the input.
 
+- **input**: The input to apply the transfer to.
 - **config**: (optional) Configuration options.
-  - **freq**: `number` - Base frequency.
-  - **octaves**: `number` - Number of octaves.
-  - **seed**: `number` - Random seed value.
-  - **type**: `"fractalNoise" | "turbulence"` - Type of turbulence.
-  - **stitch**: `"noStitch" | "stitch"` - Tile stitching mode.
 
-#### `fractalNoise(config?)`
+#### `hueRotate(input, angle, config?)`
 
-Convenience function for a fractal noise effect.
+Rotates the hue of the input.
 
+- **input**: The input to rotate the hue of.
+- **angle**: `number` - Angle of rotation.
 - **config**: (optional) Configuration options.
-  - **freq**: `number` - Base frequency.
-  - **octaves**: `number` - Number of octaves.
-  - **seed**: `number` - Random seed value.
-  - **stitch**: `"noStitch" | "stitch"` - Tile stitching mode.
+
+#### `luminanceToAlpha(input, config?)`
+
+Converts the luminance of the input to alpha.
+
+- **input**: The input to convert.
+- **config**: (optional) Configuration options.
+
+#### `saturate(input, amount, config?)`
+
+Saturates the input.
+
+- **input**: The input to saturate.
+- **amount**: `number` - Saturation amount.
+- **config**: (optional) Configuration options.
 
 ## Contributing
 
