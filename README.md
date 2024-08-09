@@ -538,31 +538,6 @@ Convenience function for a fractal noise effect.
   - **seed**: `number` - Random seed value.
   - **stitch**: `"noStitch" | "stitch"` - Tile stitching mode.
 
-### Lighting functions
-
-#### `specular(input, light, config?)`
-
-Applies a specular lighting effect to the input.
-
-- **input**: The input to apply the effect to.
-- **light**: The light source to use.
-- **config**: (optional) Configuration options.
-  - **strength**: `number` - Specular strength.
-  - **shininess**: `number` - Specular exponent.
-  - **scale**: `number` - Surface scale.
-  - **color**: `string` - Lighting color.
-
-#### `diffuse(input, light, config?)`
-
-Applies a diffuse lighting effect to the input.
-
-- **input**: The input to apply the effect to.
-- **light**: The light source to use.
-- **config**: (optional) Configuration options.
-  - **strength**: `number` - Diffuse strength.
-  - **scale**: `number` - Surface scale.
-  - **color**: `string` - Lighting color.
-
 ### Color manipulation functions
 
 #### `colorMatrix(input, matrix, config?)`
@@ -602,6 +577,71 @@ Saturates the input.
 - **input**: The input to saturate.
 - **amount**: `number` - Saturation amount.
 - **config**: (optional) Configuration options.
+
+### Lighting functions
+
+Lighting functions take an input and a light source, and apply a lighting effect to the input.
+
+Example:
+
+```tsx
+env.sourceAlpha.blur(1).specular(pointLight({ x: 460, y: 110, z: 680 }), {
+  strength: 4,
+  shininess: 20,
+});
+```
+
+#### `specular(input, light, config?)`
+
+Applies a specular lighting effect to the input. You should composite it using the `screen` blending mode.
+
+- **input**: The input to apply the effect to.
+- **light**: The light source to use.
+- **config**: (optional) Configuration options.
+  - **strength**: `number` - Specular strength.
+  - **shininess**: `number` - Specular exponent.
+  - **scale**: `number` - Surface scale.
+  - **color**: `string` - Lighting color.
+
+#### `diffuse(input, light, config?)`
+
+Applies a diffuse lighting effect to the input. You should composite it using the `multiply` blending mode.
+
+- **input**: The input to apply the effect to.
+- **light**: The light source to use.
+- **config**: (optional) Configuration options.
+  - **strength**: `number` - Diffuse strength.
+  - **scale**: `number` - Surface scale.
+  - **color**: `string` - Lighting color.
+
+The light source is defined using the following functions.
+
+#### `pointLight(config)`
+
+Creates a point light source.
+
+- **x**: `number` - X coordinate.
+- **y**: `number` - Y coordinate.
+- **z**: `number` - Z coordinate.
+
+#### `distantLight(config)`
+
+Creates a distant light source.
+
+- **azimuth**: `number` - Azimuth angle.
+- **elevation**: `number` - Elevation angle.
+
+#### `spotlight(config)`
+
+Creates a spot light source.
+
+- **x**: `number` - X coordinate.
+- **y**: `number` - Y coordinate.
+- **z**: `number` - Z coordinate.
+- **pointsAtX**: `number` - X coordinate to point at.
+- **pointsAtY**: `number` - Y coordinate to point at.
+- **pointsAtZ**: `number` - Z coordinate to point at.
+- **specularExponent**: `number` - Specular exponent.
 
 ## Contributing
 
