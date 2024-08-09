@@ -28,6 +28,11 @@
       "types": "./dist/main.d.ts",
       "import": "./dist/main.js",
       "require": "./dist/main.cjs"
+    },
+    "./react": {
+      "types": "./dist/useFilter.d.ts",
+      "import": "./dist/useFilter.js",
+      "require": "./dist/useFilter.cjs"
     }
   },
   "scripts": {
@@ -51,5 +56,13 @@
     "tsup": "^8.0.1",
     "typescript": "^5.5.4",
     "vite": "^5.0.8"
+  },
+  "peerDependencies": {
+    "react": "*"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    }
   }
 }

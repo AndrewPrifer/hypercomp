@@ -1,20 +1,14 @@
 import {
-  // blur,
-  displace,
   env,
-  filter,
   flood,
   merge,
-  css,
-  turbulence,
-  image,
   fractalNoise,
   spotlight,
-  Node,
   pointLight,
-} from "../lib/main";
+} from "hypercomp";
 import { useControls } from "leva";
 import { range } from "remeda";
+import { useFilter } from "hypercomp/react";
 
 export default function App() {
   const {
@@ -109,13 +103,11 @@ export default function App() {
 
   const funky = merge([
     ...range(0, 10)
-      .map(
-        (v, i) =>
-          flood("rgb(231, 34, 34)")
-            .in(env.source)
-            .offset({ dx: i * 5, dy: i * 5 })
-            .hueRotate(i * 30)
-        // .blur(i * 0.5)
+      .map((v, i) =>
+        flood("rgb(231, 34, 34)")
+          .in(env.source)
+          .offset({ dx: i * 5, dy: i * 5 })
+          .hueRotate(i * 30)
       )
       .toReversed(),
     env.source,
@@ -124,7 +116,7 @@ export default function App() {
   return (
     <div
       style={{
-        filter: css(withEdges, "hello"),
+        filter: useFilter(funky),
       }}
     >
       <div

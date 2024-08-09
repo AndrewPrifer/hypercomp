@@ -24,6 +24,11 @@ let svgElement: SVGSVGElement | null = null;
 
 const filterCache = new Map<string, SVGFilterElement>();
 
+function createFilterElementID(key: string): string {
+  const randomStuff = "9710187123";
+  return `hypercomp-${randomStuff}-${key}`;
+}
+
 function css(filter: FilterAPI | NodeAPI, key?: string): string {
   if (filter instanceof NodeAPI) {
     filter = createFilter(filter);
@@ -50,7 +55,7 @@ function css(filter: FilterAPI | NodeAPI, key?: string): string {
         "filter"
       );
 
-      filterElement.id = crypto.randomUUID();
+      filterElement.id = createFilterElementID(key);
       svgElement.appendChild(filterElement);
       filterCache.set(key, filterElement);
     }
@@ -142,5 +147,6 @@ export { distantLight } from "./lights/DistantLight";
 export { filter } from "./Filter";
 
 export { NodeAPI as Node } from "./NodeAPI";
+export { FilterAPI as Filter } from "./Filter";
 
 export { css, unmount, compile };

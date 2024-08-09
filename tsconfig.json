@@ -18,7 +18,12 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+
+    "paths": {
+      "hypercomp": ["./lib/main.ts"],
+      "hypercomp/react": ["./lib/useFilter.ts"]
+    }
   },
   "include": ["src", "lib"],
   "references": [{ "path": "./tsconfig.node.json" }]
