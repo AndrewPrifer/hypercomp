@@ -268,7 +268,7 @@ Composites the provided inputs using the "over" operator.
 
 #### `over(input1, input2, config?)`
 
-Convenience method for compositing with the "over" operator.
+Composites the inputs using the "over" operator.
 
 - **input1**: The top layer.
 - **input2**: The bottom layer.
@@ -276,7 +276,7 @@ Convenience method for compositing with the "over" operator.
 
 #### `inside(input1, input2, config?)`
 
-Convenience method for compositing with the "in" operator.
+Composites the inputs using the "in" operator.
 
 - **input1**: The top layer.
 - **input2**: The bottom layer.
@@ -284,7 +284,7 @@ Convenience method for compositing with the "in" operator.
 
 #### `out(input1, input2, config?)`
 
-Convenience method for compositing with the "out" operator.
+Composites the inputs using the "out" operator.
 
 - **input1**: The top layer.
 - **input2**: The bottom layer.
@@ -292,7 +292,7 @@ Convenience method for compositing with the "out" operator.
 
 #### `xor(input1, input2, config?)`
 
-Convenience method for compositing with the "xor" operator.
+Composites the inputs using the "xor" operator.
 
 - **input1**: The top layer.
 - **input2**: The bottom layer.
@@ -300,7 +300,7 @@ Convenience method for compositing with the "xor" operator.
 
 #### `atop(input1, input2, config?)`
 
-Convenience method for compositing with the "atop" operator.
+Composites the inputs using the "atop" operator.
 
 - **input1**: The top layer.
 - **input2**: The bottom layer.
@@ -308,7 +308,7 @@ Convenience method for compositing with the "atop" operator.
 
 #### `arithmetic(input1, input2, config?)`
 
-Convenience method for compositing with the "arithmetic" operator.
+Composites the inputs using the "arithmetic" operator.
 
 - **input1**: The top layer.
 - **input2**: The bottom layer.
@@ -517,7 +517,7 @@ Applies an erosion effect to the input.
 
 #### `turbulence(frequency, config?)`
 
-Generates a turbulence effect.
+Creates turbulence noise.
 
 - **frequency**: `number` - Base frequency.
 - **config**: (optional) Configuration options.
@@ -527,7 +527,7 @@ Generates a turbulence effect.
 
 #### `fractalNoise(frequency, config?)`
 
-Convenience function for a fractal noise effect.
+Creates fractal noise.
 
 - **frequency**: `number` - Base frequency.
 - **config**: (optional) Configuration options.
