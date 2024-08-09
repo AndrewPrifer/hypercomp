@@ -34,22 +34,19 @@ const octaves = 1;
 const scale = 15;
 
 const effects =
-  // Take the source image and merge it with
-  env.source.merge(
-    // a flood effect
-    flood("#30597E")
-      // which is composited into the source image dilated by radius and width
-      .in(env.source.dilate(radius + width))
-      // from which we subtract the source image dilated by radius
-      // (the difference between the two dilated versions will form the stroke width)
-      .out(env.source.dilate(radius))
-      // which we finally displace using fractal noise.
-      .displace(fractalNoise(freq, { octaves }), scale)
-  );
+  // Create a flood
+  flood("#30597E")
+    // and composite it into the source image dilated by radius and width
+    .in(env.source.dilate(radius + width))
+    // from which we subtract the source image dilated by radius
+    // (the difference between the two dilated versions will form the stroke width)
+    .out(env.source.dilate(radius))
+    // which we finally displace using fractal noise.
+    .displace(fractalNoise(freq, { octaves }), scale)
+    // and draw it over the source image.
+    .over(env.source);
 
 const style = {
-  // css() compiles it to a data URL which doesn't work in Safari.
-  // Render it to an SVG element there instead using the other functions (see API).
   filter: css(effects),
 };
 
