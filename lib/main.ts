@@ -1,28 +1,94 @@
 import { FilterAPI } from "./Filter";
+import { NodeAPI } from "./NodeAPI";
 import { privateAPI } from "./privateAPI";
+import { filter as createFilter } from "./Filter";
 
-export function toSVG(filter: FilterAPI): string {
+function toSVG(filter: FilterAPI): string {
   return `<svg xmlns="http://www.w3.org/2000/svg">${filter[
     privateAPI
   ].render()}</svg>`;
 }
 
-export function toDataURL(filter: FilterAPI): string {
-  const id = filter[privateAPI].attributes.id ?? "filter";
+function toDataURL(filter: FilterAPI): string {
+  const oldId = filter[privateAPI].attributes.id;
+  const id = "filter";
+  filter[privateAPI].attributes.id = id;
   const svg = toSVG(filter);
-  return `data:image/svg+xml;utf8,${encodeURIComponent(svg)}#${id}`;
+  filter[privateAPI].attributes.id = oldId;
+  return `data:image/svg+xml;utf8,${encodeURI(svg)
+    .replaceAll("(", "%28")
+    .replaceAll(")", "%29")}#${id}`;
 }
 
-export function css(filter: FilterAPI): string {
+let svgElement: SVGSVGElement | null = null;
+
+const filterCache = new Map<string, SVGFilterElement>();
+
+function css(filter: FilterAPI | NodeAPI, key?: string): string {
+  if (filter instanceof NodeAPI) {
+    filter = createFilter(filter);
+  }
+
+  if (key) {
+    if (!svgElement) {
+      svgElement = document.createElementNS(
+        "http://www.w3.org/2000/svg",
+        "svg"
+      );
+      svgElement.style.visibility = "hidden";
+      svgElement.style.position = "absolute";
+      svgElement.style.width = "0";
+      svgElement.style.height = "0";
+      svgElement.style.pointerEvents = "none";
+      document.body.appendChild(svgElement);
+    }
+
+    let filterElement = filterCache.get(key);
+    if (!filterElement) {
+      filterElement = document.createElementNS(
+        "http://www.w3.org/2000/svg",
+        "filter"
+      );
+
+      filterElement.id = crypto.randomUUID();
+      svgElement.appendChild(filterElement);
+      filterCache.set(key, filterElement);
+    }
+
+    Object.entries(filter[privateAPI].attributes).forEach(([key, value]) => {
+      if (value) {
+        filterElement.setAttribute(key, value.toString());
+      } else {
+        filterElement.removeAttribute(key);
+      }
+    });
+    filterElement.innerHTML = filter[privateAPI].root.renderRoot();
+
+    return `url(#${filterElement.id})`;
+  }
+
   return `url(${toDataURL(filter)})`;
 }
 
-export function toEffects(filter: FilterAPI): string {
-  return filter[privateAPI].renderEffects();
+function unmount(key: string) {
+  const filterElement = filterCache.get(key);
+  if (filterElement) {
+    filterElement.remove();
+    filterCache.delete(key);
+  }
+
+  if (filterCache.size === 0 && svgElement) {
+    svgElement.remove();
+    svgElement = null;
+  }
 }
 
-export function toFilter(filter: FilterAPI): string {
-  return filter[privateAPI].render();
+function compile(filter: FilterAPI | NodeAPI): string {
+  if (filter instanceof FilterAPI) {
+    return filter[privateAPI].render();
+  } else {
+    return filter[privateAPI].renderRoot();
+  }
 }
 
 export { constantNodes as env } from "./nodes/ConstantNode";
@@ -76,3 +142,5 @@ export { distantLight } from "./lights/DistantLight";
 export { filter } from "./Filter";
 
 export { NodeAPI as Node } from "./NodeAPI";
+
+export { css, unmount, compile };

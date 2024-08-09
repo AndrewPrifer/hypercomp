@@ -1,5 +1,5 @@
 import { privateAPI } from "../privateAPI";
-import { BaseConfig, INode } from "../types";
+import { BaseConfig } from "../types";
 import { renderAttrs } from "../utils";
 import { AbstractNode } from "./AbstractNode";
 import { NodeAPI } from "../NodeAPI";
@@ -8,7 +8,11 @@ export interface MergeConfig extends BaseConfig {}
 
 export type ShorthandMergeConfig = MergeConfig;
 
-export class MergeNode extends AbstractNode<"merge", INode[], MergeConfig> {
+export class MergeNode extends AbstractNode<
+  "merge",
+  AbstractNode[],
+  MergeConfig
+> {
   type = "merge" as const;
   render() {
     const attrs = renderAttrs(this.config);

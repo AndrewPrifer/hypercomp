@@ -1,3 +1,5 @@
+import { AbstractNode } from "./nodes/AbstractNode";
+
 // all the SVG filter effects
 export type NodeType =
   | "constant"
@@ -22,7 +24,7 @@ export type NodeType =
 
 export type ID = string;
 
-export type ConstantID =
+export type ConstantName =
   | "SourceGraphic"
   | "SourceAlpha"
   | "BackgroundImage"
@@ -30,19 +32,7 @@ export type ConstantID =
   | "FillPaint"
   | "StrokePaint";
 
-export interface INode<
-  Type extends NodeType = any,
-  Input extends INode[] = any,
-  Config extends {} = any
-> {
-  type: Type;
-  id: ID;
-  input: Input;
-  config: Config;
-  render?(): string;
-}
-
-export type RenderableNode = INode & { render: () => string };
+export type RenderableNode = AbstractNode & { render: () => string };
 
 export interface BaseConfig {
   x?: string | number;

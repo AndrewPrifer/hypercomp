@@ -1,7 +1,7 @@
 import { NodeAPI } from "../NodeAPI";
 import { privateAPI } from "../privateAPI";
-import { BaseConfig, INode } from "../types";
-import { renderAttrs, mapKeys } from "../utils";
+import { BaseConfig } from "../types";
+import { renderAttrs } from "../utils";
 import { AbstractNode } from "./AbstractNode";
 
 export interface ColorMatrixConfig extends BaseConfig {
@@ -13,7 +13,7 @@ export interface ShorthandColorMatrixConfig extends BaseConfig {}
 
 export class ColorMatrixNode extends AbstractNode<
   "color-matrix",
-  [INode],
+  [AbstractNode],
   ColorMatrixConfig
 > {
   type = "color-matrix" as const;

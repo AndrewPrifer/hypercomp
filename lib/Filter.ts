@@ -1,43 +1,34 @@
 import { NodeAPI } from "./NodeAPI";
+import { AbstractNode } from "./nodes/AbstractNode";
 import { privateAPI } from "./privateAPI";
-import { INode, RenderableNode } from "./types";
-import { renderAttrs, buildRenderQueue } from "./utils";
+import { renderAttrs } from "./utils";
 
 export interface SVGFilterAttributes {
   id?: string;
-  x?: string;
-  y?: string;
-  width?: string;
-  height?: string;
+  x?: string | number;
+  y?: string | number;
+  width?: string | number;
+  height?: string | number;
   filterUnits?: "userSpaceOnUse" | "objectBoundingBox";
   primitiveUnits?: "userSpaceOnUse" | "objectBoundingBox";
   colorInterpolationFilters?: "auto" | "sRGB" | "linearRGB" | "inherit";
-  [key: string]: string | undefined; // Allow additional attributes
+  [key: string]: string | number | undefined; // Allow additional attributes
 }
 
 export class Filter {
-  root: INode;
+  root: AbstractNode;
   attributes: SVGFilterAttributes;
 
-  constructor(root: INode, attributes: SVGFilterAttributes = {}) {
+  constructor(root: AbstractNode, attributes: SVGFilterAttributes = {}) {
     this.root = root;
     this.attributes = attributes;
   }
 
-  renderEffects() {
-    const effects = buildRenderQueue(this.root)
-      .filter((node): node is RenderableNode => !!node.render)
-      .map((node) => node.render())
-      .join("\n");
-
-    return effects;
-  }
-
   render() {
-    const effects = this.renderEffects();
+    const effects = this.root.renderRoot();
     const attrs = renderAttrs(this.attributes);
 
-    return `<filter id="filter" ${attrs}>${effects}</filter>`;
+    return `<filter ${attrs}>${effects}</filter>`;
   }
 }
 

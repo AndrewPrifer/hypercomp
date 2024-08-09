@@ -1,5 +1,4 @@
 import { privateAPI } from "./privateAPI";
-import { INode } from "./types";
 import { blur, ShorthandBlurConfig } from "./nodes/BlurNode";
 import {
   arithmetic,
@@ -69,8 +68,9 @@ import { filter, SVGFilterAttributes } from "./Filter";
 import { PointLight } from "./lights/PointLight";
 import { DistantLight } from "./lights/DistantLight";
 import { Spotlight } from "./lights/Spotlight";
+import { AbstractNode } from "./nodes/AbstractNode";
 
-export class NodeAPI<T extends INode = INode> {
+export class NodeAPI<T extends AbstractNode = AbstractNode> {
   [privateAPI]: T;
 
   constructor(node: T) {

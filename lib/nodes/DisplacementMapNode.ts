@@ -1,5 +1,5 @@
 import { privateAPI } from "../privateAPI";
-import { BaseConfig, INode } from "../types";
+import { BaseConfig } from "../types";
 import { mapKeys, renderAttrs } from "../utils";
 import { AbstractNode } from "./AbstractNode";
 import { NodeAPI } from "../NodeAPI";
@@ -22,7 +22,7 @@ const keyMap = {
 
 export class DisplacementMapNode extends AbstractNode<
   "displacement-map",
-  [INode, INode],
+  [AbstractNode, AbstractNode],
   DisplacementMapConfig
 > {
   type = "displacement-map" as const;

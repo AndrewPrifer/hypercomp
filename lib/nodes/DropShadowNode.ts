@@ -1,6 +1,6 @@
 import { NodeAPI } from "../NodeAPI";
 import { privateAPI } from "../privateAPI";
-import { BaseConfig, INode } from "../types";
+import { BaseConfig } from "../types";
 import { renderAttrs, mapKeys } from "../utils";
 import { AbstractNode } from "./AbstractNode";
 
@@ -28,7 +28,7 @@ const dropShadowKeyMap = {
 
 export class DropShadowNode extends AbstractNode<
   "drop-shadow",
-  [INode],
+  [AbstractNode],
   DropShadowConfig
 > {
   type = "drop-shadow" as const;

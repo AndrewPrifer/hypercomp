@@ -1,5 +1,5 @@
 import { privateAPI } from "../privateAPI";
-import { BaseConfig, INode } from "../types";
+import { BaseConfig } from "../types";
 import { renderAttrs } from "../utils";
 import { AbstractNode } from "./AbstractNode";
 import { NodeAPI } from "../NodeAPI";
@@ -8,7 +8,7 @@ export interface TileConfig extends BaseConfig {}
 
 export type ShorthandTileConfig = TileConfig;
 
-export class TileNode extends AbstractNode<"tile", [INode], TileConfig> {
+export class TileNode extends AbstractNode<"tile", [AbstractNode], TileConfig> {
   type = "tile" as const;
 
   render() {

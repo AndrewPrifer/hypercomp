@@ -7,10 +7,8 @@ import {
   merge,
   css,
   turbulence,
-  toEffects,
   image,
   fractalNoise,
-  toFilter,
   spotlight,
   Node,
   pointLight,
@@ -67,6 +65,14 @@ export default function App() {
           // y direction
           [1, 2, 1, 0, 0, 0, -1, -2, -1]
         ),
+        // env.source.convolve(
+        //   // x direction
+        //   [-1, 0, 1, -2, 0, 2, -1, 0, 1]
+        // ),
+        // env.source.convolve(
+        //   // y direction
+        //   [-1, -2, -1, 0, 0, 0, 1, 2, 1]
+        // ),
       ]).hueRotate(90)
     )
     .dilate(2)
@@ -102,12 +108,14 @@ export default function App() {
   );
 
   const funky = merge([
-    ...range(1, 6)
-      .map((w, i) =>
-        flood("#ff0090")
-          .in(env.source)
-          .dilate(w * width)
-          .hueRotate(i * 30)
+    ...range(0, 10)
+      .map(
+        (v, i) =>
+          flood("rgb(231, 34, 34)")
+            .in(env.source)
+            .offset({ dx: i * 5, dy: i * 5 })
+            .hueRotate(i * 30)
+        // .blur(i * 0.5)
       )
       .toReversed(),
     env.source,
@@ -116,9 +124,7 @@ export default function App() {
   return (
     <div
       style={{
-        //font with rounded corners
-        fontFamily: '"Varela Round", sans-serif',
-        filter: css(effects.filter()),
+        filter: css(withEdges, "hello"),
       }}
     >
       <div

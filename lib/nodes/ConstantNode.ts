@@ -1,17 +1,24 @@
-import { ConstantID } from "../types";
+import { ConstantName } from "../types";
 import { AbstractNode } from "./AbstractNode";
 import { NodeAPI } from "../NodeAPI";
 
 export class ConstantNode extends AbstractNode<"constant", [], {}> {
   type = "constant" as const;
+  #name: ConstantName;
 
-  constructor(id: ConstantID) {
+  constructor(name: ConstantName) {
     super({ input: [], config: {} });
-    this.id = id;
+    this.#name = name;
   }
+
+  get id() {
+    return this.#name;
+  }
+
+  render = undefined;
 }
 
-function constant(id: ConstantID) {
+function constant(id: ConstantName) {
   return new NodeAPI(new ConstantNode(id));
 }
 

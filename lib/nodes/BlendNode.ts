@@ -1,5 +1,5 @@
 import { privateAPI } from "../privateAPI";
-import { BaseConfig, INode } from "../types";
+import { BaseConfig } from "../types";
 import { renderAttrs } from "../utils";
 import { NodeAPI } from "../NodeAPI";
 import { AbstractNode } from "./AbstractNode";
@@ -30,7 +30,7 @@ export type ConvenienceBlendConfig = Omit<ShorthandBlendConfig, "mode">;
 
 export class BlendNode extends AbstractNode<
   "blend",
-  [INode, INode],
+  [AbstractNode, AbstractNode],
   BlendConfig
 > {
   type = "blend" as const;

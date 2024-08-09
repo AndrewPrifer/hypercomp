@@ -1,5 +1,5 @@
 import { privateAPI } from "../privateAPI";
-import { BaseConfig, INode } from "../types";
+import { BaseConfig } from "../types";
 import { renderAttrs } from "../utils";
 import { AbstractNode } from "./AbstractNode";
 import { NodeAPI } from "../NodeAPI";
@@ -13,7 +13,7 @@ export interface ShorthandBlurConfig extends BaseConfig {
   edgeMode?: "duplicate" | "wrap" | "none";
 }
 
-export class BlurNode extends AbstractNode<"blur", [INode], BlurConfig> {
+export class BlurNode extends AbstractNode<"blur", [AbstractNode], BlurConfig> {
   type = "blur" as const;
 
   render() {

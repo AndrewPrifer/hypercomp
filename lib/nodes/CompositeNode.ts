@@ -1,5 +1,5 @@
 import { privateAPI } from "../privateAPI";
-import { BaseConfig, INode } from "../types";
+import { BaseConfig } from "../types";
 import { mapKeys, renderAttrs } from "../utils";
 import { AbstractNode } from "./AbstractNode";
 import { NodeAPI } from "../NodeAPI";
@@ -31,7 +31,7 @@ const keyMap = {
 
 export class CompositeNode extends AbstractNode<
   "composite",
-  [INode, INode],
+  [AbstractNode, AbstractNode],
   CompositeConfig
 > {
   type = "composite" as const;

@@ -3,7 +3,7 @@ import { PointLight } from "../lights/PointLight";
 import { Spotlight } from "../lights/Spotlight";
 import { NodeAPI } from "../NodeAPI";
 import { privateAPI } from "../privateAPI";
-import { BaseConfig, INode } from "../types";
+import { BaseConfig } from "../types";
 import { renderAttrs, mapKeys, omitKeys } from "../utils";
 import { AbstractNode } from "./AbstractNode";
 
@@ -31,7 +31,7 @@ const keyMap = {
 
 export class SpecularLightingNode extends AbstractNode<
   "specular-lighting",
-  [INode],
+  [AbstractNode],
   SpecularLightingConfig
 > {
   type = "specular-lighting" as const;

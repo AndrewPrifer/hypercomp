@@ -1,7 +1,7 @@
 import { NodeAPI } from "../NodeAPI";
 import { privateAPI } from "../privateAPI";
-import { BaseConfig, INode } from "../types";
-import { renderAttrs, mapKeys } from "../utils";
+import { BaseConfig } from "../types";
+import { renderAttrs } from "../utils";
 import { AbstractNode } from "./AbstractNode";
 
 export interface ConvolveMatrixConfig extends BaseConfig {
@@ -20,7 +20,7 @@ export interface ShorthandConvolveMatrixConfig
 
 export class ConvolveMatrixNode extends AbstractNode<
   "convolve-matrix",
-  [INode],
+  [AbstractNode],
   ConvolveMatrixConfig
 > {
   type = "convolve-matrix" as const;

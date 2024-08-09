@@ -1,18 +1,32 @@
-import { NodeType, ID, INode } from "../types";
+import { NodeType, ID, RenderableNode } from "../types";
+import { buildRenderQueue } from "../utils";
 
 export abstract class AbstractNode<
   Type extends NodeType = any,
-  Input extends INode[] = any,
+  Input extends AbstractNode[] = any,
   Config extends {} = any
-> implements INode<Type, Input, Config>
-{
+> {
   abstract type: Type;
-  id: ID = crypto.randomUUID();
+  abstract render?(): string;
+  #internalID: ID = crypto.randomUUID();
   input: Input;
   config: Config;
 
   constructor({ input, config }: { input: Input; config: Config }) {
     this.input = input;
     this.config = config;
+  }
+
+  renderRoot(): string {
+    const effects = buildRenderQueue(this)
+      .filter((node): node is RenderableNode => !!node.render)
+      .map((node) => node.render())
+      .join("\n");
+
+    return effects;
+  }
+
+  get id() {
+    return `${this.type}-${this.#internalID}`;
   }
 }

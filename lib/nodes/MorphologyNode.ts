@@ -1,5 +1,5 @@
 import { privateAPI } from "../privateAPI";
-import { BaseConfig, INode } from "../types";
+import { BaseConfig } from "../types";
 import { renderAttrs } from "../utils";
 import { AbstractNode } from "./AbstractNode";
 import { NodeAPI } from "../NodeAPI";
@@ -13,7 +13,7 @@ export type ConvenienceMorphologyConfig = BaseConfig;
 
 export class MorphologyNode extends AbstractNode<
   "morphology",
-  [INode],
+  [AbstractNode],
   MorphologyConfig
 > {
   type = "morphology" as const;

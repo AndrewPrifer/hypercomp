@@ -1,15 +1,15 @@
 import { ID } from "./types";
-import { INode } from "./types";
+import { AbstractNode } from "./types";
 
 /**
  * Build a render queue for a given node by traversing through its dependencies.
  * The render ensures that depended nodes always come before their dependents.
  */
-export function buildRenderQueue(node: INode): INode[] {
-  const uniqueNodes: INode[] = [];
+export function buildRenderQueue(node: AbstractNode): AbstractNode[] {
+  const uniqueNodes: AbstractNode[] = [];
   const uniqueIds: Set<ID> = new Set();
 
-  function traverseHelper(currentNode: INode) {
+  function traverseHelper(currentNode: AbstractNode) {
     if (uniqueIds.has(currentNode.id)) {
       // If node already exists, remove and place at the start of the queue, we have a new dependent.
       uniqueNodes.splice(

@@ -1,6 +1,6 @@
 import { NodeAPI } from "../NodeAPI";
 import { privateAPI } from "../privateAPI";
-import { BaseConfig, INode } from "../types";
+import { BaseConfig } from "../types";
 import { renderAttrs, mapKeys, omitKeys } from "../utils";
 import { AbstractNode } from "./AbstractNode";
 
@@ -38,7 +38,7 @@ const componentTransferKeyMap = {
 
 export class ComponentTransferNode extends AbstractNode<
   "component-transfer",
-  [INode],
+  [AbstractNode],
   ComponentTransferConfig
 > {
   type = "component-transfer" as const;
