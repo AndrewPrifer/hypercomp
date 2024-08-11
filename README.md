@@ -87,7 +87,6 @@ const withLight = flood("black").screen(
   env.sourceAlpha.blur(1).specular(pointLight({ x: 460, y: 110, z: 680 }), {
     strength: 4,
     shininess: 20,
-    color: "white",
   })
 );
 
