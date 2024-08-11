@@ -25,7 +25,7 @@ The following example creates a squiggly line around the source image by extract
 ![Hypercomp Demo 2024-08-06T23 06 08@2x](https://github.com/user-attachments/assets/adacb2ac-87bc-4e41-a796-441f48a797e5)
 
 ```tsx
-import { env, flood, filter, fractalNoise, css } from "hypercomp";
+import { env, flood, fractalNoise, css } from "hypercomp";
 
 const radius = 2;
 const width = 2;
@@ -58,7 +58,7 @@ The following example takes the source, extracts sharp edges, applies a dilation
 ![Hypercomp Demo 2024-08-06T23 31 10@2x](https://github.com/user-attachments/assets/f95fdcd8-2035-480a-9a79-2380342a9dad)
 
 ```tsx
-import { env, filter, merge, css } from "hypercomp";
+import { env, merge, css } from "hypercomp";
 
 const withEdges = merge([
   env.source,
@@ -81,7 +81,7 @@ The following example blurs the source image, uses it as the bump map for lighti
 ![Screenshot 2024-08-07 at 12 46 25](https://github.com/user-attachments/assets/2d2a5272-d52a-4bf1-9cd0-571145043f7b)
 
 ```tsx
-import { env, flood, filter, css, pointLight } from "hypercomp";
+import { env, flood, css, pointLight } from "hypercomp";
 
 const withLight = flood("black").screen(
   env.sourceAlpha.blur(1).specular(pointLight({ x: 460, y: 110, z: 680 }), {
