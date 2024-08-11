@@ -152,9 +152,9 @@ return <div style={style}>hello world</div>;
 - [Lighting functions](#lighting-functions)
   - [`specular(input, light, config?)`](#specularinput-light-config)
   - [`diffuse(input, light, config?)`](#diffuseinput-light-config)
-  - [`pointLight(config)`](#pointlightconfig)
-  - [`distantLight(config)`](#distantlightconfig)
-  - [`spotlight(config)`](#spotlightconfig)
+  - [`pointLight(config?)`](#pointlightconfig)
+  - [`distantLight(config?)`](#distantlightconfig)
+  - [`spotlight(config?)`](#spotlightconfig)
 - [Color manipulation functions](#color-manipulation-functions)
   - [`colorMatrix(input, matrix, config?)`](#colormatrixinput-matrix-config)
   - [`componentTransfer(input, config?)`](#componenttransferinput-config)
@@ -616,7 +616,7 @@ Applies a diffuse lighting effect to the input. You should composite it using th
 
 The light source is defined using the following functions.
 
-#### `pointLight(config)`
+#### `pointLight(config?)`
 
 Creates a point light source.
 
@@ -624,14 +624,14 @@ Creates a point light source.
 - **y**: `number` - Y coordinate.
 - **z**: `number` - Z coordinate.
 
-#### `distantLight(config)`
+#### `distantLight(config?)`
 
 Creates a distant light source.
 
 - **azimuth**: `number` - Azimuth angle.
 - **elevation**: `number` - Elevation angle.
 
-#### `spotlight(config)`
+#### `spotlight(config?)`
 
 Creates a spot light source.
 
