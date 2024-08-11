@@ -577,7 +577,7 @@ Saturates the input.
 
 ### Lighting functions
 
-Lighting functions take an input and a light source, and apply a lighting effect to the input.
+Lighting functions take an input and a light source, and create a lighting effect using the input as height map.
 
 Example:
 
