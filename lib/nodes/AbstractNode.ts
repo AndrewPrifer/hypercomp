@@ -1,5 +1,5 @@
 import { NodeType, ID, RenderableNode } from "../types";
-import { buildRenderQueue } from "../utils";
+import { buildRenderQueue, makeID } from "../utils";
 
 export abstract class AbstractNode<
   Type extends NodeType = any,
@@ -8,7 +8,7 @@ export abstract class AbstractNode<
 > {
   abstract type: Type;
   abstract render?(): string;
-  #internalID: ID = crypto.randomUUID();
+  #internalID: ID = makeID();
   input: Input;
   config: Config;
 

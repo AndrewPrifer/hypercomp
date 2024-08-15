@@ -51,3 +51,7 @@ export function omitKeys(object: any, keys: string[]) {
     return keys.includes(key) ? acc : { ...acc, [key]: value };
   }, {});
 }
+
+export function makeID() {
+  return Math.random().toString(36).slice(2);
+}
