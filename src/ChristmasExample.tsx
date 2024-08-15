@@ -16,7 +16,7 @@ export function ChristmasExample() {
       .over(env.sourceAlpha)
       .in(env.sourceAlpha),
     env.sourceAlpha
-      .blur(3)
+      .blur(4)
       .specular(pointLight({ x: 0, y: -25000, z: 1 }), {
         scale: 4,
         strength: 2,
@@ -34,7 +34,7 @@ export function ChristmasExample() {
 
   return (
     <>
-      <HelloExample effect={effect} className="bg-[#69c95c]" />
+      <HelloExample effect={effect} className="bg-[#64ae5a]" />
     </>
   );
 }
