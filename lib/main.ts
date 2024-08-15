@@ -17,7 +17,8 @@ function toDataURL(filter: FilterAPI): string {
   filter[privateAPI].attributes.id = oldId;
   return `data:image/svg+xml;utf8,${encodeURI(svg)
     .replaceAll("(", "%28")
-    .replaceAll(")", "%29")}#${id}`;
+    .replaceAll(")", "%29")
+    .replaceAll("#", "%23")}#${id}`;
 }
 
 let svgElement: SVGSVGElement | null = null;
@@ -146,7 +147,7 @@ export { distantLight } from "./lights/DistantLight";
 
 export { filter } from "./Filter";
 
-export { NodeAPI as Node } from "./NodeAPI";
+export { NodeAPI as Effect } from "./NodeAPI";
 export { FilterAPI as Filter } from "./Filter";
 
 export { css, unmount, compile };

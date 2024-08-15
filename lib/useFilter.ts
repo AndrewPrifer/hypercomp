@@ -1,18 +1,19 @@
-import { useEffect, useState } from "react";
+import { useLayoutEffect, useState } from "react";
 import { Filter, unmount } from "hypercomp";
 import { css } from "hypercomp";
-import { Node } from "hypercomp";
+import { Effect } from "hypercomp";
 
-export function useFilter(filter: Filter | Node) {
+export function useFilter(filter: Filter | Effect) {
   const [filterKey] = useState(crypto.randomUUID());
+  const [url, setUrl] = useState("");
 
-  useEffect(() => {
-    css(filter, filterKey);
+  useLayoutEffect(() => {
+    setUrl(css(filter, filterKey));
 
     return () => {
       unmount(filterKey);
     };
-  });
+  }, [filter, filterKey]);
 
-  return css(filter, filterKey);
+  return url;
 }
