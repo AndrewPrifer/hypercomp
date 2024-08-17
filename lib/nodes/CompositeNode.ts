@@ -2,7 +2,7 @@ import { privateAPI } from "../privateAPI";
 import { BaseConfig } from "../types";
 import { mapKeys, renderAttrs } from "../utils";
 import { AbstractNode } from "./AbstractNode";
-import { NodeAPI } from "../NodeAPI";
+import { Effect } from "../Effect";
 
 export interface CompositeConfig extends BaseConfig {
   operator?: "over" | "in" | "out" | "atop" | "xor" | "arithmetic";
@@ -44,11 +44,11 @@ export class CompositeNode extends AbstractNode<
 }
 
 function composite(
-  node1: NodeAPI,
-  node2: NodeAPI,
+  node1: Effect,
+  node2: Effect,
   config: ShorthandCompositeConfig = {}
 ) {
-  return new NodeAPI(
+  return new Effect(
     new CompositeNode({
       input: [node1[privateAPI], node2[privateAPI]],
       config: mapKeys(config, keyMap),
@@ -65,8 +65,8 @@ function composite(
  * @returns The composited node.
  */
 export function over(
-  node1: NodeAPI,
-  node2: NodeAPI,
+  node1: Effect,
+  node2: Effect,
   config: ConvenienceCompositeConfig = {}
 ) {
   return composite(node1, node2, { op: "over", ...config });
@@ -81,8 +81,8 @@ export function over(
  * @returns The composited node.
  */
 export function inside(
-  node1: NodeAPI,
-  node2: NodeAPI,
+  node1: Effect,
+  node2: Effect,
   config: ConvenienceCompositeConfig = {}
 ) {
   return composite(node1, node2, { op: "in", ...config });
@@ -97,8 +97,8 @@ export function inside(
  * @returns The composited node.
  */
 export function out(
-  node1: NodeAPI,
-  node2: NodeAPI,
+  node1: Effect,
+  node2: Effect,
   config: ConvenienceCompositeConfig = {}
 ) {
   return composite(node1, node2, { op: "out", ...config });
@@ -113,8 +113,8 @@ export function out(
  * @returns The composited node.
  */
 export function atop(
-  node1: NodeAPI,
-  node2: NodeAPI,
+  node1: Effect,
+  node2: Effect,
   config: ConvenienceCompositeConfig = {}
 ) {
   return composite(node1, node2, { op: "atop", ...config });
@@ -129,8 +129,8 @@ export function atop(
  * @returns The composited node.
  */
 export function xor(
-  node1: NodeAPI,
-  node2: NodeAPI,
+  node1: Effect,
+  node2: Effect,
   config: ConvenienceCompositeConfig = {}
 ) {
   return composite(node1, node2, { op: "xor", ...config });
@@ -145,8 +145,8 @@ export function xor(
  * @returns The composited node.
  */
 export function arithmetic(
-  node1: NodeAPI,
-  node2: NodeAPI,
+  node1: Effect,
+  node2: Effect,
   config: ConvenienceCompositeConfig & {
     k1?: number;
     k2?: number;

@@ -1,4 +1,4 @@
-import { NodeAPI } from "../NodeAPI";
+import { Effect } from "../Effect";
 import { privateAPI } from "../privateAPI";
 import { BaseConfig } from "../types";
 import { renderAttrs, mapKeys } from "../utils";
@@ -48,11 +48,11 @@ export class DropShadowNode extends AbstractNode<
  * @returns The node with the drop shadow applied.
  */
 export function shadow(
-  node: NodeAPI,
+  node: Effect,
   stdDeviation: number = 2,
   config: ShorthandDropShadowConfig = {}
 ) {
-  return new NodeAPI(
+  return new Effect(
     new DropShadowNode({
       input: [node[privateAPI]],
       config: mapKeys({ ...config, stdDeviation }, dropShadowKeyMap),

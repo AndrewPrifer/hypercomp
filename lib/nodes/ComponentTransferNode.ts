@@ -1,4 +1,4 @@
-import { NodeAPI } from "../NodeAPI";
+import { Effect } from "../Effect";
 import { privateAPI } from "../privateAPI";
 import { BaseConfig } from "../types";
 import { renderAttrs, mapKeys, omitKeys } from "../utils";
@@ -67,10 +67,10 @@ export class ComponentTransferNode extends AbstractNode<
  * @returns The node with the component transfer applied.
  */
 export function componentTransfer(
-  node: NodeAPI,
+  node: Effect,
   config: ShorthandComponentTransferConfig = {}
 ) {
-  return new NodeAPI(
+  return new Effect(
     new ComponentTransferNode({
       input: [node[privateAPI]],
       config: mapKeys(config, componentTransferKeyMap),

@@ -1,4 +1,4 @@
-import { NodeAPI } from "../NodeAPI";
+import { Effect } from "../Effect";
 import { privateAPI } from "../privateAPI";
 import { BaseConfig } from "../types";
 import { renderAttrs } from "../utils";
@@ -40,11 +40,11 @@ export class ConvolveMatrixNode extends AbstractNode<
  * @returns The node with the convolution matrix applied.
  */
 export function convolve(
-  node: NodeAPI,
+  node: Effect,
   kernel: number[],
   config: ShorthandConvolveMatrixConfig = {}
 ) {
-  return new NodeAPI(
+  return new Effect(
     new ConvolveMatrixNode({
       input: [node[privateAPI]],
       config: { ...config, kernelMatrix: kernel },

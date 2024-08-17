@@ -1,7 +1,7 @@
 import { privateAPI } from "../privateAPI";
 import { BaseConfig } from "../types";
 import { renderAttrs } from "../utils";
-import { NodeAPI } from "../NodeAPI";
+import { Effect } from "../Effect";
 import { AbstractNode } from "./AbstractNode";
 
 export interface BlendConfig extends BaseConfig {
@@ -42,11 +42,11 @@ export class BlendNode extends AbstractNode<
 }
 
 function blend(
-  node1: NodeAPI,
-  node2: NodeAPI,
+  node1: Effect,
+  node2: Effect,
   config: ShorthandBlendConfig = {}
 ) {
-  return new NodeAPI(
+  return new Effect(
     new BlendNode({
       input: [node1[privateAPI], node2[privateAPI]],
       config,
@@ -55,11 +55,8 @@ function blend(
 }
 
 function creacteBlendFn(mode: BlendConfig["mode"]) {
-  return (
-    node1: NodeAPI,
-    node2: NodeAPI,
-    config: ConvenienceBlendConfig = {}
-  ) => blend(node1, node2, { ...config, mode });
+  return (node1: Effect, node2: Effect, config: ConvenienceBlendConfig = {}) =>
+    blend(node1, node2, { ...config, mode });
 }
 
 /**

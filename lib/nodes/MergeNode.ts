@@ -2,7 +2,7 @@ import { privateAPI } from "../privateAPI";
 import { BaseConfig } from "../types";
 import { renderAttrs } from "../utils";
 import { AbstractNode } from "./AbstractNode";
-import { NodeAPI } from "../NodeAPI";
+import { Effect } from "../Effect";
 
 export interface MergeConfig extends BaseConfig {}
 
@@ -32,8 +32,8 @@ export class MergeNode extends AbstractNode<
  * @param config
  * @returns The merged node.
  */
-export function merge(nodes: NodeAPI[], config: ShorthandMergeConfig = {}) {
-  return new NodeAPI(
+export function merge(nodes: Effect[], config: ShorthandMergeConfig = {}) {
+  return new Effect(
     new MergeNode({ input: nodes.map((n) => n[privateAPI]), config })
   );
 }

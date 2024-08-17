@@ -2,7 +2,7 @@ import { privateAPI } from "../privateAPI";
 import { BaseConfig } from "../types";
 import { renderAttrs } from "../utils";
 import { AbstractNode } from "./AbstractNode";
-import { NodeAPI } from "../NodeAPI";
+import { Effect } from "../Effect";
 
 export interface MorphologyConfig {
   operator?: "erode" | "dilate";
@@ -23,8 +23,8 @@ export class MorphologyNode extends AbstractNode<
   }
 }
 
-function morph(node: NodeAPI, config: MorphologyConfig = {}) {
-  return new NodeAPI(
+function morph(node: Effect, config: MorphologyConfig = {}) {
+  return new Effect(
     new MorphologyNode({
       input: [node[privateAPI]],
       config,
@@ -41,7 +41,7 @@ function morph(node: NodeAPI, config: MorphologyConfig = {}) {
  * @returns The eroded node.
  */
 export function erode(
-  node: NodeAPI,
+  node: Effect,
   radius: number,
   config: ConvenienceMorphologyConfig = {}
 ) {
@@ -57,7 +57,7 @@ export function erode(
  * @returns The dilated node.
  */
 export function dilate(
-  node: NodeAPI,
+  node: Effect,
   radius: number,
   config: ConvenienceMorphologyConfig = {}
 ) {

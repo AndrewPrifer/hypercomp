@@ -2,7 +2,7 @@ import { privateAPI } from "../privateAPI";
 import { BaseConfig } from "../types";
 import { mapKeys, renderAttrs } from "../utils";
 import { AbstractNode } from "./AbstractNode";
-import { NodeAPI } from "../NodeAPI";
+import { Effect } from "../Effect";
 
 export interface DisplacementMapConfig extends BaseConfig {
   scale?: number;
@@ -44,12 +44,12 @@ export class DisplacementMapNode extends AbstractNode<
  * @returns The displaced node.
  */
 export function displace(
-  node1: NodeAPI,
-  node2: NodeAPI,
+  node1: Effect,
+  node2: Effect,
   scale: number,
   config: ShorthandDisplacementMapConfig = {}
 ) {
-  return new NodeAPI(
+  return new Effect(
     new DisplacementMapNode({
       input: [node1[privateAPI], node2[privateAPI]],
       config: mapKeys({ ...config, scale }, keyMap),

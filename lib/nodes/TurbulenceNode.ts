@@ -1,7 +1,7 @@
 import { BaseConfig } from "../types";
 import { mapKeys, renderAttrs } from "../utils";
 import { AbstractNode } from "./AbstractNode";
-import { NodeAPI } from "../NodeAPI";
+import { Effect } from "../Effect";
 
 interface TurbulenceConfig extends BaseConfig {
   baseFrequency?: number;
@@ -47,7 +47,7 @@ function internalTurbulence(
   frequency: number,
   config: ShorthandTurbulenceConfig = {}
 ) {
-  return new NodeAPI(
+  return new Effect(
     new TurbulenceNode({
       input: [],
       config: mapKeys({ ...config, baseFrequency: frequency }, keyMap),
@@ -56,7 +56,7 @@ function internalTurbulence(
 }
 
 /**
- * Apply a turbulence effect to the input node.
+ * Create a turbulence effect.
  *
  * @param frequency The base frequency of the turbulence.
  * @param config
@@ -70,7 +70,7 @@ export function turbulence(
 }
 
 /**
- * Apply a fractal noise effect to the input node.
+ * Create a fractal noise effect.
  *
  * @param frequency The base frequency of the noise.
  * @param config

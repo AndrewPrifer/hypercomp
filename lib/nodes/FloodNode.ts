@@ -1,7 +1,7 @@
 import { BaseConfig } from "../types";
 import { mapKeys, renderAttrs } from "../utils";
 import { AbstractNode } from "./AbstractNode";
-import { NodeAPI } from "../NodeAPI";
+import { Effect } from "../Effect";
 
 export interface FloodConfig extends BaseConfig {
   "flood-color"?: string;
@@ -30,8 +30,15 @@ export class FloodNode extends AbstractNode<"flood", [], FloodConfig> {
   }
 }
 
+/**
+ * Create a flood effect.
+ *
+ * @param color The color of the flood.
+ * @param config
+ * @returns The flood effect.
+ */
 export function flood(color: string, config: ConvenienceFloodConfig = {}) {
-  return new NodeAPI(
+  return new Effect(
     new FloodNode({ input: [], config: mapKeys({ color, ...config }, keyMap) })
   );
 }

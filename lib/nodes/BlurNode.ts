@@ -2,7 +2,7 @@ import { privateAPI } from "../privateAPI";
 import { BaseConfig } from "../types";
 import { renderAttrs } from "../utils";
 import { AbstractNode } from "./AbstractNode";
-import { NodeAPI } from "../NodeAPI";
+import { Effect } from "../Effect";
 
 export interface BlurConfig extends BaseConfig {
   stdDeviation?: number;
@@ -31,11 +31,11 @@ export class BlurNode extends AbstractNode<"blur", [AbstractNode], BlurConfig> {
  * @returns The blurred node.
  */
 export function blur(
-  node: NodeAPI,
+  node: Effect,
   stdDeviation: number,
   config: ShorthandBlurConfig = {}
 ) {
-  return new NodeAPI(
+  return new Effect(
     new BlurNode({
       input: [node[privateAPI]],
       config: { ...config, stdDeviation },

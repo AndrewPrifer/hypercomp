@@ -1,9 +1,9 @@
-import { fractalNoise, merge, flood, env } from "hypercomp";
+import { Effect } from "hypercomp";
 import { HelloExample } from "./HelloExample";
 import { bevel } from "./utils";
 
 export function WaterColorExample() {
-  const texture = fractalNoise(0.05, {
+  const texture = Effect.fractalNoise(0.05, {
     octaves: 3,
     seed: 0,
   });
@@ -16,14 +16,14 @@ export function WaterColorExample() {
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1.7, 1.8,
   ]);
 
-  const outline = env.source.dilate(3);
+  const outline = Effect.source.dilate(3);
 
   // prettier-ignore
-  const beveled = bevel(env.source, 8)
+  const beveled = bevel(Effect.source, 8)
 
-  const effect = merge([
+  const effect = Effect.merge([
     // Bevel fill
-    flood("#666", { opacity: 0.4 }).in(
+    Effect.flood("#666", { opacity: 0.4 }).in(
       beveled.offset({ dx: -9, dy: -9 }).out(outline).displace(texture, 17)
     ),
     // Bevel outline
@@ -35,13 +35,13 @@ export function WaterColorExample() {
       .offset({ dx: -7, dy: -7 })
       .out(outline),
     // Fill
-    flood("#ddd", { opacity: 0.75 }).in(
+    Effect.flood("#ddd", { opacity: 0.75 }).in(
       outlineTexture.in(
-        env.sourceAlpha.offset({ dx: -3, dy: 4 }).displace(texture, 17)
+        Effect.sourceAlpha.offset({ dx: -3, dy: 4 }).displace(texture, 17)
       )
     ),
     // Outline
-    fillTexture.arithmetic(outline.out(env.source).displace(texture, 7), {
+    fillTexture.arithmetic(outline.out(Effect.source).displace(texture, 7), {
       k2: -1,
       k3: 1,
     }),

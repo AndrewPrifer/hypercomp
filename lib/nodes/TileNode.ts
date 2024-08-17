@@ -2,7 +2,7 @@ import { privateAPI } from "../privateAPI";
 import { BaseConfig } from "../types";
 import { renderAttrs } from "../utils";
 import { AbstractNode } from "./AbstractNode";
-import { NodeAPI } from "../NodeAPI";
+import { Effect } from "../Effect";
 
 export interface TileConfig extends BaseConfig {}
 
@@ -24,6 +24,6 @@ export class TileNode extends AbstractNode<"tile", [AbstractNode], TileConfig> {
  * @param config
  * @returns The tiled node.
  */
-export function tile(node: NodeAPI, config: ShorthandTileConfig = {}) {
-  return new NodeAPI(new TileNode({ input: [node[privateAPI]], config }));
+export function tile(node: Effect, config: ShorthandTileConfig = {}) {
+  return new Effect(new TileNode({ input: [node[privateAPI]], config }));
 }

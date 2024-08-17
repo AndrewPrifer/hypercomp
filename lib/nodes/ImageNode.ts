@@ -1,4 +1,4 @@
-import { NodeAPI } from "../NodeAPI";
+import { Effect } from "../Effect";
 import { BaseConfig } from "../types";
 import { renderAttrs } from "../utils";
 import { AbstractNode } from "./AbstractNode";
@@ -24,11 +24,18 @@ export class ImageNode extends AbstractNode<"image", [], ImageConfig> {
   }
 }
 
+/**
+ * Create an image effect.
+ *
+ * @param href The URL of the image.
+ * @param config
+ * @returns The image effect.
+ */
 export function image(
   href: string,
   config: Omit<ShorthandImageConfig, "href"> = {}
 ) {
-  return new NodeAPI(
+  return new Effect(
     new ImageNode({
       input: [],
       config: {

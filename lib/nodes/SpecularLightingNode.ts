@@ -1,7 +1,7 @@
 import { DistantLight } from "../lights/DistantLight";
 import { PointLight } from "../lights/PointLight";
 import { Spotlight } from "../lights/Spotlight";
-import { NodeAPI } from "../NodeAPI";
+import { Effect } from "../Effect";
 import { privateAPI } from "../privateAPI";
 import { BaseConfig } from "../types";
 import { renderAttrs, mapKeys, omitKeys } from "../utils";
@@ -60,11 +60,11 @@ export class SpecularLightingNode extends AbstractNode<
  * @returns The node with the specular lighting effect applied.
  */
 export function specular(
-  node: NodeAPI,
+  node: Effect,
   light: PointLight | DistantLight | Spotlight,
   config: ShorthandSpecularLightingConfig = {}
 ) {
-  return new NodeAPI(
+  return new Effect(
     new SpecularLightingNode({
       input: [node[privateAPI]],
       config: mapKeys({ ...config, light }, keyMap),

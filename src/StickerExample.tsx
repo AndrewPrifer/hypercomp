@@ -1,18 +1,18 @@
-import { merge, flood, env } from "hypercomp";
+import { Effect } from "hypercomp";
 import { HelloExample } from "./HelloExample";
 
 export function StickerExample({ edgeFactor = 3.2 }: { edgeFactor?: number }) {
-  const effect = merge([
-    flood("gray").in(
-      env.sourceAlpha
+  const effect = Effect.merge([
+    Effect.flood("gray").in(
+      Effect.sourceAlpha
         .erode(1 * edgeFactor)
         .dilate(3.5 * edgeFactor)
         .blur(1.5)
     ),
-    flood("#fff")
-      .in(env.sourceAlpha.erode(1 * edgeFactor))
+    Effect.flood("#fff")
+      .in(Effect.sourceAlpha.erode(1 * edgeFactor))
       .dilate(3 * edgeFactor),
-    flood("#ede739").in(env.sourceAlpha),
+    Effect.flood("#ede739").in(Effect.sourceAlpha),
   ]);
 
   return <HelloExample effect={effect} className="bg-[#a07edf]" />;

@@ -1,4 +1,4 @@
-import { NodeAPI } from "../NodeAPI";
+import { Effect } from "../Effect";
 import { privateAPI } from "../privateAPI";
 import { BaseConfig } from "../types";
 import { renderAttrs } from "../utils";
@@ -24,8 +24,8 @@ export class ColorMatrixNode extends AbstractNode<
   }
 }
 
-function internalColorMatrix(node: NodeAPI, config: ColorMatrixConfig) {
-  return new NodeAPI(
+function internalColorMatrix(node: Effect, config: ColorMatrixConfig) {
+  return new Effect(
     new ColorMatrixNode({
       input: [node[privateAPI]],
       config,
@@ -42,7 +42,7 @@ function internalColorMatrix(node: NodeAPI, config: ColorMatrixConfig) {
  * @returns The node with the color matrix applied.
  */
 export function colorMatrix(
-  node: NodeAPI,
+  node: Effect,
   matrix: number[],
   config: ShorthandColorMatrixConfig = {}
 ) {
@@ -62,7 +62,7 @@ export function colorMatrix(
  * @returns The node with the saturation applied.
  */
 export function saturate(
-  node: NodeAPI,
+  node: Effect,
   value: number,
   config: ShorthandColorMatrixConfig = {}
 ) {
@@ -82,7 +82,7 @@ export function saturate(
  * @returns The node with the hue rotated.
  */
 export function hueRotate(
-  node: NodeAPI,
+  node: Effect,
   angle: number,
   config: ShorthandColorMatrixConfig = {}
 ) {
@@ -101,7 +101,7 @@ export function hueRotate(
  * @returns The node with the luminance converted to alpha.
  */
 export function luminanceToAlpha(
-  node: NodeAPI,
+  node: Effect,
   config: ShorthandColorMatrixConfig = {}
 ) {
   return internalColorMatrix(node, { type: "luminanceToAlpha", ...config });

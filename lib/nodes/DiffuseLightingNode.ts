@@ -1,7 +1,7 @@
 import { DistantLight } from "../lights/DistantLight";
 import { PointLight } from "../lights/PointLight";
 import { Spotlight } from "../lights/Spotlight";
-import { NodeAPI } from "../NodeAPI";
+import { Effect } from "../Effect";
 import { privateAPI } from "../privateAPI";
 import { BaseConfig } from "../types";
 import { renderAttrs, mapKeys, omitKeys } from "../utils";
@@ -57,11 +57,11 @@ export class DiffuseLightingNode extends AbstractNode<
  * @returns The node with the diffuse lighting effect applied.
  */
 export function diffuse(
-  node: NodeAPI,
+  node: Effect,
   light: PointLight | DistantLight | Spotlight,
   config: ShorthandDiffuseLightingConfig = {}
 ) {
-  return new NodeAPI(
+  return new Effect(
     new DiffuseLightingNode({
       input: [node[privateAPI]],
       config: mapKeys({ ...config, light }, keyMap),

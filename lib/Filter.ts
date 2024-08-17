@@ -1,4 +1,4 @@
-import { NodeAPI } from "./NodeAPI";
+import { Effect } from "./Effect";
 import { AbstractNode } from "./nodes/AbstractNode";
 import { privateAPI } from "./privateAPI";
 import { renderAttrs } from "./utils";
@@ -15,7 +15,7 @@ export interface SVGFilterAttributes {
   [key: string]: string | number | undefined; // Allow additional attributes
 }
 
-export class Filter {
+export class FilterInternal {
   root: AbstractNode;
   attributes: SVGFilterAttributes;
 
@@ -32,10 +32,10 @@ export class Filter {
   }
 }
 
-export class FilterAPI {
-  [privateAPI]: Filter;
+export class Filter {
+  [privateAPI]: FilterInternal;
 
-  constructor(filter: Filter) {
+  constructor(filter: FilterInternal) {
     this[privateAPI] = filter;
   }
 }
@@ -47,6 +47,6 @@ export class FilterAPI {
  * @param attributes Additional attributes for the filter element.
  * @returns The filter API.
  */
-export function filter(root: NodeAPI, attributes: SVGFilterAttributes = {}) {
-  return new FilterAPI(new Filter(root[privateAPI], attributes));
+export function filter(root: Effect, attributes: SVGFilterAttributes = {}) {
+  return new Filter(new FilterInternal(root[privateAPI], attributes));
 }

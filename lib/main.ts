@@ -1,15 +1,15 @@
-import { FilterAPI } from "./Filter";
-import { NodeAPI } from "./NodeAPI";
+import { Filter } from "./Filter";
+import { Effect } from "./Effect";
 import { privateAPI } from "./privateAPI";
 import { filter as createFilter } from "./Filter";
 
-function toSVG(filter: FilterAPI): string {
+function toSVG(filter: Filter): string {
   return `<svg xmlns="http://www.w3.org/2000/svg">${filter[
     privateAPI
   ].render()}</svg>`;
 }
 
-function toDataURL(filter: FilterAPI): string {
+function toDataURL(filter: Filter): string {
   const oldId = filter[privateAPI].attributes.id;
   const id = "filter";
   filter[privateAPI].attributes.id = id;
@@ -30,8 +30,8 @@ function createFilterElementID(key: string): string {
   return `hypercomp-${randomStuff}-${key}`;
 }
 
-function css(filter: FilterAPI | NodeAPI, key?: string): string {
-  if (filter instanceof NodeAPI) {
+function css(filter: Filter | Effect, key?: string): string {
+  if (filter instanceof Effect) {
     filter = createFilter(filter);
   }
 
@@ -89,65 +89,25 @@ function unmount(key: string) {
   }
 }
 
-function compile(filter: FilterAPI | NodeAPI): string {
-  if (filter instanceof FilterAPI) {
+function compile(filter: Filter | Effect): string {
+  if (filter instanceof Filter) {
     return filter[privateAPI].render();
   } else {
     return filter[privateAPI].renderRoot();
   }
 }
 
-export { constantNodes as env } from "./nodes/ConstantNode";
+import { spotlight } from "./lights/Spotlight";
+import { pointLight } from "./lights/PointLight";
+import { distantLight } from "./lights/DistantLight";
 
-export { blur } from "./nodes/BlurNode";
-export {
-  normal,
-  multiply,
-  screen,
-  darken,
-  lighten,
-  overlay,
-  colorDodge,
-  colorBurn,
-  hardLight,
-  softLight,
-  difference,
-  exclusion,
-  hue,
-  saturation,
-  color,
-  luminosity,
-} from "./nodes/BlendNode";
-export { colorMatrix } from "./nodes/ColorMatrixNode";
-export { componentTransfer } from "./nodes/ComponentTransferNode";
-export {
-  over,
-  inside,
-  out,
-  xor,
-  atop,
-  arithmetic,
-} from "./nodes/CompositeNode";
-export { convolve } from "./nodes/ConvolveMatrixNode";
-export { diffuse } from "./nodes/DiffuseLightingNode";
-export { displace } from "./nodes/DisplacementMapNode";
-export { flood } from "./nodes/FloodNode";
-export { image } from "./nodes/ImageNode";
-export { merge } from "./nodes/MergeNode";
-export { dilate, erode } from "./nodes/MorphologyNode";
-export { offset } from "./nodes/OffsetNode";
-export { shadow } from "./nodes/DropShadowNode";
-export { specular } from "./nodes/SpecularLightingNode";
-export { tile } from "./nodes/TileNode";
-export { turbulence, fractalNoise } from "./nodes/TurbulenceNode";
+export const Light = {
+  spotlight,
+  pointLight,
+  distantLight,
+};
 
-export { spotlight } from "./lights/Spotlight";
-export { pointLight } from "./lights/PointLight";
-export { distantLight } from "./lights/DistantLight";
-
-export { filter } from "./Filter";
-
-export { NodeAPI as Effect } from "./NodeAPI";
-export { FilterAPI as Filter } from "./Filter";
+export { Effect } from "./Effect";
+export { Filter } from "./Filter";
 
 export { css, unmount, compile };

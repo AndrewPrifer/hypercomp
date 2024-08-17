@@ -1,4 +1,4 @@
-import { NodeAPI } from "../NodeAPI";
+import { Effect } from "../Effect";
 import { privateAPI } from "../privateAPI";
 import { BaseConfig } from "../types";
 import { renderAttrs } from "../utils";
@@ -31,8 +31,8 @@ export class OffsetNode extends AbstractNode<
  * @param config
  * @returns The offset node.
  */
-export function offset(node: NodeAPI, config: ShorthandOffsetConfig = {}) {
-  return new NodeAPI(
+export function offset(node: Effect, config: ShorthandOffsetConfig = {}) {
+  return new Effect(
     new OffsetNode({
       input: [node[privateAPI]],
       config,
