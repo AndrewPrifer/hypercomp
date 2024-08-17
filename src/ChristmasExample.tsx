@@ -1,4 +1,4 @@
-import { Effect, Light } from "hypercomp";
+import { Effect, Light, Transfer } from "hypercomp";
 import { HelloExample } from "./HelloExample";
 
 export function ChristmasExample() {
@@ -6,7 +6,7 @@ export function ChristmasExample() {
     Effect.sourceAlpha
       .blur(3)
       .componentTransfer({
-        a: { type: "linear", slope: 0.7, intercept: -0.1 },
+        a: Transfer.linear(0.7, -0.1),
       })
       .offset({ dy: 2 }),
     Effect.image("/christmasBg.svg", {
@@ -25,10 +25,10 @@ export function ChristmasExample() {
       })
       .blur(3)
       .componentTransfer({
-        a: { type: "linear", slope: 2.5, intercept: -1 },
+        a: Transfer.linear(2.5, -1),
       })
       .componentTransfer({
-        a: { type: "linear", slope: 2, intercept: -1 },
+        a: Transfer.linear(2, -1),
       }),
   ]);
 

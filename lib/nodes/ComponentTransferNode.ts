@@ -1,18 +1,18 @@
 import { Effect } from "../Effect";
 import { privateAPI } from "../privateAPI";
+import { DiscreteTransferFunction } from "../transferFunctions/DiscreteTransferFunction";
+import { GammaTransferFunction } from "../transferFunctions/GammaTransferFunction";
+import { LinearTransferFunction } from "../transferFunctions/LinearTransferFunction";
+import { TableTransferFunction } from "../transferFunctions/TableTransferFunction";
 import { BaseConfig } from "../types";
 import { renderAttrs, mapKeys, omitKeys } from "../utils";
 import { AbstractNode } from "./AbstractNode";
 
-interface TransferFunction {
-  type: "identity" | "table" | "discrete" | "linear" | "gamma";
-  slope?: number;
-  intercept?: number;
-  amplitude?: number;
-  exponent?: number;
-  offset?: number;
-  tableValues?: number[];
-}
+type TransferFunction =
+  | TableTransferFunction
+  | DiscreteTransferFunction
+  | LinearTransferFunction
+  | GammaTransferFunction;
 
 // ComponentTransferNode
 export interface ComponentTransferConfig extends BaseConfig {

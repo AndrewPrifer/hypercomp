@@ -107,6 +107,18 @@ export const Light = {
   distantLight,
 };
 
+import { tableTransferFunction } from "./transferFunctions/TableTransferFunction";
+import { gammaTransferFunction } from "./transferFunctions/GammaTransferFunction";
+import { linearTransferFunction } from "./transferFunctions/LinearTransferFunction";
+import { discreteTransferFunction } from "./transferFunctions/DiscreteTransferFunction";
+
+export const Transfer = {
+  table: tableTransferFunction,
+  gamma: gammaTransferFunction,
+  linear: linearTransferFunction,
+  discrete: discreteTransferFunction,
+};
+
 export { Effect } from "./Effect";
 export { Filter } from "./Filter";
 
