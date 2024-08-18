@@ -5,7 +5,7 @@ import { renderAttrs } from "../utils";
 import { AbstractNode } from "./AbstractNode";
 
 export interface ConvolveMatrixConfig extends BaseConfig {
-  order?: number;
+  order?: number | [number, number];
   kernelMatrix?: string | number[];
   divisor?: number;
   bias?: number;

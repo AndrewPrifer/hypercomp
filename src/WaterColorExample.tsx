@@ -33,10 +33,13 @@ export function WaterColorExample() {
       beveled.offset({ dx: -9, dy: -9 }).out(outline).displace(texture, 17)
     ),
     // Bevel outline
-    fillTexture
-      .arithmetic(beveled.dilate(2).out(beveled).displace(texture, 7), {
-        k2: -1,
-        k3: 1,
+    beveled
+      .dilate(2)
+      .out(beveled)
+      .displace(texture, 7)
+      .arithmetic(fillTexture, {
+        k2: 1,
+        k3: -1,
       })
       .offset({ dx: -7, dy: -7 })
       .out(outline),
@@ -47,9 +50,9 @@ export function WaterColorExample() {
       )
     ),
     // Outline
-    fillTexture.arithmetic(outline.out(Effect.source).displace(texture, 7), {
-      k2: -1,
-      k3: 1,
+    outline.out(Effect.source).displace(texture, 7).arithmetic(fillTexture, {
+      k2: 1,
+      k3: -1,
     }),
   ]);
 

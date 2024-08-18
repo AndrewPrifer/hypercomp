@@ -201,7 +201,6 @@ Creates an image.
 
 - **href**: `string` - URL of the image.
 - **config**: (optional) Configuration options.
-
   - **preserveAspectRatio**: `string` - Aspect ratio handling.
   - **crossorigin**: `"anonymous" | "use-credentials"` - Cross-origin settings.
 
@@ -295,6 +294,7 @@ Applies a convolution matrix.
 - **kernel**: `number[]` - Kernel matrix values.
 - **config**: (optional) Configuration options.
   - **edgeMode**: `"duplicate" | "wrap" | "none"` - Edge handling mode.
+  - **order**: `number | number[]` - Kernel size. If a single number is provided, it is assumed to be a square kernel. When an array is provided, the first element is the width and the second element is the height.
   - **bias**: `number` - Bias value.
   - **divisor**: `number` - Divisor value.
   - **targetX**: `number` - Target X coordinate.
@@ -324,7 +324,7 @@ Applies an offset.
 
 Adds a drop shadow.
 
-- **stdDeviation**: `number` (optional) - Standard deviation for the blur.
+- **stdDeviation**: `number` (optional) - Standard deviation for the blur. Defaults to 2.
 - **config**: (optional) Configuration options.
   - **dx**: `number` - Horizontal offset.
   - **dy**: `number` - Vertical offset.

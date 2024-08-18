@@ -40,7 +40,7 @@ export function renderAttrs(attrs: {}) {
   return Object.entries(attrs)
     .map(([key, value]) =>
       value !== undefined
-        ? `${key}="${Array.isArray(value) ? value.join(" ") : value}"`
+        ? `${key}="${Array.isArray(value) ? value.join(", ") : value}"`
         : ""
     )
     .join(" ");
