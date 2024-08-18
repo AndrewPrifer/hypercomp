@@ -9,9 +9,11 @@ export function StickerExample({ edgeFactor = 3.2 }: { edgeFactor?: number }) {
         .dilate(3.5 * edgeFactor)
         .blur(1.5)
     ),
+
     Effect.flood("#fff")
       .in(Effect.sourceAlpha.erode(1 * edgeFactor))
       .dilate(3 * edgeFactor),
+
     Effect.flood("#ede739").in(Effect.sourceAlpha),
   ]);
 

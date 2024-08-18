@@ -9,12 +9,14 @@ export function ChristmasExample() {
         a: Transfer.linear(0.7, -0.1),
       })
       .offset({ dy: 2 }),
+
     Effect.image("/christmasBg.svg", {
       width: 4000,
       height: 2000,
     })
       .over(Effect.sourceAlpha)
       .in(Effect.sourceAlpha),
+
     Effect.sourceAlpha
       .blur(4)
       .specular(Light.pointLight({ x: 0, y: -25000, z: 1 }), {
@@ -32,9 +34,5 @@ export function ChristmasExample() {
       }),
   ]);
 
-  return (
-    <>
-      <HelloExample effect={effect} className="bg-[#64ae5a]" />
-    </>
-  );
+  return <HelloExample effect={effect} className="bg-[#64ae5a]" />;
 }

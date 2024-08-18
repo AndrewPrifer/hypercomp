@@ -14,6 +14,7 @@ export function BrainExample() {
 
   const effect = Effect.merge([
     Effect.flood("hsl(350,100%,73%)").in(texture),
+
     pattern
       .specular(Light.distantLight({ azimuth: 68, elevation: 240 }), {
         scale: 40,

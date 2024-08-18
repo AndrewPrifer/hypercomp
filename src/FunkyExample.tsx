@@ -12,6 +12,7 @@ export function FunkyExample() {
           .hueRotate(i * 30)
       )
       .toReversed(),
+
     Effect.source,
   ]).offset({ dx: -15, dy: -15 });
 

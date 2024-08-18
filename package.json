@@ -49,7 +49,7 @@
     "eslint": "^8.55.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
-    "framer-motion": "^10.18.0",
+    "framer-motion": "^11.3.28",
     "leva": "^0.9.35",
     "postcss": "^8.4.41",
     "react": "^18.2.0",
