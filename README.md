@@ -1,6 +1,8 @@
 # Hypercomp
 
-An easy to use, powerful and expressive graphics library for TypeScript that compiles to optimized SVG filters, letting you apply complex visual effects to your HTML and SVG elements.
+An easy to use, powerful and expressive graphics library for TypeScript that compiles to SVG filters, letting you apply complex visual effects to your HTML and SVG elements.
+
+![Hypercomp Demo 2024-08-19T03 25 42@2x](https://github.com/user-attachments/assets/13bf08e7-255b-46d0-8717-90a0fcb155e1)
 
 ## Motivation
 
