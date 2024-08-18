@@ -168,7 +168,7 @@ Lets you specify attributes of the rendered filter tag. This is optional, if you
 
 ### Constants
 
-Constants are available as static properties on the `Filter` class and can be used as inputs or starting points to effect chains.
+Constants are available as static properties on the `Effect` class and can be used as inputs or starting points to effect chains.
 
 Example:
 
