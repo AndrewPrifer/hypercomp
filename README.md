@@ -99,6 +99,11 @@ const style = {
 return <div style={style}>hello world</div>;
 ```
 
+### More examples
+
+- [Live demo](https://hypercomp.vercel.app)
+- [Demo code](https://github.com/AndrewPrifer/hypercomp/tree/main/src/examples)
+
 ## API
 
 - [Render functions](#render-functions)
