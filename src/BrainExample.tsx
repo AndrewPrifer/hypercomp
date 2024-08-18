@@ -24,5 +24,14 @@ export function BrainExample() {
       .in(texture),
   ]);
 
-  return <HelloExample effect={effect} className="bg-black" />;
+  return (
+    <HelloExample
+      effect={effect}
+      className="bg-black"
+      by={{
+        label: "Yoksel",
+        url: "https://x.com/yoksel_en",
+      }}
+    />
+  );
 }
