@@ -1,5 +1,5 @@
 import { AbstractNode } from "./nodes/AbstractNode";
-import { ID } from "./types";
+import { ColorMatrix, ID } from "./types";
 
 /**
  * Build a render queue for a given node by traversing through its dependencies.
@@ -54,4 +54,23 @@ export function omitKeys(object: any, keys: string[]) {
 
 export function makeID() {
   return Math.random().toString(36).slice(2);
+}
+
+export function rgbaMatrixToArray(matrix: ColorMatrix): number[] {
+  const rows = ["r", "g", "b", "a"] as const;
+  const values: number[] = [];
+
+  for (const row of rows) {
+    const {
+      r = row === "r" ? 1 : 0,
+      g = row === "g" ? 1 : 0,
+      b = row === "b" ? 1 : 0,
+      a = row === "a" ? 1 : 0,
+      o = 0,
+    } = matrix[row] || {};
+
+    values.push(r, g, b, a, o);
+  }
+
+  return values;
 }

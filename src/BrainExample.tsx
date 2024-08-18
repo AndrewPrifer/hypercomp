@@ -10,7 +10,7 @@ export function BrainExample() {
 
   const texture = pattern
     .in(Effect.source.blur(5))
-    .colorMatrix([1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 2, 0]);
+    .colorMatrix({ a: { a: 2 } });
 
   const effect = Effect.merge([
     Effect.flood("hsl(350,100%,73%)").in(texture),

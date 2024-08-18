@@ -8,13 +8,19 @@ export function WaterColorExample() {
     seed: 0,
   });
 
-  const fillTexture = texture.colorMatrix([
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -2.1, 1.1,
-  ]);
+  const fillTexture = texture.colorMatrix({
+    r: { r: 0 },
+    g: { g: 0 },
+    b: { b: 0 },
+    a: { a: -2.1, o: 1.1 },
+  });
 
-  const outlineTexture = texture.colorMatrix([
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1.7, 1.8,
-  ]);
+  const outlineTexture = texture.colorMatrix({
+    r: { r: 0 },
+    g: { g: 0 },
+    b: { b: 0 },
+    a: { a: -1.7, o: 1.8 },
+  });
 
   const outline = Effect.source.dilate(3);
 

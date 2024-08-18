@@ -1,7 +1,7 @@
 import { Effect } from "../Effect";
 import { privateAPI } from "../privateAPI";
-import { BaseConfig } from "../types";
-import { renderAttrs } from "../utils";
+import { BaseConfig, ColorMatrix } from "../types";
+import { renderAttrs, rgbaMatrixToArray } from "../utils";
 import { AbstractNode } from "./AbstractNode";
 
 export interface ColorMatrixConfig extends BaseConfig {
@@ -43,9 +43,10 @@ function internalColorMatrix(node: Effect, config: ColorMatrixConfig) {
  */
 export function colorMatrix(
   node: Effect,
-  matrix: number[],
+  matrix: number[] | ColorMatrix,
   config: ShorthandColorMatrixConfig = {}
 ) {
+  matrix = Array.isArray(matrix) ? matrix : rgbaMatrixToArray(matrix);
   return internalColorMatrix(node, {
     type: "matrix",
     values: matrix,

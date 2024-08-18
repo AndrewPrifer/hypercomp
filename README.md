@@ -4,7 +4,7 @@ An easy to use, powerful and expressive graphics library for TypeScript that com
 
 ## Motivation
 
-SVG filters provide an extremely powerful node-based compositing system that can be used across HTML and SVG, but they are held back by the fact that it is impossible to express function composition in XML in a natural way, making them very hard to write by hand. Hypercomp fixes this by providing a functional API for composing effects in TypeScript, and compiling them down to an equivalent SVG filter.
+SVG filters provide an extremely powerful node-based compositing system that can be used across HTML and SVG, but they are held back by the fact that it is impossible to express function composition in XML in a natural way, making them very hard to write, compose and reuse. Hypercomp fixes this by providing a functional API for composing effects in TypeScript, and compiling them down to an equivalent SVG filter.
 
 ## Features
 
@@ -39,7 +39,7 @@ const effects =
     // and composite it into the source image dilated by radius and width
     .in(Effect.source.dilate(radius + width))
     // from which we subtract the source image dilated by radius
-    // (the difference between the two dilated versions will form the stroke width)
+    // (the difference between the two dilated versions will form the stroke)
     .out(Effect.source.dilate(radius))
     // which we finally displace using fractal noise.
     .displace(fractalNoise(freq, { octaves }), scale)
@@ -157,6 +157,14 @@ Optionally, you can call `.filter()` on your effect, which lets you specify the 
 Lets you specify attributes of the rendered filter tag. This is optional, if you don't call `.filter()`, the behavior will depend on the render function you use.
 
 - **attributes**: (optional) SVG filter attributes.
+  - **id**: `string` - Filter ID.
+  - **x**: `number` - X coordinate.
+  - **y**: `number` - Y coordinate.
+  - **width**: `number` - Width.
+  - **height**: `number` - Height.
+  - **filterUnits**: `"userSpaceOnUse" | "objectBoundingBox"` - Filter units.
+  - **primitiveUnits**: `"userSpaceOnUse" | "objectBoundingBox"` - Primitive units.
+  - **colorInterpolationFilters**: `"auto" | "sRGB" | "linearRGB" | "inherit"` - Color interpolation filters.
 
 ### Constants
 
@@ -278,6 +286,7 @@ Applies a Gaussian blur.
 
 - **stdDeviation**: `number` - Standard deviation of the blur.
 - **config**: (optional) Configuration options.
+  - **edgeMode**: `"duplicate" | "wrap" | "none"` - Edge handling mode.
 
 #### `.convolve(kernel, config?)`
 
@@ -285,6 +294,12 @@ Applies a convolution matrix.
 
 - **kernel**: `number[]` - Kernel matrix values.
 - **config**: (optional) Configuration options.
+  - **edgeMode**: `"duplicate" | "wrap" | "none"` - Edge handling mode.
+  - **bias**: `number` - Bias value.
+  - **divisor**: `number` - Divisor value.
+  - **targetX**: `number` - Target X coordinate.
+  - **targetY**: `number` - Target Y coordinate.
+  - **preserveAlpha**: `boolean` - Preserve alpha channel.
 
 #### `.displace(scale, config?)`
 
@@ -294,6 +309,8 @@ Applies a displacement map.
 - **input2**: The displacement map.
 - **scale**: `number` - Scale factor for displacement.
 - **config**: (optional) Configuration options.
+  - **xChannel**: `"R" | "G" | "B" | "A"` - X channel.
+  - **yChannel**: `"R" | "G" | "B" | "A"` - Y channel.
 
 #### `.offset(config?)`
 
@@ -309,6 +326,10 @@ Adds a drop shadow.
 
 - **stdDeviation**: `number` (optional) - Standard deviation for the blur.
 - **config**: (optional) Configuration options.
+  - **dx**: `number` - Horizontal offset.
+  - **dy**: `number` - Vertical offset.
+  - **color**: `string` - Shadow color.
+  - **opacity**: `number` - Shadow opacity.
 
 #### `.tile(config?)`
 
@@ -450,9 +471,26 @@ Applies an erosion effect.
 
 #### `.colorMatrix(matrix, config?)`
 
-Applies a color matrix.
+Applies a color matrix. The matrix is a 4x5 matrix, where the last column is the offset. The matrix can be provided either as an array of 20 numbers, or as a `ColorMatrix` object where the default values are 1 for the diagonal and 0 for the rest.
 
-- **matrix**: `number[]` - Matrix values.
+```typescript
+type ColorMatrixRow = {
+  r?: number;
+  g?: number;
+  b?: number;
+  a?: number;
+  o?: number; // Offset
+};
+
+type ColorMatrix = {
+  r?: ColorMatrixRow;
+  g?: ColorMatrixRow;
+  b?: ColorMatrixRow;
+  a?: ColorMatrixRow;
+};
+```
+
+- **matrix**: `number[] | ColorMatrix` - Matrix values.
 - **config**: (optional) Configuration options.
 
 #### `.componentTransfer(config?)`
@@ -496,7 +534,7 @@ Effect.sourceAlpha.blur(1).specular(pointLight({ x: 460, y: 110, z: 680 }), {
 
 #### `.specular(light, config?)`
 
-Creates a specular lighting effect. You should composite it using an additive blending mode.
+Creates a specular lighting effect. You should composite it using additive blending.
 
 - **light**: The light source to use.
 - **config**: (optional) Configuration options.

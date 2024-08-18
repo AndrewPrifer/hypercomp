@@ -40,3 +40,18 @@ export interface BaseConfig {
   width?: string | number;
   height?: string | number;
 }
+
+export type ColorMatrixRow = {
+  r?: number;
+  g?: number;
+  b?: number;
+  a?: number;
+  o?: number;
+};
+
+export type ColorMatrix = {
+  r?: ColorMatrixRow;
+  g?: ColorMatrixRow;
+  b?: ColorMatrixRow;
+  a?: ColorMatrixRow;
+};

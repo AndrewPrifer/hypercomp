@@ -73,6 +73,7 @@ import { flood } from "./nodes/FloodNode";
 import { image } from "./nodes/ImageNode";
 import { fractalNoise, turbulence } from "./nodes/TurbulenceNode";
 import { constant } from "./nodes/ConstantNode";
+import { ColorMatrix } from "./types";
 
 export class Effect<T extends AbstractNode = AbstractNode> {
   [privateAPI]: T;
@@ -158,7 +159,10 @@ export class Effect<T extends AbstractNode = AbstractNode> {
    * @param config
    * @returns The effect with the color matrix applied.
    */
-  colorMatrix(matrix: number[], config: ShorthandColorMatrixConfig = {}) {
+  colorMatrix(
+    matrix: number[] | ColorMatrix,
+    config: ShorthandColorMatrixConfig = {}
+  ) {
     return colorMatrix(this, matrix, config);
   }
 

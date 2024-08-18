@@ -3,11 +3,7 @@ import { HelloExample } from "./HelloExample";
 
 export function GooExample() {
   const effect = Effect.source.atop(
-    Effect.source
-      .blur(10)
-      .colorMatrix([
-        1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 19, -9,
-      ])
+    Effect.source.blur(10).colorMatrix({ a: { a: 19, o: -9 } })
   );
 
   return (
