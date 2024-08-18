@@ -207,9 +207,9 @@ Creates an image.
 
 #### `Effect.merge(inputs, config?)`
 
-Composites the provided inputs using the "over" operator.
+Merges an array of inputs with the last element as the topmost layer.
 
-- **inputs**: `Effect[]` Array of inputs to merge.
+- **inputs**: `Effect[]` - Array of inputs to merge.
 - **config**: (optional) Configuration options.
 
 #### `Effect.turbulence(frequency, config?)`
