@@ -1,5 +1,5 @@
 import { Effect, Light } from "hypercomp";
-import { HelloExample } from "./HelloExample";
+import { HelloExample } from "../Segment";
 
 export function BrainExample() {
   const pattern = Effect.turbulence(0.04, {

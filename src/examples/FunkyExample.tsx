@@ -1,6 +1,6 @@
 import { Effect } from "hypercomp";
 import { range } from "remeda";
-import { HelloExample } from "./HelloExample";
+import { HelloExample } from "../Segment";
 
 export function FunkyExample() {
   const effect = Effect.merge([

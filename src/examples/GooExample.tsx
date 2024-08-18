@@ -1,5 +1,5 @@
 import { Effect } from "hypercomp";
-import { HelloExample } from "./HelloExample";
+import { HelloExample } from "../Segment";
 
 export function GooExample() {
   const effect = Effect.source.atop(

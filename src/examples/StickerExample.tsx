@@ -1,5 +1,5 @@
 import { Effect } from "hypercomp";
-import { HelloExample } from "./HelloExample";
+import { HelloExample } from "../Segment";
 
 export function StickerExample({ edgeFactor = 3.2 }: { edgeFactor?: number }) {
   const effect = Effect.merge([

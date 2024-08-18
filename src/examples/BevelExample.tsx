@@ -1,6 +1,6 @@
 import { Effect } from "hypercomp";
-import { bevel } from "./utils";
-import { HelloExample } from "./HelloExample";
+import { bevel } from "../utils";
+import { HelloExample } from "../Segment";
 
 export function BevelExample() {
   const effect = Effect.merge([

@@ -1,9 +1,9 @@
-import { ChristmasExample } from "./ChristmasExample";
-import { BrainExample } from "./BrainExample";
-import { WaterColorExample } from "./WaterColorExample";
-import { BevelExample } from "./BevelExample";
-import { StickerExample } from "./StickerExample";
-import { FunkyExample } from "./FunkyExample";
+import { ChristmasExample } from "./examples/ChristmasExample";
+import { BrainExample } from "./examples/BrainExample";
+import { WaterColorExample } from "./examples/WaterColorExample";
+import { BevelExample } from "./examples/BevelExample";
+import { StickerExample } from "./examples/StickerExample";
+import { FunkyExample } from "./examples/FunkyExample";
 
 export default function App() {
   return (

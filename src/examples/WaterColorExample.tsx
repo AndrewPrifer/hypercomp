@@ -1,6 +1,6 @@
 import { Effect } from "hypercomp";
-import { HelloExample } from "./HelloExample";
-import { bevel } from "./utils";
+import { HelloExample } from "../Segment";
+import { bevel } from "../utils";
 
 export function WaterColorExample() {
   const texture = Effect.fractalNoise(0.05, {

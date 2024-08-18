@@ -1,5 +1,5 @@
 import { Effect, Light, Transfer } from "hypercomp";
-import { HelloExample } from "./HelloExample";
+import { HelloExample } from "../Segment";
 
 export function ChristmasExample() {
   const effect = Effect.merge([
