@@ -656,7 +656,7 @@ Creates a spot light source.
 - **pointsAtX**: `number` - X coordinate to point at.
 - **pointsAtY**: `number` - Y coordinate to point at.
 - **pointsAtZ**: `number` - Z coordinate to point at.
-- **specularExponent**: `number` - Specular exponent.
+- **falloff**: `number` - The falloff of the spotlight.
 
 ### Component transfer functions
 
