@@ -83,7 +83,7 @@ The following example blurs the source image, uses it as the bump map for lighti
 ![Screenshot 2024-08-07 at 12 46 25](https://github.com/user-attachments/assets/2d2a5272-d52a-4bf1-9cd0-571145043f7b)
 
 ```tsx
-import { Effect, Light } from "hypercomp";
+import { Effect, Light, css } from "hypercomp";
 
 const withLight = Effect.flood("black").screen(
   Effect.sourceAlpha
@@ -202,10 +202,10 @@ For example, `compile(Effect.source.blur(2))` will return `<feGaussianBlur stdDe
 
 #### Usage with React
 
-The `hypercomp/react` module provides the `useFilter` hook you can use to tie the lifetime of a dom-rendered filter to the lifetime of a component. This is most useful when targeting Safari, where data URLs for CSS filters are not supported.
+The `hypercomp/react` module provides the `useFilter` hook, which you can use to tie the lifetime of a dom-rendered filter to the lifetime of a component. Recommended for React projects.
 
 ```tsx
-import { useFilter } from "hypercomp/react";
+import { Effect, useFilter } from "hypercomp/react";
 
 const MyComponent = () => {
   return (
