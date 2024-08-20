@@ -180,12 +180,18 @@ return <div style={style}>hello world</div>;
 #### `css(filter, key?)`
 
 Compiles the filter and returns a CSS `filter` property value.
-When key is omitted, the effect is rendered to a data URL. When key is present, the filter is rendered to the dom. Subsequent calls with the same key will return the same data URL, and update the rendered filter.
+When key is present, the filter is rendered to the dom. Subsequent calls with the same key will return the same data URL, and update the rendered filter. When key is omitted, the effect is rendered to a data URL.
 
-**IMPORTANT**: Safari does not support data URLs for CSS filters. It is thus recommended to use the `key` parameter, or to use the `useFilter` hook from `hypercomp/react`, which takes care of it for you.
+**IMPORTANT**:
+
+Currently, using the keyless version and rendering to a data url is not recommended.
+- Safari does not support data URLs for CSS filters.
+- The `.image()` function won't work in Chrome.
+
+It is thus recommended to always use the `key` parameter, or to use the `useFilter` hook from `hypercomp/react` which will create and unmount filters automatically.
 
 - **filter**: The filter to render.
-- **key**: (optional) Key to use for rendering to the DOM.
+- **key**: (optional) Key to use for rendering to the DOM. The same key can be passed to `unmount()` to unmount the filter from the dom.
 - **Returns**: A `string` suitable for use in CSS `filter` property.
 
 #### `unmount(key)`
