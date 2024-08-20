@@ -108,7 +108,7 @@ return <div style={style}>hello world</div>;
 
 ## Prerequisites
 
-Knowledge of image manipulation functions or SVG filter effects is helpful. Study the examples to get an intuition for how certain effects can be achieved.
+Knowledge of image processing functions and SVG filter effects is helpful. Study the examples to get an intuition for how certain effects can be achieved.
 
 ## API
 
@@ -189,6 +189,7 @@ When key is present, the filter is rendered to the dom. Subsequent calls with th
 **IMPORTANT**:
 
 Currently, using the keyless version and rendering to a data url is not recommended.
+
 - Safari does not support data URLs for CSS filters.
 - The `.image()` function won't work in Chrome.
 
@@ -514,7 +515,7 @@ Blends the input using the color burn mode.
 
 Blends
 
- the input using the hard light mode.
+the input using the hard light mode.
 
 - **input**: The bottom layer.
 - **config**: (optional) Configuration options.
