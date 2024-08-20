@@ -1,6 +1,6 @@
 {
   "name": "hypercomp",
-  "description": "Powerful and expressive graphics library for TypeScript that compiles to SVG filters.",
+  "description": "Powerful and expressive image processing library for TypeScript that compiles to SVG filters.",
   "keywords": [
     "ui",
     "graphics",
@@ -8,7 +8,9 @@
     "svg",
     "shading",
     "filter",
-    "vfx"
+    "vfx",
+    "image processing",
+    "effects"
   ],
   "license": "MIT",
   "author": "Andrew Prifer (https://github.com/AndrewPrifer)",
