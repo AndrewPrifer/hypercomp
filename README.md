@@ -275,6 +275,8 @@ Applies a flood effect with the given color and opacity.
 - **config**: (optional) Configuration options.
   - **opacity**: `number` - Opacity of the flood effect.
 
+Compiles to: [`<feFlood>`](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feFlood)
+
 #### `Effect.image(href, config?)`
 
 Creates an image.
@@ -284,12 +286,16 @@ Creates an image.
   - **preserveAspectRatio**: `string` - Aspect ratio handling.
   - **crossorigin**: `"anonymous" | "use-credentials"` - Cross-origin settings.
 
+Compiles to: [`<feImage>`](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feImage)
+
 #### `Effect.merge(inputs, config?)`
 
 Merges an array of inputs with the last element as the topmost layer.
 
 - **inputs**: `Effect[]` - Array of inputs to merge.
 - **config**: (optional) Configuration options.
+
+Compiles to: [`<feMerge>`](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feMerge)
 
 #### `Effect.turbulence(frequency, config?)`
 
@@ -300,6 +306,8 @@ Creates turbulence noise.
   - **octaves**: `number` - Number of octaves.
   - **seed**: `number` - Random seed value.
   - **stitch**: `"noStitch" | "stitch"` - Tile stitching mode.
+
+Compiles to: [`<feTurbulence>`](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feTurbulence)
 
 #### `Effect.fractalNoise(frequency, config?)`
 
@@ -320,12 +328,16 @@ Composites the input using the "over" operator.
 - **input**: The bottom layer.
 - **config**: (optional) Configuration options.
 
+Compiles to: [`<feComposite>`](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feComposite)
+
 #### `.inside(input, config?)`
 
 Composites the input using the "in" operator.
 
 - **input**: The bottom layer.
 - **config**: (optional) Configuration options.
+
+Compiles to: [`<feComposite>`](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feComposite)
 
 #### `.out(input, config?)`
 
@@ -334,12 +346,16 @@ Composites the input using the "out" operator.
 - **input**: The bottom layer.
 - **config**: (optional) Configuration options.
 
+Compiles to: [`<feComposite>`](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feComposite)
+
 #### `.xor(input, config?)`
 
 Composites the input using the "xor" operator.
 
 - **input**: The bottom layer.
 - **config**: (optional) Configuration options.
+
+Compiles to: [`<feComposite>`](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feComposite)
 
 #### `.atop(input, config?)`
 
@@ -348,14 +364,17 @@ Composites the input using the "atop" operator.
 - **input**: The bottom layer.
 - **config**: (optional) Configuration options.
 
+Compiles to: [`<feComposite>`](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feComposite)
+
 #### `.arithmetic(input, config?)`
 
 Composites the input using the "arithmetic" operator.
 
 - **input**: The bottom layer.
 - **config**: (optional) Configuration options.
-
   - **k1, k2, k3, k4**: `number` - Coefficients for the arithmetic operation.
+
+Compiles to: [`<feComposite>`](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feComposite)
 
 ### Common functions
 
@@ -366,6 +385,8 @@ Applies a Gaussian blur.
 - **stdDeviation**: `number` - Standard deviation of the blur.
 - **config**: (optional) Configuration options.
   - **edgeMode**: `"duplicate" | "wrap" | "none"` - Edge handling mode.
+
+Compiles to: [`<feGaussianBlur>`](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feGaussianBlur)
 
 #### `.convolve(kernel, config?)`
 
@@ -381,6 +402,8 @@ Applies a convolution matrix.
   - **targetY**: `number` - Target Y coordinate.
   - **preserveAlpha**: `boolean` - Preserve alpha channel.
 
+Compiles to: [`<feConvolveMatrix>`](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feConvolveMatrix)
+
 #### `.displace(scale, config?)`
 
 Applies a displacement map.
@@ -392,6 +415,8 @@ Applies a displacement map.
   - **xChannel**: `"R" | "G" | "B" | "A"` - X channel.
   - **yChannel**: `"R" | "G" | "B" | "A"` - Y channel.
 
+Compiles to: [`<feDisplacementMap>`](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feDisplacementMap)
+
 #### `.offset(config?)`
 
 Applies an offset.
@@ -399,6 +424,8 @@ Applies an offset.
 - **config**: (optional) Configuration options.
   - **dx**: `number` - Horizontal offset.
   - **dy**: `number` - Vertical offset.
+
+Compiles to: [`<feOffset>`](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feOffset)
 
 #### `.shadow(stdDeviation?, config?)`
 
@@ -411,11 +438,15 @@ Adds a drop shadow.
   - **color**: `string` - Shadow color.
   - **opacity**: `number` - Shadow opacity.
 
+Compiles to: [`<feDropShadow>`](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feDropShadow)
+
 #### `.tile(config?)`
 
 Applies a tile effect.
 
 - **config**: (optional) Configuration options.
+
+Compiles to: [`<feTile>`](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feTile)
 
 ### Blending functions
 
@@ -477,7 +508,9 @@ Blends the input using the color burn mode.
 
 #### `.hardLight(input, config?)`
 
-Blends the input using the hard light mode.
+Blends
+
+ the input using the hard light mode.
 
 - **input**: The bottom layer.
 - **config**: (optional) Configuration options.
@@ -540,12 +573,16 @@ Applies a dilation effect.
 - **radius**: `number` - Radius for the effect.
 - **config**: (optional) Configuration options.
 
+Compiles to: [`<feMorphology>`](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feMorphology)
+
 #### `.erode(radius, config?)`
 
 Applies an erosion effect.
 
 - **radius**: `number` - Radius for the effect.
 - **config**: (optional) Configuration options.
+
+Compiles to: [`<feMorphology>`](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feMorphology)
 
 ### Color manipulation functions
 
@@ -573,11 +610,15 @@ type ColorMatrix = {
 - **matrix**: `number[] | ColorMatrix` - Matrix values.
 - **config**: (optional) Configuration options.
 
+Compiles to: [`<feColorMatrix>`](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feColorMatrix)
+
 #### `.componentTransfer(config?)`
 
 Applies component transfer.
 
 - **config**: (optional) Configuration options.
+
+Compiles to: [`<feComponentTransfer>`](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feComponentTransfer)
 
 #### `.hueRotate(angle, config?)`
 
@@ -586,11 +627,15 @@ Rotates the hue.
 - **angle**: `number` - Angle of rotation.
 - **config**: (optional) Configuration options.
 
+Compiles to: [`<feColorMatrix>`](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feColorMatrix)
+
 #### `.luminanceToAlpha(config?)`
 
 Converts luminance to alpha.
 
 - **config**: (optional) Configuration options.
+
+Compiles to: [`<feColorMatrix>`](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feColorMatrix)
 
 #### `.saturate(amount, config?)`
 
@@ -598,6 +643,8 @@ Changes the saturation.
 
 - **amount**: `number` - Saturation amount.
 - **config**: (optional) Configuration options.
+
+Compiles to: [`<feColorMatrix>`](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feColorMatrix)
 
 ### Lighting functions
 
@@ -623,6 +670,8 @@ Creates a specular lighting effect. You should composite it using additive blend
   - **scale**: `number` - Surface scale.
   - **color**: `string` - Lighting color.
 
+Compiles to: [`<feSpecularLighting>`](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feSpecularLighting)
+
 #### `.diffuse(light, config?)`
 
 Applies a diffuse lighting effect to the input. You should composite it using the `multiply` blending mode.
@@ -632,6 +681,8 @@ Applies a diffuse lighting effect to the input. You should composite it using th
   - **strength**: `number` - Diffuse strength.
   - **scale**: `number` - Surface scale.
   - **color**: `string` - Lighting color.
+
+Compiles to: [`<feDiffuseLighting>`](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feDiffuseLighting)
 
 ### Light sources
 
