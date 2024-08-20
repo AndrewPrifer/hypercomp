@@ -1,12 +1,12 @@
 # Hypercomp
 
-An easy to use, powerful and expressive graphics library for TypeScript that compiles to SVG filters, letting you apply complex visual effects to your HTML and SVG elements.
+An easy to use, powerful and expressive image manipulation library for TypeScript that compiles to SVG filters, letting you apply complex visual effects to your HTML and SVG elements.
 
 ![Hypercomp Demo 2024-08-19T03 25 42@2x](https://github.com/user-attachments/assets/13bf08e7-255b-46d0-8717-90a0fcb155e1)
 
 ## Motivation
 
-SVG filters provide an extremely powerful node-based compositing system that can be used across HTML and SVG, but they are held back by the fact that it is impossible to express function composition in XML in a natural way, making them very hard to write, compose and reuse. Hypercomp fixes this by providing a functional API for composing effects in TypeScript, and compiling them down to an equivalent SVG filter.
+SVG filters provide an extremely powerful node-based effect system that can be used across HTML and SVG, but they are held back by the fact that it is impossible to express function composition in XML in a natural way, making them very hard to write, compose and reuse. Hypercomp fixes this by providing a functional API for composing effects in TypeScript, and compiling them down to an equivalent SVG filter.
 
 ## Features
 
@@ -105,6 +105,10 @@ return <div style={style}>hello world</div>;
 
 - [Live demo](https://hypercomp.vercel.app)
 - [Demo code](https://github.com/AndrewPrifer/hypercomp/tree/main/src/examples)
+
+## Prerequisites
+
+Knowledge of image manipulation functions or SVG filter effects is helpful. Study the examples to get an intuition for how certain effects can be achieved.
 
 ## API
 
