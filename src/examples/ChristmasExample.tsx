@@ -10,11 +10,22 @@ export function ChristmasExample() {
       })
       .offset({ dy: 2 }),
 
-    Effect.image("/christmasBg.svg", {
-      width: 4000,
-      height: 2000,
-    })
-      .over(Effect.sourceAlpha)
+    Effect.sourceAlpha
+      .blur(5)
+      .specular(Light.pointLight({ x: 40, y: -30, z: 200 }), {
+        scale: 30,
+        shininess: 30,
+      })
+      .arithmetic(
+        Effect.image("/christmasBg.svg", {
+          width: 4000,
+          height: 2000,
+        }),
+        {
+          k2: 1,
+          k3: 1,
+        }
+      )
       .in(Effect.sourceAlpha),
 
     Effect.sourceAlpha
