@@ -4,6 +4,7 @@ import { WaterColorExample } from "./examples/WaterColorExample";
 import { BevelExample } from "./examples/BevelExample";
 import { StickerExample } from "./examples/StickerExample";
 import { FunkyExample } from "./examples/FunkyExample";
+import { LiquidGlassExample } from "./examples/LiquidGlassExample";
 
 export default function App() {
   return (
@@ -26,12 +27,13 @@ export default function App() {
         </a>
       </div>
       <div className="grid grid-cols-2 max-[1400px]:grid-cols-1 w-dvw min-h-dvh">
+        <LiquidGlassExample />
         <FunkyExample />
         <BevelExample />
         <WaterColorExample />
         <BrainExample />
         <ChristmasExample />
-        <StickerExample />
+        {/* <StickerExample /> */}
       </div>
     </div>
   );
