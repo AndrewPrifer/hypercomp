@@ -10,7 +10,7 @@ export function LiquidGlassExample() {
     width: 1,
     height: 1,
   });
-  const frostedFilter = Effect.source.blur(0.005).displace(displacementMap, 1, {
+  const glassEffect = Effect.source.blur(0.005).displace(displacementMap, 1, {
     xChannel: "R",
     yChannel: "G",
   });
@@ -48,13 +48,11 @@ export function LiquidGlassExample() {
       className="size-full flex items-center justify-center"
     >
       <div
-        className="absolute text-[80px] font-bold text-white/30 size-[240px] bg-white/10 rounded-full border-2 border-white/20"
+        className="absolute size-[240px] bg-white/10 rounded-full border-2 border-white/20 top-1/2 left-1/2"
         style={{
-          top: "50%",
-          left: "50%",
           transform: `translate(calc(${mousePosition.x}px - 50%), calc(${mousePosition.y}px - 50%))`,
           backdropFilter: useFilter(
-            frostedFilter.filter({
+            glassEffect.filter({
               primitiveUnits: "objectBoundingBox",
             })
           ),
