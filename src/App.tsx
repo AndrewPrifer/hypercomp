@@ -6,6 +6,9 @@ import { StickerExample } from "./examples/StickerExample";
 import { FunkyExample } from "./examples/FunkyExample";
 import { LiquidGlassExample } from "./examples/LiquidGlassExample";
 
+// Detect Safari browser
+const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+
 export default function App() {
   return (
     <div>
@@ -27,13 +30,13 @@ export default function App() {
         </a>
       </div>
       <div className="grid grid-cols-2 max-[1400px]:grid-cols-1 w-dvw min-h-dvh">
-        <LiquidGlassExample />
+        {!isSafari && <LiquidGlassExample />}
         <FunkyExample />
         <BevelExample />
         <WaterColorExample />
         <BrainExample />
         <ChristmasExample />
-        {/* <StickerExample /> */}
+        {isSafari && <StickerExample />}
       </div>
     </div>
   );
